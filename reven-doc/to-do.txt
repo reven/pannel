@@ -1,0 +1,27 @@
+
+TO-DO
+*Regsitro usuarios.
+*BUGs
+*Funcionalidad adicional imprescindible.
+																------------> Release
+*Revisiones (enum y luego posibilidad de diff?)
+*Revisar que título no esté en uso al crear nueva o renombrar. Ofrecer fusionar?
+ Qué pasa al hacer esto? Porque seleccionamos entradas por nombre de la BdD.
+*Notificación de cambios?
+*Al cambiar título se considera una revisión? Revisar flujo de post.php
+*
+
+META
+
+-Flujo (Ahora un 34% más sencillo™)
+	Báscicamente el flujo es:
+
+POST -----------SI------------->manejar POST (los AJAX y los formularios)
+   |
+   | NO
+   |
+GET -------SI-------> Es una búsqueda o printout de datos sin procesar.
+   |
+   |  NO
+   |
+Parsear parámetros URL --------------> Buscar plantilla -----------> Dibujar página

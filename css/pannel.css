@@ -1,0 +1,92 @@
+/* CSS para pannel */
+
+/* from base.css */
+/* Cleaning */
+body {font-family:"Lucida Sans Unicode","Lucida Grande",Helvetica,sans-serif; margin:2em;font-size:0.85em; background-color: white; text-align: center; margin: auto 8em;}
+a{color: #166baf; text-decoration: none;}
+a:hover{color: #000; text-decoration: underline;}
+a:visited{color: #6390b7; }
+img{border: 0;}
+
+
+/* from section.css */
+#footer{ border-top: 1px solid #166baf; padding-top: 0; margin-top: 7em;text-align: right; font-size: 0.75em; line-height:0.9em;}
+
+
+/* modificaciones */
+#header ul {padding:0;}
+#header li {display: inline; padding: 0 10px;}
+.iscurrent {background: #fbfbfb; cursor:default;}
+h1 {text-indent: -9000px; background: url(/images/section_logo.png) no-repeat center top; line-height: 3em;}
+h2{color: #166baf;text-transform: lowercase; font-size: 1.5em; margin: 1em 0 0 0;}
+h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em 0;}
+#nav {margin-bottom: 1em; border-bottom: 1px solid #166baf;}
+#content{ text-align: justify; font-size: 0.90em; line-height:2.2em;}
+.block {font-family:"Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace !important; font-size: 1.2em;line-height:2em;border: 1px solid black;padding: 0 3em; }
+
+.meta {
+	font-size: 90%;
+	color: #999;
+	line-height:1em;
+}
+
+.edit_tools {
+	font-size: 90%;
+	color: #999;
+	line-height:1em;
+	border: 1px solid #ddd;
+}
+
+.error{
+	border:1px solid #c00;
+	background-color: #fdd;
+	padding:1em;
+}
+.success{
+	border:1px solid #0c0;
+	background-color: #dfd;
+	padding:1em;
+}
+.editor_cancel_link{
+	padding:1em;
+	color:#c00 !important;
+}
+.editor_ok_button{
+	background-color:#166baf;
+	border:1px solid #005D93;
+	color:#FFFFFF;
+	cursor:pointer;
+	height:1.8em;
+	margin:0.3em 1em;
+}
+.editor_ok_button:hover{
+	background-color:#6390b7;
+}
+textarea{
+	background-color: #ffffd3;
+}
+
+textarea{
+	width: 95%;
+	font-size: 1.3em;
+	height:20em;
+}
+
+img.progress{
+	vertical-align: middle;
+	padding: 0 10px;
+}
+table{
+	margin:1em 0 !important;
+}
+th{
+border-bottom:1px solid #BBBBBB !important;
+padding:0.2em 1em !important;
+}
+td  {
+border-bottom:1px solid #DDDDDD !important;
+padding:0.2em 1em !important;
+}
+.c{
+text-align:center;
+}

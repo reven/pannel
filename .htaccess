@@ -1,0 +1,13 @@
+<ifmodule mod_rewrite.c>
+RewriteEngine On
+
+#Si la url solicitada no es un fichero(existente), continuar...
+RewriteCond %{REQUEST_FILENAME} !-f
+
+#Si la url solicitada no es una carpeta(existente), continuar...
+RewriteCond %{REQUEST_FILENAME} !-d
+
+Options +FollowSymLinks
+RewriteRule . /hq/pannel/index.php [L]
+# Todo pasa a index sin atributos y no se reescribe la url. Nuestro script tiene que parsear url.
+</ifmodule>
