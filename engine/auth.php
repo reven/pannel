@@ -12,6 +12,29 @@ if(isset($_SESSION['loggedin'])){
 	// termina la ejecución
 }else{
 	//el usuario NO está registrado.
+	//header("Location: http://www.nuuve.com{$root}auth/"); //-> En vez de usar otra plantilla más, porque no ponemos aqui el html y punto?
+	include ("template/header.php");
+	?>
+
+	<h2>Autentificación</h2>
+	<div style="text-align: center;">
+	<p>Porfavor, introduce tu nombre de usuario y tu contraseña</p>
+	<form id="searchform" class="form" method="POST" action="/">
+		<p>Usuario <input type="text" name="s" id="s" class="editor_field" value="" size="20"></p>
+		<p>Contraseña <input type="password" name="pass" id="pass" class="editor_field" value="" size="20"></p>
+		<p><input type="submit" id="submit" value="Entrar" class="editor_ok_button"></p>
+	</form>
+	
+	</div>
+
+<?php
+	include ("template/footer.php");
+	exit;
+	/*
+	VER: http://www.phpeasystep.com/workshopview.php?id=6
+	POST es el que debe mirar si es válido.
+	*/
+	
 	/*El cómo manejamos esto se puede hacer de varias maneras:
 	
 	1. cargando una plantilla nueva que tenga solo un formulario de login. Este formulario habría que enviarlo a alguien para que parsee lo que se envía. El candidato ideal sería post.php. Sería algo así como:

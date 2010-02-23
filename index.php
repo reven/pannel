@@ -10,11 +10,12 @@ Reven
 /*  DEBUG  ####IMPORTANTE: Para produccion quitar llamdas a debug */
 
 /*Initialize*/
+//include ("engine/auth.php"); //Pendiente de implementar. De momento usamos este hack:
+$logged_user="Reven";
 include ("engine/controller.php");
 include ("engine/textinterpreter.php");
 $root = "/hq/pannel/";
-// include ("engine/auth.php"); Pendiente de implementar. De momento usamos este hack:
-$logged_user="Reven";
+
 
 /*Flujo */
 if ($_POST) {

@@ -11,7 +11,7 @@ Obtener el numero de revisiones seguro que se puede hacer con querys anidadas, p
 		<form id="searchform" class="form" method="GET" action="/">
 			<p style="display:inline;">
 			<input type="text" name="s" id="s" class="editor_field" value="" size="20"><input type="submit" id="submit" value="Ir" class="editor_ok_button"><input type="checkbox" name="wholesearch" id="wholesearch" value="1"><span class="meta">Buscar también en el contenido de las entradas</span></p>
-	</form>
+		</form>
 	</div>
 	<div id="resultados">
 		<div id="resultadosactuales">
