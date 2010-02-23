@@ -36,9 +36,9 @@ function doSearch() {
     c.style.display = 'none';
     o.style.display = 'block';
     // Setup the parameters and make the ajax call
-    pars = "check=busqueda&completa="+w+"&search="+encodeURIComponent(s);
-    var myAjax = new Ajax.Request('http://www.nuuve.com/hq/pannel/', 
-          {method: 'POST', parameters: pars, onSuccess:doSearchResponse});
+    pars = "completa="+w+"&search="+encodeURIComponent(s);
+    var myAjax = new Ajax.Request('http://www.nuuve.com/hq/pannel/index/', 
+          {method: 'GET', parameters: pars, onSuccess:doSearchResponse});
 }
 
 function doSearchResponse(response) {

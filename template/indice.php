@@ -2,33 +2,17 @@
 //Nuuve Pannel
 // Esta página es indice.php, alias "index"
 
-/*El formulario de búsqueda tendría 2 opciones: buscar por título o buscar en el contenido. Usaríamos consultas de búsqueda de mysql. La idea es que debajo haya un div vacío y que se introduzcan los resultados en ese div por una consulta Ajax. Una vez populado, se hace que el div aparezca con un efecto de scriptaculous. Las consultas se envían a post.php*/
-
 /*Además sería guapo poder ordenarlas por Autor, por número de revisión o por fecha.
 Obtener el numero de revisiones seguro que se puede hacer con querys anidadas, pero no sé cómo. Hago otra query en el bucle.*/
-
-// Aqui debería ir lógica.
 
 ?>
 	<h2>Índice</h2>
 	<div id="busca">
-		<form id="searchform" class="form" method="POST" action="/">
-			<input type="hidden" name="check" value="busqueda" />
+		<form id="searchform" class="form" method="GET" action="/">
 			<p style="display:inline;">
 			<input type="text" name="s" id="s" class="editor_field" value="" size="20"><input type="submit" id="submit" value="Ir" class="editor_ok_button"><input type="checkbox" name="wholesearch" id="wholesearch" value="1"><span class="meta">Buscar también en el contenido de las entradas</span></p>
 	</form>
 	</div>
-	
-	<?php
-	// Si hay terms[1] han pasado parámetros -> búscalos.
-	
-	
-	
-	// De lo contrario es que nos han llamdo a pelo, poner ultimas entradas por orden cronológico
-	
-	
-	?>
-	
 	<div id="resultados">
 		<div id="resultadosactuales">
 			<p>Estas son todas las entradas por orden alfabético</p>
@@ -54,7 +38,6 @@ if ($out['prioridad']==1) {echo ("<span style=\"color:#f00;\">✔</span>");}else
 echo ("</td></tr>\n");
 }
 close($c);
-
 ?>
 			</tbody></table>
 		</div>

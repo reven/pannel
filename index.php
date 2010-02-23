@@ -3,11 +3,12 @@
  Nuuve
 Pannel      
 
-0.4alpha
+0.4.5 alpha
 Reven
-18-Feb-2010
+23-Feb-2010
 
-0.4 18/2/10 Funciona la búsqueda básica- Implementado parcialmente marcado como "importante";
+0.4.5 23/2/10 Búsqueda completa. Subsistema GET.
+0.4 18/2/10 Funciona la búsqueda básica- Implementado parcialmente marcado como "importante".
 0.3 17/2/10 Funciona creación de nuevas páginas. Formulario y sistema POST. Índice. Enlaces codificados. Más CSS.
 0.2 16/2/10 Funciona el indice de páginas y la edición in situ de páginas. Ajax.
 0.1 15/2/10 estructura básica. debug.
@@ -22,10 +23,10 @@ BUGs
 #3 - Si no se usa el subdominio www, la búsqueda no funciona.
 
 TO-DO
-*Búsqueda. Acabar de implementar búsqueda de texto completo. Indice mysql del campo text.
-																----------->0.4.5
-*Guardar marca "importante" de unas revisiones a otras. Implementar enlace de edición. Implementar al crear página?
 *Sistema auth (incluyendo sessiones/cookies) y regsitro usuarios.
+*BUGs
+*Cambiar "importante" y otros parámetros secundarios al sistema POST, ya que modifican base de datos.
+*Guardar marca "importante" de unas revisiones a otras. Implementar enlace de edición. Implementar al crear página?
 *Importantes (campo en bd, espacio formulario, funcionalidad enlace)
 *Borrar (revisar versiones? Seguro? DROP all con post_id)
 																----------->1.0 -->Usable?
@@ -34,7 +35,6 @@ TO-DO
 *Entradas de tipo especial: LISTAS (to do). Clase Sortable de scriptaculous para funcionalidad parecida a la de 37sig. 
 *Revisar que título no esté en uso al crear nueva o renombrar. Ofrecer fusionar? Qué pasa al hacer esto? Porque seleccionamos entradas por nombre de la BdD.
 *Notificación de cambios?
-*RSS ??
 *Text-interpreter?? Mmm... Almenos básico puede funcionar.
 *Limitar scriptaculous.js para que solo cargue módulos necesarios.
 *Limpiar archivos no utilizados en /js/
@@ -52,11 +52,15 @@ $logged_user="Reven";
 //Flujo
 /* Báscicamente el flujo es:
 
- POST -----------SI------------->manejar POST (los AJAX y los formularios)
+POST -----------SI------------->manejar POST (los AJAX y los formularios)
   |
   | NO
   |
- Parsear parámetros
+GET -------SI-------> Es una búsqueda. 
+  |
+  |  NO
+  |
+Parsear parámetros
    |
    |
    |
@@ -76,15 +80,18 @@ por ejemplo: pannel/       -> Página bienvenida
 			 pannel/intro/ -> Muestra la página 'intro' para edición
 			 pannel/index/ -> Indice de todas las entradas
 			 pannel/nueva/ -> Crear nueva página
-			 pannel/XXXXXX/versions/ -> Revisiones, con opción de borrar algunas. [NO IMPLEMENTADO]
-			 pannel/XXXXXX/delete/   -> Borrar [NO IMPLEMENTADO]
-			 pannel/XXXXXX/important/ -> Marcar como prioritario [NO IMPLEMENTADO]
+			 pannel/XXXXXX/versions/ -> [NO IMPLEMENTADO]  |
+			 pannel/XXXXXX/delete/   -> [NO IMPLEMENTADO]   >  NO. Implementar otro sistema por POST. Miniformularios en page.php?
+			 pannel/XXXXXX/important/ -> [NO IMPLEMENTADO] |
 			etc.
 			
 Rutina de detección de uri y parámetros.
 */
 if ($_POST) {
 	include ("engine/post.php");
+}
+if ($_GET) {
+	include ("engine/get.php"); // esto es más chungo... No sé si funcionará...
 }
 
 $uri = preg_replace("/\/hq\/pannel\/(.*)/i","$1",$_SERVER['REQUEST_URI']); // testar esta uri por si hay inyección de código? ################
@@ -130,6 +137,8 @@ function special_content($page){ //Esta función que elije las plantillas es mej
 }
 
 function do_content($page){
+	// sacaré la mayor parte de esto a la plantilla
+	// include ("template/page.php");
 	global $debug, $root, $page_link;
 	$c = connect();
 	mysql_set_charset('utf8',$c);

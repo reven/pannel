@@ -75,41 +75,7 @@ if ($_POST['editorId']=="text") {
 		echo ("<p class\"error\">Lo siento, el texto no se ha guardado</p>");
 	}
 	close($c);	
-}elseif ($_POST['check']=="busqueda"){
-	//Formulario de búsqueda.
-	/* 	1.Procesar el request, query, etc
-		2. Si nos han llamado desde inicio, enviar un header para ir a índice. Pasar vars a índice y que se ocupe Ajax? O pasar respuesta?? Mmmm
-		3. Si nos han llamado desde índice, podemos enviar datos y ya.
-	
-	*/
-	if ($_POST['completa']==1) {echo ("<p class=\"error\">Búsqueda completa no implementada. Buscando títulos por: <b>$_POST[search]</b> </p>");}else{echo ("<p>Resultados de búsqueda: <b>$_POST[search]</b>:</p>");}
-	$query ="SELECT * FROM (SELECT * FROM `posts` WHERE `title` LIKE '%$_POST[search]%' ORDER BY `id` DESC) AS tmp GROUP BY `post_id`";
-	$result = query($query,$c);
-	if (mysql_num_rows($result)==0){
-		echo ("<p class=\"error\">Lo siento, pero no se han encontrado páginas con el término <b>$_POST[search]</b>.</p>");
-		exit;
-	}
-	echo "\n\t\t\t<table><tbody>\n\t\t\t\t<tr><th>Título</th><th>último autor</th><th>última revisión</th><th>revisiones</th><th>prioridad</th></tr>\n";
-	while ($out = fetch_array($result)){
-		echo "\t\t\t\t\t<tr><td><a href=\"$root".$out['title']."/\">".$out['title']."</a></td><td>".$out['author'];
-		echo "</td><td><span class=\"meta\">".date("j M Y, G:i",strtotime ($out['date']));
-		echo "</span></td><td>";
-		$query = "SELECT COUNT(*) AS NumberOf FROM posts WHERE post_id=$out[post_id]";
-		$result2 = query($query,$c);
-		$out2 = fetch_array($result2);
-		echo ("<a href=\"$root$out[title]/versions/\">".$out2[0]."</a>");
-		echo ("</td><td class=\"c\">");
-		if ($out['prioridad']==1) {echo ("<span style=\"color:#f00;\">✔</span>");}else{echo ("<span class=\"meta\">--</span>");}
-		echo ("</td></tr>\n");
-		}
-	close($c);
-	/*echo ("SIIIIIIIIIII<pre>");
-	print_r ($_POST); 
-	echo ("</pre>");*/
-	
 }
-
-
 
 /*debug* /
 echo ("<pre>");

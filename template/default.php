@@ -1,31 +1,6 @@
 
 	<h2>Pannel</h2>
 	<p>Este es el sistema de gestión de nuuve</p>
-
-<?php
-	/*Búsqueda*/
-	/* No queremos que se envíe el formulario. Al hacer click queremos ir a http://www.nuuve.com/hq/pannel/index/términos de busqueda/
-	Habrá que buscar funciones ajax para coger lo que se mete en el campo del formulario y ponerlo al final de la url
-	*/
-/*
-
-De momento saco el formulario de la portada hasta que resuelva como rutar el programa. Ahora redirecciona a index, para que se haga la búsqueda
-allí, lo cual creo que es lo mejor (index es búsqueda y display), pero al pasar por el flujo con el $_POST se lo traga post.php.
-
-Podría pasar la búsqueda como parámetro, p.ej. /hq/pannel/index/términos , como había pensado, pero dado el carácter dinámico de index, la segunda
-busqueda se realizaría con los parámetros aun en la url, lo cual hace feo (cuanto menos) y en el peor de los casos puede confundir al usuario.
-
-No se me ocurre cómo solucionar esto, a no ser que modifique el flujo.
-
-<div id="busca">
-	<form id="nuevo" class="form" method="POST" action="http://www.nuuve.com<?php echo $root?>index/">
-		<input type="hidden" name="check" value="busqueda" />
-		<p style="display:inline;">
-		<input type="text" name="title" class="editor_field" value="Buscar entradas..." onfocus="this.value=(this.value=='Buscar entradas...') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Buscar entradas...' : this.value;" size="20"><input type="submit" value="Ir" class="editor_ok_button"><input type="checkbox" name="wholesearch" value="1"><span class="meta">Buscar también en el contenido de las entradas NOTA: ESTE FORMULARIO NO HACE NADA</span></p>
-</form>
-</div>
-*/
-?>
 	<h3>Entradas con actividad reciente</h3>
 	<ul>
 	
