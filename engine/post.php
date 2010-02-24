@@ -15,7 +15,7 @@ if ($_POST['editorId']=="text") {
 	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `text`, `date`) VALUES (NULL, '";
 	$query .= $post_id."', '";
 	$query .= $title."', '";
-	$query .= $logged_user."', '";
+	$query .= $_SESSION['nombre']."', '";
 	$query .= $text."', NOW());";
 
 	$result = query($query,$c);
@@ -33,7 +33,7 @@ if ($_POST['editorId']=="text") {
 	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `text`, `date`) VALUES (NULL, '";
 	$query .= $post_id."', '";
 	$query .= $title."', '";
-	$query .= $logged_user."', '";
+	$query .= $_SESSION['nombre']."', '";
 	$query .= $text."', NOW());";
 
 	$result = query($query,$c);
@@ -56,14 +56,14 @@ if ($_POST['editorId']=="text") {
 	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `text`, `date`) VALUES (NULL, '";
 	$query .= $post_id."', '";
 	$query .= $title."', '";
-	$query .= $logged_user."', '";
+	$query .= $_SESSION['nombre']."', '";
 	$query .= $text."', NOW());";
 	
 	$result = query($query,$c);
 	if (!$result) {
 	    die('Could not query:' . mysql_error());
 	}elseif ($result){ //Exito
-		header("Location: http://www.nuuve.com$root$title");
+		header("Location: http://www.nuuve.com$root$_POST[title]");
 		exit;
 	}else{
 		echo ("<p class\"error\">Lo siento, el texto no se ha guardado</p>");

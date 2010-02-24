@@ -9,13 +9,13 @@ Reven
 
 /*  DEBUG  ####IMPORTANTE: Para produccion quitar llamdas a debug */
 
+
 /*Initialize*/
 $root = "/hq/pannel/";
-//include ("engine/auth.php"); //Pendiente de implementar. De momento usamos este hack:
-$logged_user="Reven";
 include ("engine/controller.php");
+include ("engine/auth.php"); //Pendiente de implementar. De momento usamos este hack:
+
 include ("engine/textinterpreter.php");
-$root = "/hq/pannel/";
 
 
 /*Flujo */
@@ -29,10 +29,12 @@ $uri = preg_replace("/\/hq\/pannel\/(.*)/i","$1",$_SERVER['REQUEST_URI']); // te
 $terms = explode ("/",$uri);
 $page_link = $root.$terms[0]."/"; //Usar esta preferentemente en lugar de $uri.
 
-/* debug */
 $debug="<div onclick=\"\$(this).switchOff()\" id=\"debug\" class=\"debug\"><p style=\"color:#f00;\"><b>haz click para esconder</b></p><pre>DEBUG:\nuri: $uri \n";
 $debug.="Enlace a página: $page_link\n"; 
 $debug.=print_r ($terms, TRUE);
+$debug.="SESION: ".session_id();
+$debug.="\nNombre: $_SESSION[nombre]\n";
+$debug.=print_r ($_SESSION, TRUE);
 $debug.="REFERER: ".$_SERVER['HTTP_REFERER'];
 $debug.="\n</pre>";
 /* fin debug */
@@ -73,6 +75,7 @@ function do_content($page){ //Esta función que elije las plantillas es mejorabl
 		include ("template/page.php");
 	}
 }
+
 
 /*
 debug_out()

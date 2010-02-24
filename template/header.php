@@ -13,9 +13,11 @@
 </head>
 <body>
 	<div id="header">
+		<?php if (isset($_SESSION['nombre'])) {echo "<div class=\"loggedin meta\"<p>$_SESSION[nombre] (<a href=\"{$root}logout.php/\">cerrar sessión</a>)</div>"; }?>
 		<div id="nav">
 
 <?php
+
 include ("menu.inc");
 ?>
 

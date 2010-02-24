@@ -14,7 +14,9 @@ if (mysql_num_rows($result)==0){
 $out = fetch_array($result);
 
 $post_id = $out['post_id'];
-$safe_text = rawurlencode($out['text']); // necesario para pasar el texto cuando editamos el título.
+//variables seguras (protegen JS de las comillas en título y texto)
+$safe_text = rawurlencode($out['text']);
+$safe_title = rawurlencode($out['title']);
 $mark="marcar como importante";
 if ($out['prioridad']==1) {$impor="<span style=\"color:#f00;\">✔</span> <b>Importante</b> | "; $mark="quitar marca importante";}
 $debug .= "\nResultados mysql <pre>".print_r ($out, TRUE)."</pre>";
@@ -41,7 +43,7 @@ echo <<<SCRIPTS
 		onComplete: function(value,element) {warning_url(value);new Effect.Highlight(element, {startcolor: this.options.highlightColor})}}) 
 
 	new Ajax.InPlaceEditor('text', '/hq/pannel/', {rows:10,cols:40,okText:'Guardar',cancelText:'Cancelar',clickToEditText:'Doble-click para editar',
-		callback: function(form, value) {return 'post_id=$post_id&title=$page&text='+ encodeURIComponent(value)}})
+		callback: function(form, value) {return 'post_id=$post_id&title=$safe_title&text='+ encodeURIComponent(value)}})
 
 </script>
 

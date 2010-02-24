@@ -99,4 +99,7 @@ text-align:center;
 .r{
 	text-align:right;
 }
+.loggedin{
+	position: absolute;
+	right: 9em;
 }
