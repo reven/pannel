@@ -76,8 +76,14 @@ img.progress{
 	vertical-align: middle;
 	padding: 0 10px;
 }
-table{
+table.search{
 	margin:1em 0 !important;
+}
+table.login{
+	margin:1em auto !important;
+}
+table.login td {
+	border-bottom:0px !important;
 }
 th{
 border-bottom:1px solid #BBBBBB !important;
@@ -89,4 +95,8 @@ padding:0.2em 1em !important;
 }
 .c{
 text-align:center;
+}
+.r{
+	text-align:right;
+}
 }

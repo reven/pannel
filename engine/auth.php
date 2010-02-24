@@ -5,31 +5,35 @@ Esto es sólo un primer de cómo tendría que funcionar, aunque supongo que se p
 */
 
 session_start();
-if(isset($_SESSION['loggedin'])){
+if(session_is_registered(username)){
 	//usuario está registrado
 	//devolver $logged_user , que es la variable que he utilizado para esto. Hay otra forma?
 	$logged_user = $_SESSION['name'];
 	// termina la ejecución
 }else{
 	//el usuario NO está registrado.
-	//header("Location: http://www.nuuve.com{$root}auth/"); //-> En vez de usar otra plantilla más, porque no ponemos aqui el html y punto?
+	//recrear formulario login
 	include ("template/header.php");
+	
+	echo "<h2>".get_magic_quotes_gpc()."</h2>";
 	?>
 
 	<h2>Autentificación</h2>
 	<div style="text-align: center;">
 	<p>Porfavor, introduce tu nombre de usuario y tu contraseña</p>
-	<form id="searchform" class="form" method="POST" action="/">
-		<p>Usuario <input type="text" name="s" id="s" class="editor_field" value="" size="20"></p>
-		<p>Contraseña <input type="password" name="pass" id="pass" class="editor_field" value="" size="20"></p>
+	<form id="login" class="form" method="POST" action="<?php echo $root; ?>bla/">
+		<table class="login">
+			<tr><td class="r"><p>Usuario:</p></td><td><input type="text" name="s" id="s" class="editor_field" value="" size="20"></td></tr>
+			<td class="r"><p>Contraseña:</p></td><td><input type="password" name="pass" id="pass" class="editor_field" value="" size="20"></td></tr>
+		</table>
 		<p><input type="submit" id="submit" value="Entrar" class="editor_ok_button"></p>
 	</form>
 	
 	</div>
-
 <?php
 	include ("template/footer.php");
 	exit;
+	
 	/*
 	VER: http://www.phpeasystep.com/workshopview.php?id=6
 	POST es el que debe mirar si es válido.

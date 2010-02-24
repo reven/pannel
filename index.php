@@ -10,6 +10,7 @@ Reven
 /*  DEBUG  ####IMPORTANTE: Para produccion quitar llamdas a debug */
 
 /*Initialize*/
+$root = "/hq/pannel/";
 //include ("engine/auth.php"); //Pendiente de implementar. De momento usamos este hack:
 $logged_user="Reven";
 include ("engine/controller.php");

@@ -1,9 +1,10 @@
 HISTORY
+0.4.6 24/2/10 Bug de comilla sencilla (') en input solucionada.
 0.4.5 23/2/10 Búsqueda completa. Subsistema GET.
-0.4 18/2/10 Funciona la búsqueda básica- Implementado parcialmente marcado como "importante".
-0.3 17/2/10 Funciona creación de nuevas páginas. Formulario y sistema POST. Índice. Enlaces codificados. Más CSS.
-0.2 16/2/10 Funciona el indice de páginas y la edición in situ de páginas. Ajax.
-0.1 15/2/10 estructura básica. debug.
+0.4   18/2/10 Funciona la búsqueda básica- Implementado parcialmente marcado como "importante".
+0.3   17/2/10 Funciona creación de nuevas páginas. Formulario y sistema POST. Índice. Enlaces codificados. Más CSS.
+0.2   16/2/10 Funciona el indice de páginas y la edición in situ de páginas. Ajax.
+0.1   15/2/10 estructura básica. debug.
 
 
 BUGs
@@ -11,11 +12,8 @@ BUGs
  /oo |--.--,--,--.  
  \_.-'._i__i__i_.'  
        """""""""
-#1 - Texto no pude contener comilla sencilla ( ' ) al crear o editar entrada. Probablemente porque interfiera
-	en query SQL. Escapar caracteres lo arreglará? Hay una función específica para escapar las querys, pero
-	igual jode las comillas o el resto de cosas. Mirar.
-#2 - Estado "importante" se pierde al editar.
-#3 - Si no se usa el subdominio www, la búsqueda no funciona.
+#1 - Estado "importante" se pierde al editar.
+#2 - Si no se usa el subdominio www, la búsqueda no funciona.
 
 TO-DO
 *Sistema auth (incluyendo sessiones/cookies) y regsitro usuarios.
