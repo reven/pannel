@@ -14,6 +14,7 @@
 <body>
 	<div id="header">
 		<?php if (isset($_SESSION['nombre'])) {echo "<div class=\"loggedin meta\"><p>$_SESSION[nombre] (<a href=\"{$root}logout.php/\">cerrar sessión</a>)</div>"; }?>
+			<div class="dashboard meta"><p><a href="/hq/">↺ volver al Dashboard</a></p></div>
 		<div id="nav">
 
 <?php
@@ -22,6 +23,6 @@ include ("menu.inc");
 ?>
 
 		</div>
-		<h1>nuuve</h1>
+		<span class="meta">beta</span><br /><h1>nuuve</h1>
 	</div>
 	<div id="content">

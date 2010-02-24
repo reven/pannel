@@ -3,9 +3,9 @@
  Nuuve
 Pannel      
 
-0.4.5 alpha
+0.4.7 beta
 Reven
-23-Feb-2010
+24-Feb-2010
 
 /*  DEBUG  ####IMPORTANTE: Para produccion quitar llamdas a debug */
 
