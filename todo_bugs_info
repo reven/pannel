@@ -17,6 +17,7 @@ BUGs
 
 TO-DO
 *Regsitro usuarios.
+*Flags para artículos (En progreso, planteado, cancelado, etc.). Hacer campo en BdD y mover CSS a archivo.
 *BUGs
 *Cambiar "importante" y otros parámetros secundarios al sistema POST, ya que modifican base de datos.
 *Guardar marca "importante" de unas revisiones a otras. Implementar enlace de edición. Implementar al crear página?

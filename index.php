@@ -64,7 +64,7 @@ do_content()
 Determina qué plantilla usar.
 */
 function do_content($page){ //Esta función que elije las plantillas es mejorable...
-	global $debug, $root, $page_link;
+	global $debug, $root, $page_link, $terms;
 	if ($page==""){
 		include ("template/default.php");
 	}elseif ($page=="index"){

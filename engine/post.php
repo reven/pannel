@@ -49,15 +49,18 @@ if ($_POST['editorId']=="text") {
 /*formulario página nueva*/
 }elseif ($_POST['check']=="newpost"){
 	/*formulario página nueva*/
+	$state = mysql_real_escape_string($_POST['state']);
 	$query ="SELECT MAX( post_id ) FROM `posts`";
 	$result = query($query,$c);
 	$out = fetch_array($result);
 	$post_id = $out[0] + 1;
-	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `text`, `date`) VALUES (NULL, '";
+	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `text`, `date`, `prioridad`, `state`) VALUES (NULL, '";
 	$query .= $post_id."', '";
 	$query .= $title."', '";
 	$query .= $_SESSION['nombre']."', '";
-	$query .= $text."', NOW());";
+	$query .= $text."', NOW() ,"
+	if ($_POST['importante']==1){$query .= " '1', '";}else{$query .= " '0', '";}
+	$query .= $state."');";
 	
 	$result = query($query,$c);
 	if (!$result) {

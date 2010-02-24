@@ -1,6 +1,7 @@
 
 	<h2>Pannel</h2>
 	<p>Este es el sistema de gestión de nuuve</p>
+	<div class="columnl">
 	<h3>Entradas con actividad reciente</h3>
 	<ul>
 	
@@ -33,7 +34,23 @@ if (mysql_num_rows($result)==0){
 	}
 	echo "\t</ul>\n";
 }
-
+echo "\t</div>\n\t<div class=\"column\">\n";
+echo "\t<h3>Entradas esperando <em>Feedback</em></h3>\n";
+$query ="SELECT * FROM posts INNER JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) ids ON posts.id = ids.id WHERE state = 'F' ORDER BY date DESC";
+$result = query($query,$c);
+if (mysql_num_rows($result)==0){
+	echo ("\t<p>No existen páginas pendientes de feedback ahora mismo.</p>\n");
+}else{
+	echo "\t<ul>\n";
+	while ($out = fetch_array($result)){
+		echo "\t<li><a href=\"$root".$out['title']."/\">".$out['title']."</a> por ".$out['author'];
+		echo " <span class=\"meta\">".date("j \d\e M \d\e Y, \a \l\a\s G:i",strtotime ($out['date']));
+		echo "</span></li>\n";
+	}
+	echo "\t</ul>\n";
+}
 close($c);
 
 ?>
+</div>
+<p style="clear:both;"></p>
