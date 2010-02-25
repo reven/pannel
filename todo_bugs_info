@@ -1,4 +1,5 @@
 HISTORY
+0.4.8 25/2/10 Flags completas con acciones en post.php y formularios.
 0.4.7 24/2/10 Formulario de borrado. Status de entradas e importancia en progreso. Inicio rediseñado. BETA!!!
 0.4.6 24/2/10 Bug de comilla sencilla (') en input solucionada. Sistema auth implementado.
 0.4.5 23/2/10 Búsqueda completa. Subsistema GET.
@@ -15,15 +16,13 @@ BUGs
        """""""""
 #1 - Estado "importante" se pierde al editar.
 #2 - Si no se usa el subdominio www, la búsqueda no funciona. Error de rutas en JS o AJAX? Formulario?
+#3 - Si se edita una flag y luego se edita el texto (o cualquiera dos cosas), el primer cambio se pierde. Eso es porque al editar texto se
+	 envían los datos de las flags de la query original. Se debería actualizar esas cosas onSuccess de los formularios.
 
 TO-DO
 *Regsitro usuarios.
-*Flags para artículos (En progreso, planteado, cancelado, etc.). Hacer campo en BdD y mover CSS a archivo.
 *BUGs
-*Cambiar "importante" y otros parámetros secundarios al sistema POST, ya que modifican base de datos.
-*Guardar marca "importante" de unas revisiones a otras. Implementar enlace de edición. Implementar al crear página?
-*Importantes (campo en bd, espacio formulario, funcionalidad enlace)
-*Borrar (revisar versiones? Seguro? DROP all con post_id)
+*Funcionalidad adicional imprescindible.
 																----------->1.0 -->Usable?
 *Limpiar notas y comments.
 *Revisiones (enum y luego posibilidad de diff?)

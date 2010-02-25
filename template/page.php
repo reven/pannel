@@ -17,10 +17,10 @@ $post_id = $out['post_id'];
 //variables seguras (protegen JS de las comillas en título y texto)
 $safe_text = rawurlencode($out['text']);
 $safe_title = rawurlencode($out['title']);
-if ($out['prioridad']==1) {$impor="<span id=\"prioridad\" class=\"editInPlace\"><span style=\"color:#f00;\">✔</span> <b>Importante</b> | </span>";}
+if ($out['prioridad']==1) {$impor="<span style=\"color:#f00;\">✔</span> <b>Importante</b>";}else{$impor="Marcar prioridad";}
 $status = array ('P'=>"Planteada",'E'=>"En curso",'X'=>"Estancada",'F'=>"Esperando feedback",'C'=>"Cancelada",'H'=>"Hibernando");
 $stat_flag = $out['state'];
-if ($stat_flag!=""){ $state="<span id=\"estado\" class=\"editInPlace\">Marcada como <span class=\"$stat_flag\">$status[$stat_flag]</span> | </span>";}
+if ($stat_flag!=""){ $state="Marcada como <span class=\"$stat_flag\">$status[$stat_flag]</span>";}else{$state="Marcar estado";}
 $debug .= "\nResultados mysql <pre>".print_r ($out, TRUE)."</pre>";
 if ($terms[1]=="delete"){
 ?>
@@ -39,11 +39,12 @@ if ($_SERVER['HTTP_REFERER']=="http://www.nuuve.com{$root}nueva/") {
 	echo ("<p id=\"yay\" class=\"success\">Página creada</p><script type=\"text/javascript\">Effect.Fade('yay', { duration: 4.0 });</script>");}
 echo "<p class=\"edit_tools\"><a href=\"".$page_link."versions/\">ver revisiones<span class=\"meta\"> (no implementado)</span></a> · <a href=\"".$page_link."delete/\">borrar</a></p>";
 echo "\t<h2 id=\"posttitle\" class=\"editInPlace\">".$page."</h2>\n\t<p class=\"meta\">";
-echo $impor;
-echo $state;
+echo ("<span id=\"prioridad\" class=\"editInPlace\">$impor | </span>");
+echo ("<span id=\"estado\" class=\"editInPlace\">$state | </span>");
 echo "Última modificación por <b>".$out[author]."</b> el ".date("j \d\e M \d\e Y, \a \l\a\s G:i",strtotime ($out['date']))."</p>\n";
 echo "\t<div id=\"text\" class=\"editInPlace\">".$out['text']."</div>\n";
 //Quizás este HEREDOC se puede sacar a un include. Igual todo el bloque de html.
+//Las rutas en este snippet deberían ser relativas o cambaidas mediante la variable $root
 echo <<<SCRIPTS
 <script type="text/javascript">
 	
@@ -57,13 +58,11 @@ echo <<<SCRIPTS
 		callback: function(form, value) {return 'post_id=$post_id&text=$safe_text&state=$out[state]&imp=$out[prioridad]&title=' + encodeURIComponent(value);warning_url(value)},
 		onComplete: function(value,element) {warning_url(value);new Effect.Highlight(element, {startcolor: this.options.highlightColor})}}) 
 
-	new Ajax.InPlaceCollectionEditor( 'prioridad', '/url_to_validate_and_save_selection/', { 
-	  collection: ['Importante', 'Normal'] 
-	});
+	new Ajax.InPlaceCollectionEditor( 'prioridad', '/hq/pannel/', { okText:'Guardar',cancelText:'Cancelar',
+		clickToEditText:'Doble-click para editar', collection: [['1','Importante'], ['0','Normal']], callback: function(form, value) {return 'id=$out[id]&value='+value}});
 	
-	new Ajax.InPlaceCollectionEditor( 'estado', '/url_to_validate_and_save_selection/', { 
-	  collection: ['-- (quitar marca)', 'Planteada', 'En curso', 'Estancada', 'Esperando feedback', 'Cancelada', 'Hibernando'] 
-	});
+	new Ajax.InPlaceCollectionEditor( 'estado', '/hq/pannel/', { okText:'Guardar',cancelText:'Cancelar',
+		clickToEditText:'Doble-click para editar', collection: [['','-- (quitar marca)'], ['P','Planteada'], ['E', 'En curso'], ['X', 'Estancada'], ['F', 'Esperando feedback'], ['C', 'Cancelada'], ['H', 'Hibernando']], callback: function(form, value) {return 'id=$out[id]&value='+value}});
 
 	new Ajax.InPlaceEditor('text', '/hq/pannel/', {rows:10,cols:40,okText:'Guardar',cancelText:'Cancelar',clickToEditText:'Doble-click para editar',
 		callback: function(form, value) {return 'post_id=$post_id&state=$out[state]&imp=$out[prioridad]&title=$safe_title&text='+ encodeURIComponent(value)}})

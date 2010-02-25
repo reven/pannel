@@ -37,6 +37,9 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 	color: #999;
 	line-height:1em;
 }
+.meta > form {
+	margin: 0.5em 0;
+}
 
 .edit_tools {
 	font-size: 90%;

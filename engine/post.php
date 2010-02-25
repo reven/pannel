@@ -87,19 +87,46 @@ if ($_POST['editorId']=="text") {
 		header("Location: http://www.nuuve.com$root");
 		exit;
 	}
+
+/*Cambio de estado */
+}elseif ($_POST['editorId']=="estado"){//Verificar valor de $_POST[value] y $_POST[id] antes de introducirlos?
+	$status = array ('P'=>"Planteada",'E'=>"En curso",'X'=>"Estancada",'F'=>"Esperando feedback",'C'=>"Cancelada",'H'=>"Hibernando");
+	$stat_flag = $_POST['value'];
+	if ($stat_flag!=""){ $state="Marcada como <span class=\"$stat_flag\">$status[$stat_flag]</span> | ";}else{$state="Marcar estado | ";}
+	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `state` = '$_POST[value]', `date`= NOW() WHERE `id` = $_POST[id]";
+	
+	$result = query($query,$c);
+	if (!$result) {
+	    die('<p class="error">Could not query:' . mysql_error()."<br />Intenta volver atrás.</p>");
+	}elseif ($result){ //Exito
+		echo $state;
+	}else{
+		echo ("<p class=\"error\">Lo siento, el texto no se ha guardado</p>");
+	}
+
+
+
+/* Cambio de relevancia */
+}elseif ($_POST['editorId']=="prioridad"){//Verificar valor de $_POST[value] y $_POST[id] antes de introducirlos?
+	if ($_POST['value']==1) {$impor="<span style=\"color:#f00;\">✔</span> <b>Importante</b> | ";}elseif($_POST['value']==0){$impor="Marcar prioridad | ";}
+	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `prioridad` =  '$_POST[value]', `date` = NOW() WHERE `id` = $_POST[id]";
+	
+	$result = query($query,$c);
+	if (!$result) {
+	    /*die*/ echo('<p class="error">Could not query:' . mysql_error()."<br />Intenta volver atrás.</p>");
+	}elseif ($result){ //Exito
+		echo $impor;
+	}else{
+		echo ("<p class=\"error\">Lo siento, el texto no se ha guardado</p>");
+	}
+
 }
-/*para la alteración de estado:
-
-UPDATE `panneldb`.`posts` SET `prioridad` =  '1',
-`state` = 'F' WHERE `posts`.`id` =10 LIMIT 1 ;
-
-*/
-
 
 close($c);	
 
-/*debug* /
+/*debug*/
 echo ("<pre>");
+echo $query;
 print_r ($_POST); 
 echo ("</pre>");
 /**/
