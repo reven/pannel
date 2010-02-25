@@ -127,9 +127,9 @@ text-align:center;
 	left: 9em;
 }
 .P, .E, .X, .F, .C, .H {padding:0 0.4em;}
-.P{background-color: #dfd;}
-.E{background-color: #0f0;}
+.P{background-color: #dfd; color:#000;}
+.E{background-color: #0f0; color:#000;}
 .X{background-color: #00f; color:#fff;}
-.F{background-color: #f70;}
-.C{background-color: #f00;}
-.H{background-color: #ccc;}
+.F{background-color: #f70; color:#000;}
+.C{background-color: #f00; color:#000;}
+.H{background-color: #ccc; color:#000;}

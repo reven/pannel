@@ -1,3 +1,9 @@
+<?php
+if (isset($_SESSION['title_del'])) {
+	echo ("<p id=\"yay\" class=\"success\">La página <strong>$_SESSION[title_del]</strong> y todas sus revisiones han sido borradas</p><script type=\"text/javascript\">Effect.Fade('yay', { duration: 4.0 });</script>");
+	unset($_SESSION['title_del']);
+}
+?>
 
 	<h2>Pannel</h2>
 	<p>Este es el sistema de gestión de nuuve</p>
