@@ -124,7 +124,7 @@ if ($_POST['editorId']=="text") {
 
 close($c);	
 
-/*debug*/
+/*debug* /
 echo ("<pre>");
 echo $query;
 print_r ($_POST); 

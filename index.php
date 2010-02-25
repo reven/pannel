@@ -56,7 +56,7 @@ function draw_page($page){
 	include ("template/header.php");
 	do_content($page);
 	include ("template/footer.php");
-	debug_out();
+	// debug_out();
 }
 
 /*
