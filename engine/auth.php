@@ -53,16 +53,17 @@ function show_form(){
 	include ("template/header.php");
 	?>
 
-	<h2>Autentificación</h2>
-	<?php echo $loginerror; ?>
 	<div style="text-align: center;">
+		<h2>Autentificación</h2>
+		<?php echo $loginerror; ?>
+	
 		<p>Porfavor, introduce tu nombre de usuario y tu contraseña</p>
-		<form id="login" class="form" method="POST" action="<?php echo $root; ?>">
+		<form id="login" class="form" method="post" action="<?php echo $root; ?>">
 			<table class="login">
-				<tr><td class="r"><p>Usuario:</p></td><td><input type="text" name="usuario" id="usuario" class="editor_field" value="" size="20"></td></tr>
-				<td class="r"><p>Contraseña:</p></td><td><input type="password" name="pass" id="pass" class="editor_field" value="" size="20"></td></tr>
+				<tr><td class="r"><p>Usuario:</p></td><td><input type="text" name="usuario" id="usuario" class="editor_field" value="" size="20" /></td></tr>
+				<tr><td class="r"><p>Contraseña:</p></td><td><input type="password" name="pass" id="pass" class="editor_field" value="" size="20" /></td></tr>
 			</table>
-			<p><input type="submit" id="submit" value="Entrar" class="editor_ok_button"></p>
+			<p><input type="submit" id="submit" value="Entrar" class="editor_ok_button" /></p>
 		</form>
 	</div>
 <?php

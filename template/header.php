@@ -8,12 +8,12 @@
 	<script src="/hq/pannel/js/extend.js" type="text/javascript"></script> 
 
 	<link rel="stylesheet" type="text/css" media="screen,print" href="/hq/pannel/css/pannel.css" />
-	<!-- Quitar la siguiente linea -->
-	<link rel="stylesheet" type="text/css" media="screen,print" href="/hq/pannel/css/debug.css" />
+<?php //<link rel="stylesheet" type="text/css" media="screen,print" href="/hq/pannel/css/debug.css" /> ?>
+
 </head>
 <body>
 	<div id="header">
-		<?php if (isset($_SESSION['nombre'])) {echo "<div class=\"loggedin meta\"><p>$_SESSION[nombre] (<a href=\"{$root}logout.php/\">cerrar sessión</a>)</div>"; }?>
+		<?php if (isset($_SESSION['nombre'])) {echo "<div class=\"loggedin meta\"><p>$_SESSION[nombre] (<a href=\"{$root}logout.php/\">cerrar sessión</a>)</p></div>"; }?>
 			<div class="dashboard meta"><p><a href="/hq/">↺ volver al Dashboard</a></p></div>
 		<div id="nav">
 

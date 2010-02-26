@@ -47,7 +47,7 @@ echo "\t<div id=\"text\" class=\"editInPlace\">".$out['text']."</div>\n";
 //Las rutas en este snippet deberían ser relativas o cambaidas mediante la variable $root
 echo <<<SCRIPTS
 <script type="text/javascript">
-	
+/* <![CDATA[ */
 	function warning_url(url)
 		{
 		var thing = '<p class="error">El título ha cambiado. Antes de seguir editando, vaya a la nueva url: <a href="/hq/pannel/'+url.responseText+'/">'+url.responseText+'</a></p>';
@@ -66,7 +66,7 @@ echo <<<SCRIPTS
 
 	new Ajax.InPlaceEditor('text', '/hq/pannel/', {rows:10,cols:40,okText:'Guardar',cancelText:'Cancelar',clickToEditText:'Doble-click para editar',
 		callback: function(form, value) {return 'post_id=$post_id&state=$out[state]&imp=$out[prioridad]&title=$safe_title&text='+ encodeURIComponent(value)}})
-
+/* ]]> */
 </script>
 
 SCRIPTS;
