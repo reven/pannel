@@ -4,11 +4,8 @@ if (isset($_SESSION['title_del'])) {
 	unset($_SESSION['title_del']);
 }
 ?>
-
-	<h2>Pannel</h2>
-	<p>Este es el sistema de gestión de nuuve</p>
 	<div class="columnl">
-	<h3>Entradas con actividad reciente</h3>
+	<h2>Entradas con actividad reciente</h2>
 	<ul>
 	
 <?php
@@ -25,7 +22,7 @@ echo "</span></li>\n";
 ?>
 	</ul>
 	<p class="meta">No encuentras lo que buscas? Prueba el <a href="<?php echo $root; ?>index/">índice</a></p>
-	<h3>Importante</h3>
+	<h2>Importante</h2>
 <?php
 $query ="SELECT * FROM posts INNER JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) ids ON posts.id = ids.id WHERE prioridad = 1 ORDER BY date DESC LIMIT 5";
 $result = query($query,$c);
@@ -41,7 +38,7 @@ if (mysql_num_rows($result)==0){
 	echo "\t</ul>\n";
 }
 echo "\t</div>\n\t<div class=\"column\">\n";
-echo "\t<h3>Entradas esperando <em>Feedback</em></h3>\n";
+echo "\t<h2>Entradas esperando <em>Feedback</em></h2>\n";
 $query ="SELECT * FROM posts INNER JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) ids ON posts.id = ids.id WHERE state = 'F' ORDER BY date DESC";
 $result = query($query,$c);
 if (mysql_num_rows($result)==0){

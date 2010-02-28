@@ -23,6 +23,6 @@ include ("menu.inc");
 ?>
 
 		</div>
-		<span class="meta">beta</span><br /><h1>nuuve</h1>
+		<h1>Pannel (beta)</h1>
 	</div>
 	<div id="content">

@@ -5,6 +5,7 @@ $menu=<<<HERE
 		<li><a href="$root">inicio</a></li>
 		<li><a href="{$root}nueva/">nueva entrada</a></li>
 		<li><a href="{$root}index/">índice</a></li>
+		<li><a href="{$root}help/">ayuda</a></li>
 		</ul>
 
 HERE;

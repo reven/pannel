@@ -71,6 +71,8 @@ function do_content($page){ //Esta función que elije las plantillas es mejorabl
 		include ("template/indice.php");
 	}elseif ($page=="nueva"){
 		include ("template/new.php");
+	}elseif ($page=="help"){
+		include ("template/help.php");
 	}else{
 		include ("template/page.php");
 	}

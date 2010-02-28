@@ -44,7 +44,7 @@ Podemos empezar por los sencillos (negritas, cursivas y listas)
 function get_html($input){
 	$text = preg_replace("/(.+)\r\n\r\n/i","<p>$1</p>\n",$input);
 	$text = preg_replace("/\*(.*)\*/i","<b>$1</b>",$text);
-	$text = preg_replace("/_(.*)_/i","<i>$1</i>",$text);
+	$text = preg_replace("/_(.*)_/ig","<i>$1</i>",$text);
 	
 	//listas. bufff!!!
 	$text = preg_replace("/\*+(.*)?/i","<li>$1</li>",$text);

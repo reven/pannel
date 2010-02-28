@@ -37,7 +37,27 @@ if ($terms[1]=="delete"){
 
 if ($_SERVER['HTTP_REFERER']=="http://www.nuuve.com{$root}nueva/") {
 	echo ("<p id=\"yay\" class=\"success\">Página creada</p><script type=\"text/javascript\">Effect.Fade('yay', { duration: 4.0 });</script>");}
-echo "<p class=\"edit_tools\"><a href=\"".$page_link."versions/\">ver revisiones<span class=\"meta\"> (no implementado)</span></a> · <a href=\"".$page_link."delete/\">borrar</a></p>";
+echo <<<EDITTOOLS
+<div class="edit_tools">
+	<a href="{$page_link}versions/">ver revisiones<span class="meta"> (no implementado)</span></a> · <a href="{$page_link}delete/">borrar</a>
+</div>
+<div id="markdown" class="markdown" style="display:none"><a href="#" onclick="Effect.toggle('toggle_slide','slide'); return false;"><span style="color:#000;font-size: 200%;">✎</span>Quieres usar formato abreviado?</a>
+	<div id="toggle_slide" style="display:none;">
+		<div>Puedes usar los siguientes atajos para introducir texto más rápido:<br />
+			*negrita* → <b>negrita</b><br />
+			_cursiva_ → <i>cursiva</i><br />
+			<b>*</b> Item → Listas<br />
+			<b>1.</b> Item → Listas ordenadas<br />
+			<b>bq.</b> Texto indentado<br />
+			<b>h.</b> Titulo<br />
+			<b>"</b>enlace<b>":</b>http://www.nuuve.com → enlace<br />
+			<b>!</b>http://www.nuuve.com/logo.gif<b>!</b> → imagen<br /><br />
+			Puedes anidar listas y bloques de texto indentado. <a href="{$root}help/#formato">(+ info)</a>
+		</div>
+	</div>
+</div>
+
+EDITTOOLS;
 echo "\t<h2 id=\"posttitle\" class=\"editInPlace\">".$page."</h2>\n\t<p class=\"meta\">";
 echo ("<span id=\"prioridad\" class=\"editInPlace\">$impor | </span>");
 echo ("<span id=\"estado\" class=\"editInPlace\">$state | </span>");
@@ -65,7 +85,9 @@ echo <<<SCRIPTS
 		clickToEditText:'Doble-click para editar', collection: [['','-- (quitar marca)'], ['P','Planteada'], ['E', 'En curso'], ['X', 'Estancada'], ['F', 'Esperando feedback'], ['C', 'Cancelada'], ['H', 'Hibernando']], callback: function(form, value) {return 'id=$out[id]&value='+value}});
 
 	new Ajax.InPlaceEditor('text', '/hq/pannel/', {rows:10,cols:40,okText:'Guardar',cancelText:'Cancelar',clickToEditText:'Doble-click para editar',
-		callback: function(form, value) {return 'post_id=$post_id&state=$out[state]&imp=$out[prioridad]&title=$safe_title&text='+ encodeURIComponent(value)}})
+		callback: function(form, value) {return 'post_id=$post_id&state=$out[state]&imp=$out[prioridad]&title=$safe_title&text='+ encodeURIComponent(value)},
+		onEnterEditMode: function(form, value) { Effect.SlideDown('markdown');},
+		onLeaveEditMode: function(form, value) { Effect.SlideUp('markdown'); }})
 /* ]]> */
 </script>
 

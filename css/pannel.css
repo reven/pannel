@@ -17,10 +17,10 @@ img{border: 0;}
 #header ul {padding:0;}
 #header li {display: inline; padding: 0 10px;}
 .iscurrent {background: #fbfbfb; cursor:default;}
-h1 {text-indent: -9000px; background: url(/images/section_logo.png) no-repeat center top; line-height: 3em;}
+h1 {text-indent: -9000px; background: url(/images/pannel_beta.png) no-repeat center top; line-height: 2em;width:6em;margin:0;}
 h2{color: #166baf;text-transform: lowercase; font-size: 1.5em; margin: 1em 0 0 0;}
 h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em 0;}
-#nav {margin-bottom: 1em; border-bottom: 1px solid #166baf;}
+#nav {border-bottom: 1px solid #166baf;}
 #content{ text-align: justify; font-size: 0.90em; line-height:2.2em;}
 .column {
 	float:right;
@@ -42,9 +42,10 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 }
 
 .edit_tools {
+	margin:2em 0 -1em 0;
 	font-size: 90%;
 	color: #999;
-	line-height:1em;
+	line-height:1.1em;
 	border: 1px solid #ddd;
 }
 
@@ -57,6 +58,9 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 	border:1px solid #0c0;
 	background-color: #dfd;
 	padding:1em;
+}
+#posttitle-inplaceeditor{
+	margin-top:2em;
 }
 .editor_cancel_link{
 	padding:1em;
@@ -84,14 +88,27 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 .editor_ok_button:hover{
 	background-color:#6390b7;
 }
+
 textarea{
+	width: 75%;
+	font-size: 1.3em;
+	height:20em;
+	padding:0.3em;
 	background-color: #ffffd3;
 }
 
-textarea{
-	width: 95%;
-	font-size: 1.3em;
-	height:20em;
+.markdown{
+	background-color:#fff;
+	font-size: 85%;
+	color: #333;
+	position:absolute;
+	right:11em;
+	padding:0;
+}
+
+#toggle_slide{
+	border: 1px solid #166baf;
+	padding: 0 0.5em;
 }
 
 img.progress{
@@ -114,6 +131,9 @@ padding:0.2em 1em !important;
 td  {
 border-bottom:1px solid #DDDDDD !important;
 padding:0.2em 1em !important;
+}
+table.help{
+	font-size:80% !important;
 }
 .c{
 text-align:center;
