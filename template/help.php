@@ -4,12 +4,12 @@
 
 	<a name="formato"></a>
 	<h3>Formato abreviado</h3>
-	<p>El editor de texto cuenta con una sintaxis abreviada de etiquetas html básicas. El editor no modifica las etiquetas html ya introducidas. Los siguientes métodos abreviados son reconocidos:</p>
+	<p>Para formatear el texto puedes hacer uso de la siguiente sintaxis abreviada:</p>
 	<table class="help">
 		<tbody>
-			<tr><th>Descripción</th><th>Abreviatura</th><th>html</th></tr>
-			<tr><td><b>negrita</b></td><td><b>*</b>texto<b>*</b></td><td><b>&lt;strong&gt;</b>texto<b>&lt;/strong&gt;</b></td></tr>
-			<tr><td><i>cursiva</i></td><td><b>_</b>texto<b>_</b></td><td><b>&lt;em&gt;</b>texto<b>&lt;/em&gt;</b></td></tr>
+			<tr><th>Descripción</th><th>Abreviatura</th><th>efecto</th></tr>
+			<tr><td>negrita</td><td><b>*</b>texto<b>*</b></td><td><b>&lt;strong&gt;</b>texto<b>&lt;/strong&gt;</b></td></tr>
+			<tr><td>cursiva</td><td><b>_</b>texto<b>_</b></td><td><b>&lt;em&gt;</b>texto<b>&lt;/em&gt;</b></td></tr>
 			<tr><td>Listas</td><td><b>*</b> Item<br /><b>*</b> Item</td><td><b>&lt;ul&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;/ul&gt;</b></td></tr>
 			<tr><td>Listas ordenadas</td><td><b>1.</b> Item<br /><b>2.</b> Item</td><td><b>&lt;ol&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;/ol&gt;</b></td></tr>
 			<tr><td>Texto indentado</td><td><b>bq.</b> texto</td><td><b>&lt;blockquote&gt;</b>texto<b>&lt;/blockquote&gt;</b></td></tr>

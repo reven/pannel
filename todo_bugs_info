@@ -1,4 +1,5 @@
 HISTORY
+0.5   01/3/10 Debug desactivado. Xhtml válido en todas las páginas. Sistema minimarkdown implementado. Ayuda. Modificación formularios. Bug de flag "importante" corregido.
 0.4.8 25/2/10 Flags completas con acciones en post.php y formularios.
 0.4.7 24/2/10 Formulario de borrado. Status de entradas e importancia en progreso. Inicio rediseñado. BETA!!!
 0.4.6 24/2/10 Bug de comilla sencilla (') en input solucionada. Sistema auth implementado.
@@ -14,9 +15,8 @@ BUGs
  /oo |--.--,--,--.  
  \_.-'._i__i__i_.'  
        """""""""
-#1 - Estado "importante" se pierde al editar.
-#2 - Si no se usa el subdominio www, la búsqueda no funciona. Error de rutas en JS o AJAX? Formulario?
-#3 - Si se edita una flag y luego se edita el texto (o cualquiera dos cosas), el primer cambio se pierde. Eso es porque al editar texto se
+#1 - Si no se usa el subdominio www, la búsqueda no funciona. Error de rutas en JS o AJAX? Formulario?
+#2 - Si se edita una flag y luego se edita el texto (o cualquiera dos cosas), el primer cambio se pierde. Eso es porque al editar texto se
 	 envían los datos de las flags de la query original. Se debería actualizar esas cosas onSuccess de los formularios.
 
 TO-DO
@@ -30,7 +30,6 @@ TO-DO
 *Revisar que título no esté en uso al crear nueva o renombrar. Ofrecer fusionar? Qué pasa al hacer esto? Porque
 	seleccionamos entradas por nombre de la BdD.
 *Notificación de cambios?
-*Text-interpreter?? Mmm... Almenos básico puede funcionar.
 *Limitar scriptaculous.js para que solo cargue módulos necesarios.
 *Limpiar archivos no utilizados en /js/
 
@@ -43,7 +42,7 @@ POST -----------SI------------->manejar POST (los AJAX y los formularios)
    |
    | NO
    |
-GET -------SI-------> Es una búsqueda. 
+GET -------SI-------> Es una búsqueda o printout de datos sin procesar. 
    |
    |  NO
    |

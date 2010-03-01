@@ -24,11 +24,11 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 #content{ text-align: justify; font-size: 0.90em; line-height:2.2em;}
 .column {
 	float:right;
-	width:37em;
+	width:49%;
 }
 .columnl {
 	float:left;
-	width:37em;
+	width:49%;
 }
 .block {font-family:"Consolas","Bitstream Vera Sans Mono","Courier New",Courier,monospace !important; font-size: 1.2em;line-height:2em;border: 1px solid black;padding: 0 3em; }
 
@@ -165,3 +165,11 @@ text-align:center;
 .F{background-color: #f70; color:#000;}
 .C{background-color: #f00; color:#000;}
 .H{background-color: #ccc; color:#000;}
+
+/*Quitar de final*/
+.debug {
+	padding:1em;
+	border: 1px solid #f00;
+	background-color: #f99;
+	text-align: left;
+}
