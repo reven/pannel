@@ -8,10 +8,10 @@
 <form id="nuevo" class="form" method="post" action="<?php echo $root?>">
 	<input type="hidden" name="check" value="newpost" />
 	<p>
-		<input type="text" name="title" class="editor_field" value="Título" onfocus="this.value=(this.value=='Título') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Título' : this.value;" size="20" /></p>
+		<input type="text" id="titulo" name="title" class="editor_field" value="Título" onfocus="this.value=(this.value=='Título') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Título' : this.value;" size="20" /></p>
 	<p>Contenido<br />
-		<div class="markdown"><p><a href="#" onclick="Effect.toggle('toggle_slide','slide'); return false;"><span style="color:#000;font-size: 200%;">✎</span>Quieres usar formato abreviado?</a></p>
-			<div id="toggle_slide" style="display:none;"><div>Puedes usar los siguientes atajos para introducir texto más rápido:<br />
+		<div class="markdown"><p><a href="#" onclick="Effect.toggle('toggle_slide','slide'); return false;"><span style="color:#000;font-size: 200%;">✎</span> Acerca de formato abreviado</a></p>
+			<div id="toggle_slide" style="display:none;"><div>Utiliza los siguientes atajos para formatear tu texto:<br />
 				*negrita* → <b>negrita</b><br />
 				_cursiva_ → <i>cursiva</i><br />
 				<b>*</b> Item → Listas<br />

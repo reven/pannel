@@ -25,7 +25,7 @@ if ($_POST['editorId']=="text") {
 	if (!$result) {
 	    die('Could not query:' . mysql_error());
 	}elseif ($result){
-		echo ($_POST['text']);
+		echo (get_html($_POST['text']));
 	}else{
 		echo ("<p class\"error\">Lo siento, el texto no se ha guardado</p>");
 	}

@@ -62,6 +62,8 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 #posttitle-inplaceeditor{
 	margin-top:2em;
 }
+.inplaceeditor-saving { background: url(/images/loader.gif) bottom right no-repeat; }
+
 .editor_cancel_link{
 	padding:1em;
 	color:#c00 !important;
@@ -89,6 +91,13 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 	background-color:#6390b7;
 }
 
+#titulo {
+	font-size:1.5em;
+}
+
+#posttitle-inplaceeditor > input.editor_field {
+	font-size:1.4em;
+}
 textarea{
 	width: 75%;
 	font-size: 1.3em;

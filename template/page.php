@@ -41,9 +41,9 @@ echo <<<EDITTOOLS
 <div class="edit_tools">
 	<a href="{$page_link}versions/">ver revisiones<span class="meta"> (no implementado)</span></a> · <a href="{$page_link}delete/">borrar</a>
 </div>
-<div id="markdown" class="markdown" style="display:none"><a href="#" onclick="Effect.toggle('toggle_slide','slide'); return false;"><span style="color:#000;font-size: 200%;">✎</span>Quieres usar formato abreviado?</a>
+<div id="markdown" class="markdown" style="display:none"><a href="#" onclick="Effect.toggle('toggle_slide','slide'); return false;"><span style="color:#000;font-size: 200%;">✎</span> Acerca de formato abreviado</a>
 	<div id="toggle_slide" style="display:none;">
-		<div>Puedes usar los siguientes atajos para introducir texto más rápido:<br />
+		<div>Utiliza los siguientes atajos para formatear tu texto:<br />
 			*negrita* → <b>negrita</b><br />
 			_cursiva_ → <i>cursiva</i><br />
 			<b>*</b> Item → Listas<br />
@@ -62,9 +62,8 @@ echo "\t<h2 id=\"posttitle\" class=\"editInPlace\">".$page."</h2>\n\t<p class=\"
 echo ("<span id=\"prioridad\" class=\"editInPlace\">$impor | </span>");
 echo ("<span id=\"estado\" class=\"editInPlace\">$state | </span>");
 echo "Última modificación por <b>".$out[author]."</b> el ".date("j \d\e M \d\e Y, \a \l\a\s G:i",strtotime ($out['date']))."</p>\n";
-echo "\t<div id=\"text\" class=\"editInPlace\">".$out['text']."</div>\n";
-//Quizás este HEREDOC se puede sacar a un include. Igual todo el bloque de html.
-//Las rutas en este snippet deberían ser relativas o cambaidas mediante la variable $root
+echo "\t<div id=\"text\" class=\"editInPlace\">".get_html($out['text'])."</div>\n";
+//Quizás este HEREDOC se puede sacar a un include.
 echo <<<SCRIPTS
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -74,17 +73,18 @@ echo <<<SCRIPTS
 		$('posttitle').insert({ after: thing });
 		}
 
-	new Ajax.InPlaceEditor('posttitle', '/hq/pannel/', { okText:'Guardar',cancelText:'Cancelar', clickToEditText:'Doble-click para editar',
+	new Ajax.InPlaceEditor('posttitle', '$root', { okText:'Guardar',cancelText:'Cancelar', clickToEditText:'Doble-click para editar',
 		callback: function(form, value) {return 'post_id=$post_id&text=$safe_text&state=$out[state]&imp=$out[prioridad]&title=' + encodeURIComponent(value);warning_url(value)},
 		onComplete: function(value,element) {warning_url(value);new Effect.Highlight(element, {startcolor: this.options.highlightColor})}}) 
 
-	new Ajax.InPlaceCollectionEditor( 'prioridad', '/hq/pannel/', { okText:'Guardar',cancelText:'Cancelar',
+	new Ajax.InPlaceCollectionEditor( 'prioridad', '$root', { okText:'Guardar',cancelText:'Cancelar',
 		clickToEditText:'Doble-click para editar', collection: [['1','Importante'], ['0','Normal']], callback: function(form, value) {return 'id=$out[id]&value='+value}});
 	
-	new Ajax.InPlaceCollectionEditor( 'estado', '/hq/pannel/', { okText:'Guardar',cancelText:'Cancelar',
+	new Ajax.InPlaceCollectionEditor( 'estado', '$root', { okText:'Guardar',cancelText:'Cancelar',
 		clickToEditText:'Doble-click para editar', collection: [['','-- (quitar marca)'], ['P','Planteada'], ['E', 'En curso'], ['X', 'Estancada'], ['F', 'Esperando feedback'], ['C', 'Cancelada'], ['H', 'Hibernando']], callback: function(form, value) {return 'id=$out[id]&value='+value}});
 
-	new Ajax.InPlaceEditor('text', '/hq/pannel/', {rows:10,cols:40,okText:'Guardar',cancelText:'Cancelar',clickToEditText:'Doble-click para editar',
+	new Ajax.InPlaceEditor('text', '$root', {rows:10,cols:40,okText:'Guardar',cancelText:'Cancelar',clickToEditText:'Doble-click para editar',
+		loadTextURL:'{$root}?markdown=1&id={$out[id]}',
 		callback: function(form, value) {return 'post_id=$post_id&state=$out[state]&imp=$out[prioridad]&title=$safe_title&text='+ encodeURIComponent(value)},
 		onEnterEditMode: function(form, value) { Effect.SlideDown('markdown');},
 		onLeaveEditMode: function(form, value) { Effect.SlideUp('markdown'); }})

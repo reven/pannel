@@ -12,10 +12,9 @@ Reven
 
 /*Initialize*/
 $root = "/hq/pannel/";
-include ("engine/controller.php");
-include ("engine/auth.php"); //Pendiente de implementar. De momento usamos este hack:
-
-include ("engine/textinterpreter.php");
+include_once ("engine/controller.php");
+include_once ("engine/auth.php");
+include_once ("engine/textinterpreter.php");
 
 
 /*Flujo */
