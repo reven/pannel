@@ -1,7 +1,9 @@
 <?php
 /*Este archivo recibe los cambios y se ocuparía de guardar a base de datos*/
 
-$debug.=("post.php está incluido");
+if ($debug_vis == TRUE) {
+  $debug.=("post.php está incluido");
+}
 $c = connect();
 mysql_set_charset('utf8',$c);
 //Checkeamos vars. Usamos las seguras para meter a BdD, pero las inseguras para pantalla, para evitar barras (\).
@@ -19,7 +21,7 @@ if ($_POST['editorId']=="text") {
 	$query .= $_SESSION['nombre']."', '";
 	$query .= $text."', NOW(), '";
 	if ($_POST['imp']==1){$query .= "1', '";}else{$query .= "0', '";}
-	$query .= $state."');";	
+	$query .= $state."');";
 
 	$result = query($query,$c);
 	if (!$result) {
@@ -29,7 +31,7 @@ if ($_POST['editorId']=="text") {
 	}else{
 		echo ("<p class\"error\">Lo siento, el texto no se ha guardado</p>");
 	}
-	
+
 
 //cambiar el *título* de una entrada
 }elseif ($_POST['editorId']=="posttitle"){
@@ -39,7 +41,7 @@ if ($_POST['editorId']=="text") {
 	$query .= $_SESSION['nombre']."', '";
 	$query .= $text."', NOW(), '";
 	if ($_POST['importante']==1){$query .= "1', '";}else{$query .= "0', '";}
-	$query .= $state."');";	
+	$query .= $state."');";
 
 	$result = query($query,$c);
 	if (!$result) {
@@ -49,7 +51,7 @@ if ($_POST['editorId']=="text") {
 	}else{
 		echo ("<p class=\"error\">Lo siento, el texto no se ha guardado</p>");
 	}
-	
+
 
 /*formulario página nueva*/
 }elseif ($_POST['check']=="newpost"){
@@ -65,7 +67,7 @@ if ($_POST['editorId']=="text") {
 	$query .= $text."', NOW(), '";
 	if ($_POST['importante']==1){$query .= "1', '";}else{$query .= "0', '";}
 	$query .= $state."');";
-	
+
 	$result = query($query,$c);
 	if (!$result) {
 	    die('Could not query:' . mysql_error());
@@ -94,7 +96,7 @@ if ($_POST['editorId']=="text") {
 	$stat_flag = $_POST['value'];
 	if ($stat_flag!=""){ $state="Marcada como <span class=\"$stat_flag\">$status[$stat_flag]</span> | ";}else{$state="Marcar estado | ";}
 	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `state` = '$_POST[value]', `date`= NOW() WHERE `id` = $_POST[id]";
-	
+
 	$result = query($query,$c);
 	if (!$result) {
 	    die('<p class="error">Could not query:' . mysql_error()."<br />Intenta volver atrás.</p>");
@@ -110,7 +112,7 @@ if ($_POST['editorId']=="text") {
 }elseif ($_POST['editorId']=="prioridad"){//Verificar valor de $_POST[value] y $_POST[id] antes de introducirlos?
 	if ($_POST['value']==1) {$impor="<span style=\"color:#f00;\">✔</span> <b>Importante</b> | ";}elseif($_POST['value']==0){$impor="Marcar prioridad | ";}
 	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `prioridad` =  '$_POST[value]', `date` = NOW() WHERE `id` = $_POST[id]";
-	
+
 	$result = query($query,$c);
 	if (!$result) {
 	    /*die*/ echo('<p class="error">Could not query:' . mysql_error()."<br />Intenta volver atrás.</p>");
@@ -122,13 +124,12 @@ if ($_POST['editorId']=="text") {
 
 }
 
-close($c);	
+close($c);
 
-/*debug* /
-echo ("<pre>");
-echo $query;
-print_r ($_POST); 
-echo ("</pre>");
+//debug
+if ($debug_vis == TRUE && $debug_level == 2) {
+	$debug.="<pre>\n $query " . print_r ($_POST) . "\n</pre>\n";
+}
 /**/
 
 exit;

@@ -63,8 +63,11 @@ if (isset($_GET['search'])){
 
 
 close($c);
-/*echo ("<pre>");
-print_r ($_GET); 
-echo ("</pre>");*/
+
+//debug
+if ($debug_vis == TRUE && $debug_level == 2) {
+	$debug.="<pre>\n" . print_r ($_GET) . "\n</pre>\n";
+
+
 exit;
 ?>

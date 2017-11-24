@@ -8,8 +8,8 @@ session_start();
 if(isset($_SESSION['nombre'])){
 	//usuario está registrado
 	// Devolvemos control a index.php
-	
-	
+
+
 }elseif (!isset($_SESSION['nombre']) && isset($_POST['usuario']) && isset($_POST['pass'])){
 	//No está la sesión y hemos recibido el formulario via POST
 	$c = connect();
@@ -23,10 +23,10 @@ if(isset($_SESSION['nombre'])){
 	$query="SELECT * FROM users WHERE login='$usuario' and password='$crypt_pass'";
 	$result = query($query,$c);
 
-/*debug* /
-echo "<p>Comprobando nombre</p>";
-echo "<ul><li><b>Usuario:</b> $usuario</li><li><b>Pass:</b> $pass</li><li><b>MD5:</b> $crypt_pass</li></ul>";
-/*fin debug*/
+  //debug
+	$debug.="\n<p>Comprobando nombre</p>\n
+					<ul><li><b>Usuario:</b> $usuario</li><li><b>Pass:</b> $pass</li><li><b>MD5:</b> $crypt_pass</li></ul>";
+	//fin debug
 
 	// Contar filas
 	if (mysql_num_rows($result)==1){
@@ -39,8 +39,8 @@ echo "<ul><li><b>Usuario:</b> $usuario</li><li><b>Pass:</b> $pass</li><li><b>MD5
 		show_form();
 		exit;
 	}
-	
-	
+
+
 }else{
 	//el usuario NO está registrado.
 	//recrear formulario login y cerrar
@@ -56,7 +56,7 @@ function show_form(){
 	<div style="text-align: center;">
 		<h2>Autentificación</h2>
 		<?php echo $loginerror; ?>
-	
+
 		<p>Porfavor, introduce tu nombre de usuario y tu contraseña</p>
 		<form id="login" class="form" method="post" action="<?php echo $root; ?>">
 			<table class="login">

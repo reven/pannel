@@ -1,5 +1,5 @@
 <?php
-//new.php es sólo la plantilla del formulario. postte.php es el que se encarga de meter campos
+//new.php es sólo la plantilla del formulario. post.php es el que se encarga de meter campos
 
 ?>
 
@@ -21,7 +21,7 @@
 				<b>"</b>enlace<b>":</b>http://www.nuuve.com → enlace<br />
 				<b>!</b>http://www.nuuve.com/logo.gif<b>!</b> → imagen<br /><br />
 				Puedes anidar listas y bloques de texto indentado. <a href="<?php echo $root; ?>help/#formato">(+ info)</a>
-				
+
 				</div></div>
 		</div>
 		<textarea rows="10" cols="40" name="text" class="editor_field"></textarea></p>

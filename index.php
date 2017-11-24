@@ -1,13 +1,13 @@
 <?php
-/*  
+/*
  Nuuve
-Pannel      
+Pannel
 
 0.4.7 beta
 Reven
 24-Feb-2010
 
-/*  DEBUG  ####IMPORTANTE: Para produccion quitar llamdas a debug */
+/*  DEBUG  ####IMPORTANTE: Para produccion quitar llamdas a debug, o limpiar todas las llamadas para que acaben en la misma variable */
 
 
 /*Initialize*/
@@ -15,6 +15,8 @@ $root = "/hq/pannel/";
 include_once ("engine/controller.php");
 include_once ("engine/auth.php");
 include_once ("engine/textinterpreter.php");
+$debug_vis = FALSE;   // Cambiar a TRUE para obtener debug info
+$debug_level = 1;			// 1 = Normal; 2 = Mostrar variables
 
 
 /*Flujo */
@@ -28,16 +30,17 @@ $uri = preg_replace("/\/hq\/pannel\/(.*)/i","$1",$_SERVER['REQUEST_URI']); // te
 $terms = explode ("/",$uri);
 $page_link = $root.$terms[0]."/"; //Usar esta preferentemente en lugar de $uri.
 
-$debug="<div onclick=\"\$(this).switchOff()\" id=\"debug\" class=\"debug\"><p style=\"color:#f00;\"><b>haz click para esconder</b></p><pre>DEBUG:\nuri: $uri \n";
-$debug.="Enlace a página: $page_link\n"; 
-$debug.=print_r ($terms, TRUE);
-$debug.="SESION: ".session_id();
-$debug.="\nNombre: $_SESSION[nombre]\n";
-$debug.=print_r ($_SESSION, TRUE);
-$debug.="REFERER: ".$_SERVER['HTTP_REFERER'];
-$debug.="\n</pre>";
+if ($debug_vis == TRUE) {
+	$debug="<div onclick=\"\$(this).switchOff()\" id=\"debug\" class=\"debug\"><p style=\"color:#f00;\"><b>haz click para esconder</b></p><pre>DEBUG:\nuri: $uri \n";
+	$debug.="Enlace a página: $page_link\n";
+	$debug.=print_r ($terms, TRUE);
+	$debug.="SESION: ".session_id();
+	$debug.="\nNombre: $_SESSION[nombre]\n";
+	$debug.=print_r ($_SESSION, TRUE);
+	$debug.="REFERER: ".$_SERVER['HTTP_REFERER'];
+	$debug.="\n</pre>";
 /* fin debug */
-
+}
 draw_page($terms[0]);
 
 
@@ -55,7 +58,9 @@ function draw_page($page){
 	include ("template/header.php");
 	do_content($page);
 	include ("template/footer.php");
-	// debug_out();
+	if ($debug_vis = TRUE) {
+		debug_out();
+	}
 }
 
 /*

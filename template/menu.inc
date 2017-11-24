@@ -10,8 +10,10 @@ $menu=<<<HERE
 
 HERE;
 
-$base=basename($_SERVER['REQUEST_URI']); 
-//echo ("<p class=\"debug\">BASE: $base<br />ROOT: $root</p>");
+$base=basename($_SERVER['REQUEST_URI']);
+if ($debug_vis == TRUE) {
+  echo ("<p class=\"debug\">BASE: $base<br />ROOT: $root</p>");
+}
 $menu=preg_replace("|<li><a href=\"/hq/.*".$base."/\">(.*)</a></li>|U", "<li class=\"iscurrent\">$1</li>", $menu);
 echo $menu;
 ?>
