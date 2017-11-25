@@ -2,16 +2,19 @@
 /*Este archivo recibe consultas y no escribe en la base de datos.
 En un mundo ideal, las consultas estarían cacheadas */
 
-$debug.=("get.php está incluido");
+if (DEBUG_VIS == 1) {
+	debug_add("get.php está incluido");
+}
+
 $c = connect();
-mysql_set_charset('utf8',$c);
+$c->set_charset('utf8');
 
 
 //Formulario de búsqueda.
 if (isset($_GET['search'])){
 	if ($_GET['completa']==1) {
 		echo ("<p>Buscando entradas por: <b>$_GET[search]</b> </p>");
-		$query ="SELECT * FROM (SELECT * FROM `posts` WHERE MATCH (`text`,`title`) AGAINST (\"%$_GET[search]%\" IN BOOLEAN MODE) ORDER BY `id` DESC) AS tmp GROUP BY `post_id`";
+		$query ="SELECT * FROM (SELECT * FROM `posts` WHERE MATCH (`text`,`title`) AGAINST (\"%$_GET[search]%\" IN BOOLEAN MODE) ORDER BY `post_id` DESC) AS tmp GROUP BY `post_id`";
 		$result = query($query,$c);
 		if (mysql_num_rows($result)==0){
 			echo ("<p class=\"error\">Lo siento, pero no se han encontrado páginas que contengan \"<b>$_GET[search]\"</b>.</p>");
@@ -19,20 +22,20 @@ if (isset($_GET['search'])){
 		}
 		echo "\n\t\t\t<table><tbody>\n\t\t\t\t<tr><th>Título</th><th>último autor</th><th>última revisión</th><th>revisiones</th><th>prioridad</th></tr>\n";
 		while ($out = fetch_array($result)){
-			echo "\t\t\t\t\t<tr><td><a href=\"$root".$out['title']."/\">".$out['title']."</a></td><td>".$out['author'];
+			echo "\t\t\t\t\t<tr><td><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a></td><td>".$out['author'];
 			echo "</td><td><span class=\"meta\">".date("j M Y, G:i",strtotime ($out['date']));
 			echo "</span></td><td>";
 			$query = "SELECT COUNT(*) AS NumberOf FROM posts WHERE post_id=$out[post_id]";
 			$result2 = query($query,$c);
 			$out2 = fetch_array($result2);
-			echo ("<a href=\"$root$out[title]/versions/\">".$out2[0]."</a>");
+			echo ("<a href=\"".ROOT."$out[title]/versions/\">".$out2[0]."</a>");
 			echo ("</td><td class=\"c\">");
 			if ($out['prioridad']==1) {echo ("<span style=\"color:#f00;\">✔</span>");}else{echo ("<span class=\"meta\">--</span>");}
 			echo ("</td></tr>\n");
 		}
 	}else{
 		echo ("<p>Resultados de búsqueda: <b>$_GET[search]</b>:</p>");
-		$query ="SELECT * FROM (SELECT * FROM `posts` WHERE `title` LIKE '%$_GET[search]%' ORDER BY `id` DESC) AS tmp GROUP BY `post_id`";
+		$query ="SELECT * FROM (SELECT * FROM `posts` WHERE `title` LIKE '%$_GET[search]%' ORDER BY `post_id` DESC) AS tmp GROUP BY `post_id`";
 		// Esta búsqueda puede ser ineficiente. Puesto que title también está indexado, puede ser mejor usar MATCH() AGAINST.
 		$result = query($query,$c);
 		if (mysql_num_rows($result)==0){
@@ -41,20 +44,20 @@ if (isset($_GET['search'])){
 		}
 		echo "\n\t\t\t<table><tbody>\n\t\t\t\t<tr><th>Título</th><th>último autor</th><th>última revisión</th><th>revisiones</th><th>prioridad</th></tr>\n";
 		while ($out = fetch_array($result)){
-			echo "\t\t\t\t\t<tr><td><a href=\"$root".$out['title']."/\">".$out['title']."</a></td><td>".$out['author'];
+			echo "\t\t\t\t\t<tr><td><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a></td><td>".$out['author'];
 			echo "</td><td><span class=\"meta\">".date("j M Y, G:i",strtotime ($out['date']));
 			echo "</span></td><td>";
 			$query = "SELECT COUNT(*) AS NumberOf FROM posts WHERE post_id=$out[post_id]";
 			$result2 = query($query,$c);
 			$out2 = fetch_array($result2);
-			echo ("<a href=\"$root$out[title]/versions/\">".$out2[0]."</a>");
+			echo ("<a href=\"".ROOT."$out[title]/versions/\">".$out2[0]."</a>");
 			echo ("</td><td class=\"c\">");
 			if ($out['prioridad']==1) {echo ("<span style=\"color:#f00;\">✔</span>");}else{echo ("<span class=\"meta\">--</span>");}
 			echo ("</td></tr>\n");
 		}
 	}
 }elseif (isset($_GET['markdown'])){
-	$query="SELECT `text` FROM `posts` WHERE `id`=$_GET[id]";
+	$query="SELECT `text` FROM `posts` WHERE `post_id`=$_GET[id]";
 	$out = fetch_array(query($query,$c));
 	echo $out['text'];
 }
@@ -65,9 +68,8 @@ if (isset($_GET['search'])){
 close($c);
 
 //debug
-if ($debug_vis == TRUE && $debug_level == 2) {
-	$debug.="<pre>\n" . print_r ($_GET) . "\n</pre>\n";
-
-
+if (DEBUG_VIS == 1 && DEBUG_LVL == 2) {
+	debug_add ("<pre>\n" . print_r ($_GET) . "\n</pre>\n");
+}
 exit;
 ?>

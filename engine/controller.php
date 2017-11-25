@@ -5,8 +5,11 @@ require "config.php";
 function connect(){
     global $db;
 
-    $c = mysql_connect($db['host'], $db['user'], $db['password']) or die ("Error connecting to database."); ;
-    mysql_select_db($db['db'], $c) or die ("Couldn't select the database."); 
+    $c = new mysqli($db['host'], $db['user'], $db['password'], $db['db']);
+    if ($c->connect_errno) {
+      echo "Error al conectar con base de datos: " . $c->connect_error;
+      die;
+    }
     return $c;
 }
 
@@ -17,12 +20,12 @@ function close($c){
 
 /** Send a query */
 function query($query, $c){
-	$result = mysql_query($query, $c);
+	$result = $c->query($query) or trigger_error($c->error."[$query]");
 	return ($result);
 }
 
 /** Returns and associative array filled with the data from the connection */
 function fetch_array($d){
-    return mysql_fetch_array($d);
+    return $d->fetch_assoc();
 }
 ?>

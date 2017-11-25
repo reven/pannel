@@ -17,7 +17,7 @@ img{border: 0;}
 #header ul {padding:0;}
 #header li {display: inline; padding: 0 10px;}
 .iscurrent {background: #fbfbfb; cursor:default;}
-h1 {text-indent: -9000px; background: url(/images/pannel_beta.png) no-repeat center top; line-height: 2em;width:6em;margin:0;}
+h1 {text-indent: -9000px; background: url(/pannel/images/pannel_beta.png) no-repeat center top; line-height: 2em;width:6em;margin:0;}
 h2{color: #166baf;text-transform: lowercase; font-size: 1.5em; margin: 1em 0 0 0;}
 h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em 0;}
 #nav {border-bottom: 1px solid #166baf;}
@@ -62,7 +62,7 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 #posttitle-inplaceeditor{
 	margin-top:2em;
 }
-.inplaceeditor-saving { background: url(/images/loader.gif) bottom right no-repeat; }
+.inplaceeditor-saving { background: url(/pannel/images/loader.gif) bottom right no-repeat; }
 
 .editor_cancel_link{
 	padding:1em;
@@ -165,11 +165,3 @@ text-align:center;
 .F{background-color: #f70; color:#000;}
 .C{background-color: #f00; color:#000;}
 .H{background-color: #ccc; color:#000;}
-
-/*Quitar de final*/
-.debug {
-	padding:1em;
-	border: 1px solid #f00;
-	background-color: #f99;
-	text-align: left;
-}

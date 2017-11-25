@@ -1,11 +1,12 @@
 <?php
 /*Este archivo recibe los cambios y se ocuparía de guardar a base de datos*/
 
-if ($debug_vis == TRUE) {
-  $debug.=("post.php está incluido");
+if (DEBUG_VIS == 1) {
+  debug_add("***post.php está incluido\n");
 }
 $c = connect();
-mysql_set_charset('utf8',$c);
+$c->set_charset('utf8');
+
 //Checkeamos vars. Usamos las seguras para meter a BdD, pero las inseguras para pantalla, para evitar barras (\).
 $text = mysql_real_escape_string($_POST['text']);
 $title = mysql_real_escape_string($_POST['title']);
@@ -127,8 +128,8 @@ if ($_POST['editorId']=="text") {
 close($c);
 
 //debug
-if ($debug_vis == TRUE && $debug_level == 2) {
-	$debug.="<pre>\n $query " . print_r ($_POST) . "\n</pre>\n";
+if (DEBUG_VIS == 1 && DEBUG_LVL == 2) {
+  debug_add("<pre>\n $query " . print_r ($_POST) . "\n</pre>\n");
 }
 /**/
 

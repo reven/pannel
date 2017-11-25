@@ -7,10 +7,10 @@ if (isset($_SESSION['title_del'])) {
 	<div class="columnl">
 	<h2>Entradas con actividad reciente</h2>
 	<ul>
-	
+
 <?php
 $c = connect();
-mysql_set_charset('utf8',$c);
+$c->set_charset('utf8');
 //ni siquiera sé cómo funciona esta query!!!!!
 $query ="SELECT * FROM posts INNER JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) ids ON posts.id = ids.id ORDER BY date DESC LIMIT 5";
 $result = query($query,$c);

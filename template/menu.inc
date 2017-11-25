@@ -1,19 +1,17 @@
 <?php
 
-$menu=<<<HERE
+$menu="
 		<ul>
-		<li><a href="$root">inicio</a></li>
-		<li><a href="{$root}nueva/">nueva entrada</a></li>
-		<li><a href="{$root}index/">índice</a></li>
-		<li><a href="{$root}help/">ayuda</a></li>
-		</ul>
-
-HERE;
+		<li><a href=\"".ROOT."\">inicio</a></li>
+		<li><a href=\"".ROOT."nueva/\">nueva entrada</a></li>
+		<li><a href=\"".ROOT."index/\">índice</a></li>
+		<li><a href=\"".ROOT."help/\">ayuda</a></li>
+		</ul>";
 
 $base=basename($_SERVER['REQUEST_URI']);
-if ($debug_vis == TRUE) {
-  echo ("<p class=\"debug\">BASE: $base<br />ROOT: $root</p>");
+if (DEBUG_VIS == 1) {
+  debug_add ("***menu.inc***\nBASE: $base\nROOT: ".ROOT."\n");
 }
-$menu=preg_replace("|<li><a href=\"/hq/.*".$base."/\">(.*)</a></li>|U", "<li class=\"iscurrent\">$1</li>", $menu);
+$menu=preg_replace("|<li><a href=\"/.*".$base."/\">(.*)</a></li>|U", "<li class=\"iscurrent\">$1</li>", $menu);
 echo $menu;
 ?>

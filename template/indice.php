@@ -1,4 +1,4 @@
-<?php 
+<?php
 //Nuuve Pannel
 // Esta página es indice.php, alias "index"
 
@@ -21,9 +21,9 @@ Obtener el numero de revisiones seguro que se puede hacer con querys anidadas, p
 <?php
 /* Lista de todas las entradas */
 $c = connect();
-mysql_set_charset('utf8',$c);
+$c->set_charset('utf8');
 // Esta query no tiene límite, pero igual se le puede añadir un límite de 50 y un enlace a buscar las siguientes 50, y que se actualice de forma dinámica
-$query ="SELECT * FROM posts INNER JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) ids ON posts.id = ids.id ORDER BY title ASC";
+$query ="SELECT * FROM posts INNER JOIN (SELECT MAX( post_id ) AS post_id FROM posts GROUP BY post_id ) ids ON posts_id = ids.id ORDER BY title ASC";
 $result = query($query,$c);
 while ($out = fetch_array($result)){
 echo "\t\t\t\t\t<tr><td><a href=\"$root".$out['title']."/\">".$out['title']."</a></td><td>".$out['author'];

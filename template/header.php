@@ -3,18 +3,21 @@
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Nuuve Pannel</title>
 
-	<script src="/hq/pannel/js/prototype.js" type="text/javascript"></script>
-	<script src="/hq/pannel/js/scriptaculous.js" type="text/javascript"></script>
-	<script src="/hq/pannel/js/extend.js" type="text/javascript"></script> 
+	<script src="<?php echo ROOT ?>js/prototype.js" type="text/javascript"></script>
+	<script src="<?php echo ROOT ?>js/scriptaculous.js" type="text/javascript"></script>
+	<script src="<?php echo ROOT ?>js/extend.js" type="text/javascript"></script>
 
-	<link rel="stylesheet" type="text/css" media="screen,print" href="/hq/pannel/css/pannel.css" />
-<?php //<link rel="stylesheet" type="text/css" media="screen,print" href="/hq/pannel/css/debug.css" /> ?>
+	<link rel="stylesheet" type="text/css" media="screen,print" href="<?php echo ROOT ?>css/pannel.css" />
+<?php
+if (DEBUG_VIS == 1){
+	echo '<link rel="stylesheet" type="text/css" media="screen,print" href="'.ROOT.'css/debug.css" />';
+} ?>
 
 </head>
 <body>
 	<div id="header">
-		<?php if (isset($_SESSION['nombre'])) {echo "<div class=\"loggedin meta\"><p>$_SESSION[nombre] (<a href=\"{$root}logout.php/\">cerrar sessión</a>)</p></div>"; }?>
-			<div class="dashboard meta"><p><a href="/hq/">↺ volver al Dashboard</a></p></div>
+		<?php if (isset($_SESSION['nombre'])) {echo "<div class=\"loggedin meta\"><p>$_SESSION[nombre] (<a href=\"".ROOT."logout.php/\">cerrar sessión</a>)</p></div>"; }?>
+			<div class="dashboard meta"><p><a href="/">↺ volver al Dashboard</a></p></div>
 		<div id="nav">
 
 <?php

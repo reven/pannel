@@ -1,0 +1,14 @@
+/* CSS para pannel */
+/* debug styles and classes */
+
+.debug {
+	padding:1em;
+	border: 1px solid #f00;
+	background-color: #f99;
+	text-align: left;
+}
+
+.debug_title {
+  color:#f00;
+  font-size: 0.7em;
+}
