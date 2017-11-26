@@ -26,13 +26,13 @@ $c->set_charset('utf8');
 $query ="SELECT * FROM posts INNER JOIN (SELECT MAX( post_id ) AS post_id FROM posts GROUP BY post_id ) ids ON posts_id = ids.id ORDER BY title ASC";
 $result = query($query,$c);
 while ($out = fetch_array($result)){
-echo "\t\t\t\t\t<tr><td><a href=\"$root".$out['title']."/\">".$out['title']."</a></td><td>".$out['author'];
+echo "\t\t\t\t\t<tr><td><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a></td><td>".$out['author'];
 echo "</td><td><span class=\"meta\">".date("j M Y, G:i",strtotime ($out['date']));
 echo "</span></td><td class=\"c\">";
 $query = "SELECT COUNT(*) AS NumberOf FROM posts WHERE post_id=$out[post_id]";
 $result2 = query($query,$c);
 $out2 = fetch_array($result2);
-echo ("<a href=\"$root$out[title]/versions/\">".$out2[0]."</a>");
+echo ("<a href=\"".ROOT.$out[title]."/versions/\">".$out2[0]."</a>");
 echo ("</td><td class=\"c\">");
 if ($out['prioridad']==1) {echo ("<span style=\"color:#f00;\">✔</span>");}else{echo ("<span class=\"meta\">--</span>");}
 echo ("</td></tr>\n");
@@ -42,4 +42,4 @@ close($c);
 			</tbody></table>
 		</div>
 	</div>
-	<script src="<?php echo $root; ?>js/search.js" type="text/javascript"></script>
+	<script src="<?php echo ROOT ?>js/search.js" type="text/javascript"></script>

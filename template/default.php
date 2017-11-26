@@ -9,19 +9,20 @@ if (isset($_SESSION['title_del'])) {
 	<ul>
 
 <?php
+// Por defecto queremos mostrar las ultimas entradas. Seleccionar las entradas mas
 $c = connect();
 $c->set_charset('utf8');
 //ni siquiera sé cómo funciona esta query!!!!!
-$query ="SELECT * FROM posts INNER JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) ids ON posts.id = ids.id ORDER BY date DESC LIMIT 5";
+$query ="SELECT * FROM posts INNER JOIN (SELECT MAX( post_id ) AS post_id FROM posts GROUP BY post_id ) ids ON posts.post_id = ids.id ORDER BY date DESC LIMIT 5";
 $result = query($query,$c);
 while ($out = fetch_array($result)){
-echo "\t<li><a href=\"$root".$out['title']."/\">".$out['title']."</a> por ".$out['author'];
+echo "\t<li><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a> por ".$out['author'];
 echo " <span class=\"meta\">".date("j \d\e M \d\e Y, \a \l\a\s G:i",strtotime ($out['date']));
 echo "</span></li>\n";
 }
 ?>
 	</ul>
-	<p class="meta">No encuentras lo que buscas? Prueba el <a href="<?php echo $root; ?>index/">índice</a></p>
+	<p class="meta">No encuentras lo que buscas? Prueba el <a href="<?php echo ROOT; ?>index/">índice</a></p>
 	<h2>Importante</h2>
 <?php
 $query ="SELECT * FROM posts INNER JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) ids ON posts.id = ids.id WHERE prioridad = 1 ORDER BY date DESC LIMIT 5";
@@ -31,7 +32,7 @@ if (mysql_num_rows($result)==0){
 }else{
 	echo "\t<ul>\n";
 	while ($out = fetch_array($result)){
-		echo "\t<li><a href=\"$root".$out['title']."/\">".$out['title']."</a> por ".$out['author'];
+		echo "\t<li><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a> por ".$out['author'];
 		echo " <span class=\"meta\">".date("j \d\e M \d\e Y, \a \l\a\s G:i",strtotime ($out['date']));
 		echo "</span></li>\n";
 	}
@@ -46,7 +47,7 @@ if (mysql_num_rows($result)==0){
 }else{
 	echo "\t<ul>\n";
 	while ($out = fetch_array($result)){
-		echo "\t<li><a href=\"$root".$out['title']."/\">".$out['title']."</a> por ".$out['author'];
+		echo "\t<li><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a> por ".$out['author'];
 		echo " <span class=\"meta\">".date("j \d\e M \d\e Y, \a \l\a\s G:i",strtotime ($out['date']));
 		echo "</span></li>\n";
 	}

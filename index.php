@@ -9,17 +9,18 @@ Reven
 
 /*SETUP*/
 /*Initialize constants*/
-define ('ROOT', "/pannel/");    // user definable, relative to server root. Deberíamos cargar esto de la localización del script.
+define ('ROOT', preg_replace ("/(.*)index.php/i","$1", $_SERVER['SCRIPT_NAME']));    // Base url relative to server root.
+define ('ORIGIN', url_origin( $_SERVER )); // Server info below the ROOT
+
 define ('DEBUG_VIS', TRUE);     // TRUE/FALSE Cambiar a TRUE para obtener debug info
 define ('DEBUG_LVL', "2");			// 1 = Normal; 2 = Mostrar variables
 if (DEBUG_VIS == 1) {
-	$debug="";
-	debug_init();
+	$debug =	debug_init();
 }
 
 /* kickstart loop */
 include_once ("engine/controller.php");
-//include_once ("engine/auth.php");
+include_once ("engine/auth.php");
 include_once ("engine/textinterpreter.php");
 
 
@@ -30,13 +31,14 @@ if ($_POST) {
 	require ("engine/get.php");
 }
 
-$uri = preg_replace("/\/pannel\/(.*)/i","$1",$_SERVER['REQUEST_URI']); // testar esta uri por si hay inyección de código? ################ No sé por qué hice esto. Y no es portable a otros directorios. No usa la config de ruta (ROOT)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-$terms = explode ("/",$uri);
+// Obtener la URI y extrapolar los términos de la petición
+$uri = explode (ROOT,$_SERVER['REQUEST_URI']);
+$terms = explode ("/",$uri[1]);
 $page_link = ROOT.$terms[0]."/"; //Usar esta preferentemente en lugar de $uri.
 
 // Recogida de info de debug
 if (DEBUG_VIS == 1) { // No se si las declaracions de abajo funcionaran.
-	debug_add ("uri: $uri \n");
+	debug_add ("uri: " . print_r ($uri, TRUE) . "\n");
 	debug_add ("Enlace a página: $page_link\n");
 	debug_add ("matriz \$terms de url: " .print_r ($terms, TRUE));
 	debug_add ("SESION: ".session_id());
@@ -59,7 +61,6 @@ Recupera la cabecera, llama a do_content() para el
 contenido y recupera el footer.
 */
 function draw_page($page){
-	global $terms;
 	include ("template/header.php");
 	do_content($page);
 	include ("template/footer.php");
@@ -70,7 +71,6 @@ do_content()
 Determina qué plantilla usar.
 */
 function do_content($page){ //Esta función que elije las plantillas es mejorable...
-	global $page_link, $terms;
 	if ($page==""){
 		include ("template/default.php");
 	}elseif ($page=="index"){
@@ -90,8 +90,7 @@ debug_init()
 Inicializa la salida de debug
 */
 function debug_init(){
-	global $debug;
-	$debug="<div onclick=\"\$(this).switchOff()\" id=\"debug\" class=\"debug\"><p class=\"debug_title\"><b>⍙ haz click para esconder</b></p><pre>DEBUG:\n";
+	return ("<div onclick=\"\$(this).switchOff()\" id=\"debug\" class=\"debug\"><p class=\"debug_title\"><b>⍙ haz click para esconder</b></p><pre>DEBUG:\n");
 }
 
 
@@ -114,6 +113,21 @@ function debug_out(){
 	//debug out
 	$debug .= "\n</pre></div>";
 	echo $debug;
+}
+
+/*
+url_origin()
+Devuelve el origen del script, añadiendo protocolo y puerto si necesario.
+*/
+function url_origin($s, $use_forwarded_host=FALSE){
+    $ssl      = ( ! empty( $s['HTTPS'] ) && $s['HTTPS'] == 'on' );
+    $sp       = strtolower( $s['SERVER_PROTOCOL'] );
+    $protocol = substr( $sp, 0, strpos( $sp, '/' ) ) . ( ( $ssl ) ? 's' : '' );
+    $port     = $s['SERVER_PORT'];
+    $port     = ( ( ! $ssl && $port=='80' ) || ( $ssl && $port=='443' ) ) ? '' : ':'.$port;
+    $host     = ( $use_forwarded_host && isset( $s['HTTP_X_FORWARDED_HOST'] ) ) ? $s['HTTP_X_FORWARDED_HOST'] : ( isset( $s['HTTP_HOST'] ) ? $s['HTTP_HOST'] : null );
+    $host     = isset( $host ) ? $host : $s['SERVER_NAME'] . $port;
+    return $protocol . '://' . $host;
 }
 
 

@@ -16,7 +16,7 @@ if (DEBUG_VIS == 1){
 </head>
 <body>
 	<div id="header">
-		<?php if (isset($_SESSION['nombre'])) {echo "<div class=\"loggedin meta\"><p>$_SESSION[nombre] (<a href=\"".ROOT."logout.php/\">cerrar sessión</a>)</p></div>"; }?>
+		<?php if (isset($_SESSION['nombre'])) {echo "<div class=\"loggedin meta\"><p>$_SESSION[nombre] (<a href=\"".ROOT."logout.php\">cerrar sessión</a>)</p></div>"; }?>
 			<div class="dashboard meta"><p><a href="/">↺ volver al Dashboard</a></p></div>
 		<div id="nav">
 

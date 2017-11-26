@@ -5,8 +5,24 @@ Hay que arreglarlo o incluirlo en flujo.
 
 */
 
+// check where we have to return to
+define ('ORIGIN', url_origin( $_SERVER ));
+define ('ROOT', preg_replace ("/(.*)\/logout\.php(.*)/i","$1", $_SERVER[REQUEST_URI] ) . "/");
+
 session_start();
 $_SESSION = array();
 session_destroy();
-header("Location: http://www.nuuve.com/hq/pannel/");
+header("Location: " . ORIGIN . ROOT);
+
+// obtiene origne cualificado para una redirección
+function url_origin($s, $use_forwarded_host=FALSE){
+    $ssl      = ( ! empty( $s['HTTPS'] ) && $s['HTTPS'] == 'on' );
+    $sp       = strtolower( $s['SERVER_PROTOCOL'] );
+    $protocol = substr( $sp, 0, strpos( $sp, '/' ) ) . ( ( $ssl ) ? 's' : '' );
+    $port     = $s['SERVER_PORT'];
+    $port     = ( ( ! $ssl && $port=='80' ) || ( $ssl && $port=='443' ) ) ? '' : ':'.$port;
+    $host     = ( $use_forwarded_host && isset( $s['HTTP_X_FORWARDED_HOST'] ) ) ? $s['HTTP_X_FORWARDED_HOST'] : ( isset( $s['HTTP_HOST'] ) ? $s['HTTP_HOST'] : null );
+    $host     = isset( $host ) ? $host : $s['SERVER_NAME'] . $port;
+    return $protocol . '://' . $host;
+}
 ?>

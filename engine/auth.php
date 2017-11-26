@@ -3,7 +3,7 @@
 
 Esto es sólo un primer de cómo tendría que funcionar, aunque supongo que se puede reciclar el módulo auth de alguna otra app.
 
-TO DO: Este módulo no debería exponerse dando salida a html o al formulario. Aquí se deberían definir los casos y el flujo de auth y las salidas ser devueltas a las funciones correspondientes
+TO DO: Este módulo no debería exponerse dando salida a html o al formulario. Aquí se deberían definir los casos y el flujo de auth y las salidas ser devueltas a las funciones correspondientes. También debería ocuparse del logout y matar la session.
 */
 
 session_start();
@@ -16,27 +16,29 @@ if(isset($_SESSION['nombre'])){
 	// No está la sesión y hemos recibido el formulario via POST
 	// Comprobar las credenciales recibidas con la base de datos.
 	$c = connect();
-	mysql_set_charset('utf8',$c);
+	$c->set_charset('utf8');
 
 	// Limpiar $usuario y $pass de formulario
-	$usuario=mysql_real_escape_string($_POST['usuario']);
-	$pass=mysql_real_escape_string($_POST['pass']);
+	$usuario = $c->real_escape_string($_POST['usuario']);
+	$pass = $c->real_escape_string($_POST['pass']);
 	$crypt_pass=md5($pass); // Implementar mas seguridad: cifrado + salt (bug 6)
 
-	$query="SELECT * FROM users WHERE user_login='$usuario' and user_pass='$crypt_pass'";
+	$query="SELECT * FROM users WHERE login='$usuario' and pass='$crypt_pass'";
 	$result = query($query,$c);
 
   //debug
-	$debug.="\n<p>Comprobando nombre</p>\n
-					<ul><li><b>Usuario:</b> $usuario</li><li><b>Pass:</b> $pass</li><li><b>MD5:</b> $crypt_pass</li></ul>";
+	if (DEBUG_VIS == 1) { // No se si las declaracions de abajo funcionaran.
+		debug_add ("***auth.php\nComprobando nombre en db\nUsuario: $usuario\nPass:  $pass\nMD5:  $crypt_pass\n"); // no se si esto llega a una llamada para que se vea.
+	}
 	//fin debug
 
 	// Contar filas
-	if (mysql_num_rows($result)==1){
+	if (mysqli_num_rows($result)==1){
 		// Exito. registrar nombre en variable de sesión y recargar la página principal.
 		$out = fetch_array($result);
-		$_SESSION['nombre']=$out['name'];
-		header("Location: http://" . $_SERVER['SERVER_NAME'] . ROOT); // ver bug 3
+		print_r ($out);
+		$_SESSION['nombre']=$out['login'];
+		header("Location: " . ORIGIN . ROOT);
 	}else{
 		// Contraseña errónea. Mostrar formulario y salir.
 		$loginerror = "<p class=\"error\">Usuario o contraseña erróneos</p>";
@@ -47,11 +49,16 @@ if(isset($_SESSION['nombre'])){
 }else{
 	// Cualquier otro caso indeterminado o el usuario NO está registrado.
 	// recrear formulario login y terminar la ejecución. No volver a index.
+	if (DEBUG_VIS == 1) { // No se si las declaracions de abajo funcionaran.
+		debug_add ("***auth.php\nEsperando credenciales\n"); // no se si esto llega a una llamada para que se vea.
+		debug_add ("SESION: ".session_id()."\n");
+		debug_add ("matriz de session: ".print_r ($_SESSION, TRUE)."\n");
+	}
 	show_form();
 	exit;
 }
 
-function show_form(){  // ESTA FUNCION NO DEBERIA ESTAR AQUI?? Ver bug 4
+function show_form(){  // A LO MEJOR ESTA FUNCION NO DEBERIA ESTAR AQUI?? Ver bug 4
 	global $loginerror;
 	include ("template/header.php");
 	?>

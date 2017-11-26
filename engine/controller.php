@@ -15,7 +15,7 @@ function connect(){
 
 /** Close a database connection */
 function close($c){
-    return mysql_close($c);
+    return $c->close();
 }
 
 /** Send a query */
@@ -24,7 +24,7 @@ function query($query, $c){
 	return ($result);
 }
 
-/** Returns and associative array filled with the data from the connection */
+/** Returns an associative array filled with the data from the connection */
 function fetch_array($d){
     return $d->fetch_assoc();
 }

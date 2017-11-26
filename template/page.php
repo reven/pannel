@@ -1,11 +1,15 @@
 <?php
 // Plantilla de entrada
 
+// Coger variables de constantes para poder incluirlas en variables
+$root = ROOT;
+$origin = ORIGIN;
+
 $c = connect();
-mysql_set_charset('utf8',$c);
+$c->set_charset('utf8');
 $page = urldecode($page);
 $query ="SELECT * FROM posts WHERE title = \"$page\" ORDER BY date DESC LIMIT 1";
-$debug .= "<b>DEBUG: page es $page<br />QUERY es $query</b>";
+debug_add ("<b>DEBUG: page es $page<br />QUERY es $query</b>");
 $result = query($query,$c);
 if (mysql_num_rows($result)==0){
 	echo ("<p class=\"error\">Lo siento, pero parece que no existe esa página. <a href=\"$root\">volver</a>.</p>");
@@ -26,7 +30,7 @@ if ($terms[1]=="delete"){
 ?>
 <div class="error">
 	<p>Seguro que quieres borrar esta entrada? Se borrarán <strong>todas</strong> las revisiones!</p>
-	<form id="borrar" class="form" method="POST" action="/hq/pannel/">
+	<form id="borrar" class="form" method="POST" action="<?php echo ROOT ?>">
 		<input type="hidden" name="function" id="function" value="borrar" />
 		<input type="hidden" name="post_id" id="post_id" value="<?php echo $post_id; ?>" />
 		<input type="hidden" name="title" id="title" value="<?php echo $safe_title; ?>" />
@@ -35,7 +39,7 @@ if ($terms[1]=="delete"){
 </div>
 <?php }
 
-if ($_SERVER['HTTP_REFERER']=="http://www.nuuve.com{$root}nueva/") {
+if ($_SERVER['HTTP_REFERER']==ORIGIN . ROOT . "nueva/") {
 	echo ("<p id=\"yay\" class=\"success\">Página creada</p><script type=\"text/javascript\">Effect.Fade('yay', { duration: 4.0 });</script>");}
 echo <<<EDITTOOLS
 <div class="edit_tools">
@@ -69,7 +73,7 @@ echo <<<SCRIPTS
 /* <![CDATA[ */
 	function warning_url(url)
 		{
-		var thing = '<p class="error">El título ha cambiado. Antes de seguir editando, vaya a la nueva url: <a href="/hq/pannel/'+url.responseText+'/">'+url.responseText+'</a></p>';
+		var thing = '<p class="error">El título ha cambiado. Antes de seguir editando, vaya a la nueva url: <a href="$root'+url.responseText+'/">'+url.responseText+'</a></p>';
 		$('posttitle').insert({ after: thing });
 		}
 

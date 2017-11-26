@@ -7,11 +7,14 @@ if (DEBUG_VIS == 1) {
 $c = connect();
 $c->set_charset('utf8');
 
+$usuario = $c->real_escape_string($_POST['usuario']);
+
+
 //Checkeamos vars. Usamos las seguras para meter a BdD, pero las inseguras para pantalla, para evitar barras (\).
-$text = mysql_real_escape_string($_POST['text']);
-$title = mysql_real_escape_string($_POST['title']);
-$state = mysql_real_escape_string($_POST['state']);
-if ($_POST['post_id']) {$post_id = mysql_real_escape_string($_POST['post_id']);}
+$text  = $c->real_escape_string($_POST['text']);
+$title = $c->real_escape_string($_POST['title']);
+$state = $c->real_escape_string($_POST['state']);
+$post_id = ( $_POST['post_id'] ? $c->real_escape_string($_POST['post_id']) : FALSE);
 
 
 //cambiar el *texto* de una entrada
@@ -57,7 +60,7 @@ if ($_POST['editorId']=="text") {
 /*formulario página nueva*/
 }elseif ($_POST['check']=="newpost"){
 	/*formulario página nueva*/
-	$query ="SELECT MAX( post_id ) FROM `posts`";
+	$query ="SELECT MAX( post_id ) FROM `posts`"; // tiene que haber una forma mejor de obtener la ID mas alta????
 	$result = query($query,$c);
 	$out = fetch_array($result);
 	$post_id = $out[0] + 1;
@@ -73,7 +76,7 @@ if ($_POST['editorId']=="text") {
 	if (!$result) {
 	    die('Could not query:' . mysql_error());
 	}elseif ($result){ //Exito
-		header("Location: http://www.nuuve.com$root$_POST[title]");
+    header("Location: " . ORIGIN . ROOT . $_POST[title]);
 		exit;
 	}else{
 		echo ("<p class\"error\">Lo siento, el texto no se ha guardado</p>");
@@ -87,7 +90,7 @@ if ($_POST['editorId']=="text") {
 	    die('Could not query:' . mysql_error());
 	}elseif ($result){ //Exito
 		$_SESSION['title_del']=$_POST['title'];
-		header("Location: http://www.nuuve.com$root");
+		header("Location: " . ORIGIN . ROOT);
 		exit;
 	}
 

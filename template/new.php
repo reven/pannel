@@ -20,7 +20,7 @@
 				<b>h.</b> Titulo<br />
 				<b>"</b>enlace<b>":</b>http://www.nuuve.com → enlace<br />
 				<b>!</b>http://www.nuuve.com/logo.gif<b>!</b> → imagen<br /><br />
-				Puedes anidar listas y bloques de texto indentado. <a href="<?php echo $root; ?>help/#formato">(+ info)</a>
+				Puedes anidar listas y bloques de texto indentado. <a href="<?php echo ROOT; ?>help/#formato">(+ info)</a>
 
 				</div></div>
 		</div>
