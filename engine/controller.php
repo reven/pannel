@@ -1,14 +1,19 @@
 <?php
-require "config.php";
+/*
+Database controler. Should provide a limited amount of abstraction,
+in case of database change.
+*/
+
+require "config.php";   // database info is here
 
 /** Open a connection to a database server */
 function connect(){
     global $db;
 
     $c = new mysqli($db['host'], $db['user'], $db['password'], $db['db']);
-    if ($c->connect_errno) {
-      echo "Error al conectar con base de datos: " . $c->connect_error;
-      die;
+    if (mysqli_connect_errno()) {
+      printf("Error al conectar con base de datos: %s\n",mysqli_connect_error());
+      exit();
     }
     return $c;
 }

@@ -24,3 +24,7 @@ _ 8 - Pasando una variable en al url rompe el script. Por ejemplo localhost/pane
 _ 9 - Logout debería ser manejado por auth.php
 
 _ 10 - Al parecer muchos de los scripts en /js/ no están siendo utilizados. Parsear y averiguar cuales para hacer limpieza.
+
+_ 11 - Cuando se hace click sobre la marca de una entrada para editarla, se despliegan las posibles opciones pero la opción seleccionada debería ser la que la entrada tiene en ese momento, y ahora es la primera de la lista por defecto "quitar marca". Igual necesitamos un deplegable donde se vean todas las opciones.
+
+_ 12 - Posible bug: en iphone como se representa el doble click para editar? Funciona un doble tap?

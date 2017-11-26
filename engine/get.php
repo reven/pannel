@@ -1,17 +1,21 @@
 <?php
-/*Este archivo recibe consultas y no escribe en la base de datos.
+/* Este archivo recibe consultas y no escribe en la base de datos.
 En un mundo ideal, las consultas estarían cacheadas */
 
+// debug, needs to be called early because of exits
 if (DEBUG_VIS == 1) {
-	debug_add("get.php está incluido");
+	debug_add ("*** get.php called\n");
+	if (DEBUG_LVL == 2) {
+	  debug_add (print_r ($_GET, TRUE) . "\n");
+	}
 }
 
 $c = connect();
 $c->set_charset('utf8');
 
 
-//Formulario de búsqueda.
-if (isset($_GET['search'])){
+/* 1. Called from Search XXXX  MEJORAR FLUJO DE ESTE BLOQUE*/
+if (isset($_GET['search'])){ //TEST VALUE, NOT ONLY CHECK EXISTANCE
 	if ($_GET['completa']==1) {
 		echo ("<p>Buscando entradas por: <b>$_GET[search]</b> </p>");
 		$query ="SELECT * FROM (SELECT * FROM `posts` WHERE MATCH (`text`,`title`) AGAINST (\"%$_GET[search]%\" IN BOOLEAN MODE) ORDER BY `post_id` DESC) AS tmp GROUP BY `post_id`";
@@ -56,20 +60,20 @@ if (isset($_GET['search'])){
 			echo ("</td></tr>\n");
 		}
 	}
-}elseif (isset($_GET['markdown'])){
-	$query="SELECT `text` FROM `posts` WHERE `post_id`=$_GET[id]";
-	$out = fetch_array(query($query,$c));
-	echo $out['text'];
+
+	/* 2. Called from a markdown text box */
+}elseif (isset($_GET['markdown']) && $_GET['markdown'] == 1){
+	$query = "SELECT `content` FROM `posts` WHERE `id`=$_GET[id]";
+  $result = query($query,$c);
+	$out = fetch_array($result);
+
+	echo ($out['content']);
+	exit;
 }
-
-
-
 
 close($c);
 
-//debug
-if (DEBUG_VIS == 1 && DEBUG_LVL == 2) {
-	debug_add ("<pre>\n" . print_r ($_GET) . "\n</pre>\n");
-}
-exit;
+/*
+:)
+*/
 ?>

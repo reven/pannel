@@ -1,5 +1,8 @@
 <?php
 // Plantilla de entrada
+if (DEBUG_VIS == 1) {
+	debug_add ("\n***Plantilla llamada: page.php\n");
+}
 
 // Coger variables de constantes para poder incluirlas en variables
 $root = ROOT;
@@ -9,24 +12,28 @@ $c = connect();
 $c->set_charset('utf8');
 $page = urldecode($page);
 $query ="SELECT * FROM posts WHERE title = \"$page\" ORDER BY date DESC LIMIT 1";
-debug_add ("<b>DEBUG: page es $page<br />QUERY es $query</b>");
 $result = query($query,$c);
-if (mysql_num_rows($result)==0){
+
+if (mysqli_num_rows($result)==0){
 	echo ("<p class=\"error\">Lo siento, pero parece que no existe esa página. <a href=\"$root\">volver</a>.</p>");
 	return FALSE;
 }
-$out = fetch_array($result);
 
+$out = fetch_array($result);
+/* debug */
+if (DEBUG_VIS == 1) {
+	debug_add ("Page es $page\nQUERY es $query\n");
+	debug_add ("Resultados de query: ".print_r($out, TRUE));
+}
 $post_id = $out['post_id'];
 //variables seguras (protegen JS de las comillas en título y texto)
-$safe_text = rawurlencode($out['text']);
+$safe_text = rawurlencode($out['content']);
 $safe_title = rawurlencode($out['title']);
 if ($out['prioridad']==1) {$impor="<span style=\"color:#f00;\">✔</span> <b>Importante</b>";}else{$impor="Marcar prioridad";}
 $status = array ('P'=>"Planteada",'E'=>"En curso",'X'=>"Estancada",'F'=>"Esperando feedback",'C'=>"Cancelada",'H'=>"Hibernando");
 $stat_flag = $out['state'];
 if ($stat_flag!=""){ $state="Marcada como <span class=\"$stat_flag\">$status[$stat_flag]</span>";}else{$state="Marcar estado";}
-$debug .= "\nResultados mysql <pre>".print_r ($out, TRUE)."</pre>";
-if ($terms[1]=="delete"){
+if (isset($terms[1]) && $terms[1]=="delete") {
 ?>
 <div class="error">
 	<p>Seguro que quieres borrar esta entrada? Se borrarán <strong>todas</strong> las revisiones!</p>
@@ -39,7 +46,7 @@ if ($terms[1]=="delete"){
 </div>
 <?php }
 
-if ($_SERVER['HTTP_REFERER']==ORIGIN . ROOT . "nueva/") {
+if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT . "nueva/") {
 	echo ("<p id=\"yay\" class=\"success\">Página creada</p><script type=\"text/javascript\">Effect.Fade('yay', { duration: 4.0 });</script>");}
 echo <<<EDITTOOLS
 <div class="edit_tools">
@@ -65,8 +72,8 @@ EDITTOOLS;
 echo "\t<h2 id=\"posttitle\" class=\"editInPlace\">".$page."</h2>\n\t<p class=\"meta\">";
 echo ("<span id=\"prioridad\" class=\"editInPlace\">$impor | </span>");
 echo ("<span id=\"estado\" class=\"editInPlace\">$state | </span>");
-echo "Última modificación por <b>".$out[author]."</b> el ".date("j \d\e M \d\e Y, \a \l\a\s G:i",strtotime ($out['date']))."</p>\n";
-echo "\t<div id=\"text\" class=\"editInPlace\">".get_html($out['text'])."</div>\n";
+echo "Última modificación por <b>".$out['author']."</b> el ".date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))."</p>\n";
+echo "\t<div id=\"text\" class=\"editInPlace\">".get_html($out['content'])."</div>\n";
 //Quizás este HEREDOC se puede sacar a un include.
 echo <<<SCRIPTS
 <script type="text/javascript">
@@ -88,8 +95,8 @@ echo <<<SCRIPTS
 		clickToEditText:'Doble-click para editar', collection: [['','-- (quitar marca)'], ['P','Planteada'], ['E', 'En curso'], ['X', 'Estancada'], ['F', 'Esperando feedback'], ['C', 'Cancelada'], ['H', 'Hibernando']], callback: function(form, value) {return 'id=$out[id]&value='+value}});
 
 	new Ajax.InPlaceEditor('text', '$root', {rows:10,cols:40,okText:'Guardar',cancelText:'Cancelar',clickToEditText:'Doble-click para editar',
-		loadTextURL:'{$root}?markdown=1&id={$out[id]}',
-		callback: function(form, value) {return 'post_id=$post_id&state=$out[state]&imp=$out[prioridad]&title=$safe_title&text='+ encodeURIComponent(value)},
+		loadTextURL:'{$root}?markdown=1&id={$out['id']}',
+		callback: function(form, value) {return 'post_id=$post_id&state=$out[state]&imp=$out[prioridad]&title=$safe_title&content='+ encodeURIComponent(value)},
 		onEnterEditMode: function(form, value) { Effect.SlideDown('markdown');},
 		onLeaveEditMode: function(form, value) { Effect.SlideUp('markdown'); }})
 /* ]]> */

@@ -1,7 +1,12 @@
+<?php
+// Página de Ayuda
+?>
 
 	<h2>Ayuda</h2>
 	<p>Si necesitas ayuda con alguno de los elementos de <em><b>pannel</b></em>, este es el lugar donde obtenerla.</p>
-
+	<?php
+	echo (isset($_SERVER['HTTP_REFERER']) ? '<p class="r"><a href="'.$_SERVER['HTTP_REFERER']."\">volver atrás</a></p>" : "" );
+	?>
 	<a name="formato"></a>
 	<h3>Formato abreviado</h3>
 	<p>Para formatear el texto puedes hacer uso de la siguiente sintaxis abreviada:</p>

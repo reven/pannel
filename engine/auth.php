@@ -37,7 +37,7 @@ if(isset($_SESSION['nombre'])){
 		// Exito. registrar nombre en variable de sesión y recargar la página principal.
 		$out = fetch_array($result);
 		print_r ($out);
-		$_SESSION['nombre']=$out['login'];
+		$_SESSION['nombre']=$out['nicename'];
 		header("Location: " . ORIGIN . ROOT);
 	}else{
 		// Contraseña errónea. Mostrar formulario y salir.

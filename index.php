@@ -6,6 +6,7 @@ Pannel
 0.6 beta
 Reven
 25-Nov-2017
+*/
 
 /*SETUP*/
 /*Initialize constants*/
@@ -24,7 +25,7 @@ include_once ("engine/auth.php");
 include_once ("engine/textinterpreter.php");
 
 
-/*Flujo */
+/* Flujo */
 if ($_POST) {
 	require ("engine/post.php");
 }elseif ($_GET) {
@@ -44,7 +45,7 @@ if (DEBUG_VIS == 1) { // No se si las declaracions de abajo funcionaran.
 	debug_add ("SESION: ".session_id());
 	debug_add ("\nNombre: " . $_SESSION['nombre']."\n");
 	debug_add ("matriz de session: ".print_r ($_SESSION, TRUE)."\n");
-	debug_add ("REFERER: ".$_SERVER['HTTP_REFERER']."\n");
+	debug_add ("REFERER: ". (isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:"No referer" )."\n");
 /* fin debug */
 }
 
@@ -61,6 +62,7 @@ Recupera la cabecera, llama a do_content() para el
 contenido y recupera el footer.
 */
 function draw_page($page){
+	global $terms, $page_link;
 	include ("template/header.php");
 	do_content($page);
 	include ("template/footer.php");
@@ -71,6 +73,7 @@ do_content()
 Determina qué plantilla usar.
 */
 function do_content($page){ //Esta función que elije las plantillas es mejorable...
+	global $terms, $page_link;
 	if ($page==""){
 		include ("template/default.php");
 	}elseif ($page=="index"){
@@ -79,6 +82,8 @@ function do_content($page){ //Esta función que elije las plantillas es mejorabl
 		include ("template/new.php");
 	}elseif ($page=="help"){
 		include ("template/help.php");
+	}elseif ($page=="debug"){
+		include ("template/debug.php"); // eliminar mas adelante
 	}else{
 		include ("template/page.php");
 	}

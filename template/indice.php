@@ -23,7 +23,8 @@ Obtener el numero de revisiones seguro que se puede hacer con querys anidadas, p
 $c = connect();
 $c->set_charset('utf8');
 // Esta query no tiene límite, pero igual se le puede añadir un límite de 50 y un enlace a buscar las siguientes 50, y que se actualice de forma dinámica
-$query ="SELECT * FROM posts INNER JOIN (SELECT MAX( post_id ) AS post_id FROM posts GROUP BY post_id ) ids ON posts_id = ids.id ORDER BY title ASC";
+$query ="SELECT * FROM posts INNER JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) ids ON posts.id = ids.id ORDER BY title ASC";
+
 $result = query($query,$c);
 while ($out = fetch_array($result)){
 echo "\t\t\t\t\t<tr><td><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a></td><td>".$out['author'];
@@ -32,7 +33,8 @@ echo "</span></td><td class=\"c\">";
 $query = "SELECT COUNT(*) AS NumberOf FROM posts WHERE post_id=$out[post_id]";
 $result2 = query($query,$c);
 $out2 = fetch_array($result2);
-echo ("<a href=\"".ROOT.$out[title]."/versions/\">".$out2[0]."</a>");
+$revs = current($out2);
+echo ("<a href=\"".ROOT.$out['title']."/versions/\">".$revs."</a>");
 echo ("</td><td class=\"c\">");
 if ($out['prioridad']==1) {echo ("<span style=\"color:#f00;\">✔</span>");}else{echo ("<span class=\"meta\">--</span>");}
 echo ("</td></tr>\n");
@@ -42,4 +44,7 @@ close($c);
 			</tbody></table>
 		</div>
 	</div>
+	<script type="text/javascript"> // Will this even work????
+	var ServerPath = '<?php echo ORIGIN . ROOT ;?>';
+	</script>
 	<script src="<?php echo ROOT ?>js/search.js" type="text/javascript"></script>

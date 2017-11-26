@@ -51,8 +51,8 @@ function get_html($input){
 
 	$paragraphs = explode("\n\n", $text);
 	// debug
-	if ($debug_vis == TRUE && $debug_level == 2) {
-		$debug.="<div style=\"color:#f00; border: 1px solid #f00;\">" . print_r ($paragraphs, TRUE) . "\n</div>\n";
+	if (DEBUG_VIS == 1 && DEBUG_LVL == 2) {
+		debug_add("Paragraphs : " . print_r ($paragraphs, TRUE) . "\n");
 	}
 	$text = null;
     foreach($paragraphs as $paragraph) {

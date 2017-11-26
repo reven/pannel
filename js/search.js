@@ -21,11 +21,11 @@ function activateSearch() {
 
 function doSearch() {
     // If we're already loading, don't do anything
-    if (is_searching) return false; 
+    if (is_searching) return false;
     s = $F('s');
     w = $F('wholesearch');
     // Same if the search is blank
-    if (s == '' || s == 'Buscar entradas...') return false; 
+    if (s == '' || s == 'Buscar entradas...') return false;
     is_searching = true;
     c = $('resultadosactuales');
     o = $('resultadosviejos');
@@ -37,7 +37,7 @@ function doSearch() {
     o.style.display = 'block';
     // Setup the parameters and make the ajax call
     pars = "completa="+w+"&search="+encodeURIComponent(s);
-    var myAjax = new Ajax.Request('http://www.nuuve.com/hq/pannel/index/', 
+    var myAjax = new Ajax.Request( ServerPath . 'index/', 
           {method: 'GET', parameters: pars, onSuccess:doSearchResponse});
 }
 
