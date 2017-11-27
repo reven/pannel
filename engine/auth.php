@@ -1,9 +1,11 @@
 <?php
-/*Módulo de autentificación. NO IMPLEMENTADO
+/*Módulo de autentificación.
 
-Esto es sólo un primer de cómo tendría que funcionar, aunque supongo que se puede reciclar el módulo auth de alguna otra app.
+Inicia sesion si es nula, muestra formulario login y comprueba credenciales
 
-TO DO: Este módulo no debería exponerse dando salida a html o al formulario. Aquí se deberían definir los casos y el flujo de auth y las salidas ser devueltas a las funciones correspondientes. También debería ocuparse del logout y matar la session.
+TO DO: - Contraseñas más seguras. SHA1??
+			 - Logout aqui? para tener session controlada en el mismo sitio?
+			 - Mejorar flujo un poco.
 */
 
 session_start();

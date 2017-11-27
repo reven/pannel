@@ -30,10 +30,11 @@ if (DEBUG_VIS == 1) {
 	debug_add ("Resultados de query: ".print_r($out, TRUE));
 }
 
-$post_id = $out['post_id'];
 /* Generamos variables de los resultados de la query.
 Las variables seguras protegen JS de las comillas en título y texto) */
-$safe_text = rawurlencode($out['content']);
+$id  				= $out['id'];
+$post_id    = $out['post_id'];
+$safe_text  = rawurlencode($out['content']);
 $safe_title = rawurlencode($out['title']);
 if ($out['prioridad']==1) {
 	$impor="<span style=\"color:#f00;\">✔</span> <b>Importante</b>";
@@ -111,6 +112,7 @@ echo "\t<div id=\"text\" class=\"editInPlace\">".get_html($out['content'])."</di
 echo <<<SCRIPTS
 <script>
 	var pageRoot = '$root';
+	var id       = '$id';
 	var postId   = '$post_id';
 	var safeText = '$safe_text';
 	var state    = '$out[state]';

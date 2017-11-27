@@ -74,7 +74,7 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 	color:#FFFFFF;
 	cursor:pointer;
 	height:1.8em;
-	margin:0.3em 1em;
+	margin:0em 1em;
 }
 .cancel_button:hover{
 	background-color:#f33;
@@ -85,7 +85,7 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 	color:#FFFFFF;
 	cursor:pointer;
 	height:1.8em;
-	margin:0.3em 1em;
+	margin:0em 1em;
 }
 .editor_ok_button:hover{
 	background-color:#6390b7;
@@ -96,7 +96,8 @@ h3{color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1em
 }
 
 #posttitle-inplaceeditor > input.editor_field {
-	font-size:1.4em;
+	font-size:1.3em;
+	line-height:1em;
 }
 textarea{
 	width: 75%;

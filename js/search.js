@@ -19,16 +19,16 @@ $("#s").blur(function(){
 
 // Handle the search form
 $('#searchform').submit(function() { // catch the form's submit event
-    $.ajax({ // create an AJAX call...
-        data:   $( this ).serialize(), // get the form data
-        method: "GET",               // GET or POST
-        //url: SearchUrl,            // default is current page
-        success: function(response) { // on success..
-          $("#resultadosactuales").html(response); // update the DIV
-        },
-        error: function(response) {   // on error...
-          $("#resultadosactuales").html("<p class=\"error\">Error: " + response);
-        }
-    });
-    return false; // cancel original event to prevent form submitting
+  $.ajax({ // create an AJAX call...
+    data:   $( this ).serialize(), // get the form data
+    method: "GET",                 // GET or POST
+    //url: SearchUrl,              // default is current page
+    success: function(response) {  // on success..
+      $("#resultadosactuales").html(response); // update the DIV
+    },
+    error: function(response) {    // on error...
+      $("#resultadosactuales").html("<p class=\"error\">Error: " + response);
+    }
+  });
+  return false; // cancel original event to prevent form submitting
 });
