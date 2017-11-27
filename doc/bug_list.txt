@@ -3,28 +3,35 @@ BUGs
  /oo |--.--,--,--.
  \_.-'._i__i__i_.'
        """""""""
-_ 1 - Si no se usa el subdominio www, la búsqueda no funciona. Error de rutas en JS o AJAX? Formulario?
+X 1 - Si no se usa el subdominio www, la búsqueda no funciona. Error de rutas en JS o AJAX? Formulario?
+      - Ver 13, Cierro esta, ya que parece haber mas problemas con la busqueda que el dominio.
 
 _ 2 - Si se edita una flag y luego se edita el texto (o cualquiera dos cosas), el primer cambio se pierde. Eso es porque al editar texto se envían los datos de las flags de la query original. Se debería actualizar esas cosas onSuccess de los formularios.
 
 o 3 - Declaración de ruta debe ser relativo en auth.php (linea 39). Revisar.
-      -Declaración arreglada y ahora toda la ruta se parsea de forma automática en index.php, pero aun hay miles de referencias a variables antiguas en los otros scripts.
+      -Declaración arreglada y ahora toda la ruta se parsea de forma automática en index.php, pero aun hay miles de referencias a variables antiguas en los otros scripts. Parcialmente arreglada.
 
 _ 4 - Funcion formulario en auth.php (linea 54). Aunque la justificación de que esta función está aquí es que así la authentificación está autocontenida y el script puede terminar en auth, no es lo más elegante. Hay otra solución? Sacara index? Esto simplificaría el diseño (y posible mejora) de auth.php.
 
-_ 5 - Mysql. Posibilidad de utilizar controladores alternativos definidos por el usuario?
+X 5 - Mysql. Posibilidad de utilizar controladores alternativos definidos por el usuario?
+      - Cierro esta. controller.php ofrece un grado limitado de abstracción, pero hay multitude de llamadas en todo el script que requerirían un rework extenso. De momento lo dejamos con mysqli.
 
 _ 6 - SALT. Use salt on mysql passwords.
 
 o 7 - SERVER_NAME. Esto debería ser evaluado en el init de index.php y pasado ya para siempre como constante. Esto evitaría evaluarlo en todos los scripts y además se podría definir como configurable. Debe tener en cuenta el puerto también. Cambiar todos los scripts.
       -Arreglado en index.php pero hay que corregir todas las referencias a las variables y apuntarlas a las nuevas constantes.
 
-_ 8 - Pasando una variable en al url rompe el script. Por ejemplo localhost/panel/blah/?var=1
+X 8 - Pasando una variable en al url rompe el script. Por ejemplo localhost/panel/blah/?var=1
+      - Cerrada. get.php se comporta de la forma correcta y ya no se rompe el script.
 
-_ 9 - Logout debería ser manejado por auth.php
+_ 9 - Logout debería ser manejado por auth.php??
 
 _ 10 - Al parecer muchos de los scripts en /js/ no están siendo utilizados. Parsear y averiguar cuales para hacer limpieza.
 
 _ 11 - Cuando se hace click sobre la marca de una entrada para editarla, se despliegan las posibles opciones pero la opción seleccionada debería ser la que la entrada tiene en ese momento, y ahora es la primera de la lista por defecto "quitar marca". Igual necesitamos un deplegable donde se vean todas las opciones.
 
 _ 12 - Posible bug: en iphone como se representa el doble click para editar? Funciona un doble tap?
+
+_ 13 - Search no funciona. No se si deberia llamar a otra plantilla (que no esta definida) o si carga los resultados "in place" con ajax. De cualquier forma, no funciona. Hay referencias en GET ($_GET[search]), pero creo que empecé a hacerlo in place y luego se rompió y se ha quedado sin formato o plantilla. Re-work. Ahora se está llamando a la plantilla page.php (default) que al no saber que es una busqueda da error.
+
+_ 14 - IMPORTANT: Migrate to jQuery instead of scriptaculous. This last seems to no longer be updated.

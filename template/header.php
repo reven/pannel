@@ -3,9 +3,8 @@
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Nuuve Pannel</title>
 
-	<script src="<?php echo ROOT ?>js/prototype.js" type="text/javascript"></script>
-	<script src="<?php echo ROOT ?>js/scriptaculous.js" type="text/javascript"></script>
-	<script src="<?php echo ROOT ?>js/extend.js" type="text/javascript"></script>
+	<script src="<?php echo ROOT ?>js/jquery.js" type="text/javascript"></script>
+	<!-- <script src="<?php echo ROOT ?>js/extend.js" type="text/javascript"></script> -->
 
 	<link rel="stylesheet" type="text/css" media="screen,print" href="<?php echo ROOT ?>css/pannel.css" />
 <?php
