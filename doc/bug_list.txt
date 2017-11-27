@@ -35,3 +35,5 @@ _ 12 - Posible bug: en iphone como se representa el doble click para editar? Fun
 _ 13 - Search no funciona. No se si deberia llamar a otra plantilla (que no esta definida) o si carga los resultados "in place" con ajax. De cualquier forma, no funciona. Hay referencias en GET ($_GET[search]), pero creo que empecé a hacerlo in place y luego se rompió y se ha quedado sin formato o plantilla. Re-work. Ahora se está llamando a la plantilla page.php (default) que al no saber que es una busqueda da error.
 
 _ 14 - IMPORTANT: Migrate to jQuery instead of scriptaculous. This last seems to no longer be updated.
+
+_ 15 - page.php necesita lógica para manejar casos. usar nueva, normal y versiones (implementar versiones).

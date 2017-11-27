@@ -8,16 +8,13 @@ Obtener el numero de revisiones seguro que se puede hacer con querys anidadas, p
 ?>
 	<h2>Índice</h2>
 	<div id="busca">
-		<form id="searchform" class="form" method="get" action="<?php echo ORIGIN . ROOT; ?>index/Joer/coño/puta">
+		<form id="searchform" class="form" method="get" action="<?php echo ORIGIN . ROOT; ?>index/">
 			<p style="display:inline;">
 			<input type="text" name="search" id="s" class="editor_field" value="" size="20" /><input type="submit" id="btnsubmit" value="Ir" class="editor_ok_button" />
 		</form>
 	</div>
 	<div id="resultados">
-		<?php
-		if (DEBUG_VIS == 1) {echo '<p id="js_debug" class="error">Waiting for debug info...</p>';}
-		?>
-		<div id="resultadosactuales">
+		<div id="resultadosactuales"> <?php // este div es solo por si hay otro div de resultados nuevos y queremos hacer una animación, pero quitar si no lo hacemos. ?>
 			<p>Estas son todas las entradas por orden alfabético</p>
 			<table><tbody>
 				<tr><th>Título</th><th>último autor</th><th>última revisión</th><th>revisiones</th><th>prioridad</th></tr>
@@ -49,4 +46,4 @@ close($c);
 			</tbody></table>
 		</div>
 	</div>
-	<script src="<?php echo ROOT ?>js/search.js" type="text/javascript"></script>
+	<script src="<?php echo ROOT ?>js/search.js"></script>

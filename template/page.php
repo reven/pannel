@@ -4,10 +4,14 @@ if (DEBUG_VIS == 1) {
 	debug_add ("\n***Plantilla llamada: page.php\n");
 }
 
+// Añadir lógica: si pagina nueva, si vacia, si normal. !!!!!!!! Ver 15.
+// Puedo usar esta página para ver revisiones? Partido en horizontal igual??
+
 // Coger variables de constantes para poder incluirlas en variables
 $root = ROOT;
 $origin = ORIGIN;
 
+// Cargar la página
 $c = connect();
 $c->set_charset('utf8');
 $page = urldecode($page);
@@ -25,14 +29,32 @@ if (DEBUG_VIS == 1) {
 	debug_add ("Page es $page\nQUERY es $query\n");
 	debug_add ("Resultados de query: ".print_r($out, TRUE));
 }
+
 $post_id = $out['post_id'];
-//variables seguras (protegen JS de las comillas en título y texto)
+/* Generamos variables de los resultados de la query.
+Las variables seguras protegen JS de las comillas en título y texto) */
 $safe_text = rawurlencode($out['content']);
 $safe_title = rawurlencode($out['title']);
-if ($out['prioridad']==1) {$impor="<span style=\"color:#f00;\">✔</span> <b>Importante</b>";}else{$impor="Marcar prioridad";}
-$status = array ('P'=>"Planteada",'E'=>"En curso",'X'=>"Estancada",'F'=>"Esperando feedback",'C'=>"Cancelada",'H'=>"Hibernando");
+if ($out['prioridad']==1) {
+	$impor="<span style=\"color:#f00;\">✔</span> <b>Importante</b>";
+}else{
+	$impor="Marcar prioridad";
+}
+$status = array ('P'=>"Planteada",
+								 'E'=>"En curso",
+								 'X'=>"Estancada",
+								 'F'=>"Esperando feedback",
+								 'C'=>"Cancelada",
+								 'H'=>"Hibernando");
+
 $stat_flag = $out['state'];
-if ($stat_flag!=""){ $state="Marcada como <span class=\"$stat_flag\">$status[$stat_flag]</span>";}else{$state="Marcar estado";}
+if ($stat_flag!=""){
+	$state="Marcada como <span class=\"$stat_flag\">$status[$stat_flag]</span>";
+}else{
+	$state="Marcar estado";
+}
+
+// Si "delete" es el segundo $term, mostrar aviso de borrado
 if (isset($terms[1]) && $terms[1]=="delete") {
 ?>
 <div class="error">
@@ -46,13 +68,22 @@ if (isset($terms[1]) && $terms[1]=="delete") {
 </div>
 <?php }
 
-if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT . "nueva/") {
-	echo ("<p id=\"yay\" class=\"success\">Página creada</p><script type=\"text/javascript\">Effect.Fade('yay', { duration: 4.0 });</script>");}
-echo <<<EDITTOOLS
+// Si es una página recién creada, mostrar aviso y mensaje
+if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT . "nueva/") { ?>
+	<p id="yay" class="success">Página creada</p>
+	<script>
+		$(document).ready(function(){
+    	$("#yay").fadeOut(4000);
+    });
+  </script>")
+<?php }
+
+// Mostrar la ayuda para edición
+?>
 <div class="edit_tools">
-	<a href="{$page_link}versions/">ver revisiones<span class="meta"> (no implementado)</span></a> · <a href="{$page_link}delete/">borrar</a>
+	<a href="<?= $page_link ?>versions/">ver revisiones<span class="meta"> (no implementado)</span></a> · <a href="<?= $page_link ?>delete/">borrar</a>
 </div>
-<div id="markdown" class="markdown" style="display:none"><a href="#" onclick="Effect.toggle('toggle_slide','slide'); return false;"><span style="color:#000;font-size: 200%;">✎</span> Acerca de formato abreviado</a>
+<div id="markdown" class="markdown" style="display:none"><a href="#" onclick="$(this).slideDown(); return false;"><span style="color:#000;font-size: 200%;">✎</span> Acerca de formato abreviado</a>
 	<div id="toggle_slide" style="display:none;">
 		<div>Utiliza los siguientes atajos para formatear tu texto:<br />
 			*negrita* → <b>negrita</b><br />
@@ -63,45 +94,30 @@ echo <<<EDITTOOLS
 			<b>h.</b> Titulo<br />
 			<b>"</b>enlace<b>":</b>http://www.nuuve.com → enlace<br />
 			<b>!</b>http://www.nuuve.com/logo.gif<b>!</b> → imagen<br /><br />
-			Puedes anidar listas y bloques de texto indentado. <a href="{$root}help/#formato">(+ info)</a>
+			Puedes anidar listas y bloques de texto indentado. <a href="<?= ROOT ?>help/#formato">(+ info)</a>
 		</div>
 	</div>
 </div>
 
-EDITTOOLS;
+<?php
+// Mostrar la entrada
 echo "\t<h2 id=\"posttitle\" class=\"editInPlace\">".$page."</h2>\n\t<p class=\"meta\">";
 echo ("<span id=\"prioridad\" class=\"editInPlace\">$impor | </span>");
 echo ("<span id=\"estado\" class=\"editInPlace\">$state | </span>");
 echo "Última modificación por <b>".$out['author']."</b> el ".date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))."</p>\n";
 echo "\t<div id=\"text\" class=\"editInPlace\">".get_html($out['content'])."</div>\n";
-//Quizás este HEREDOC se puede sacar a un include.
+
+// Pasar variables y añadir scripts de edición a la página
 echo <<<SCRIPTS
-<script type="text/javascript">
-/* <![CDATA[ */
-	function warning_url(url)
-		{
-		var thing = '<p class="error">El título ha cambiado. Antes de seguir editando, vaya a la nueva url: <a href="$root'+url.responseText+'/">'+url.responseText+'</a></p>';
-		$('posttitle').insert({ after: thing });
-		}
-
-	new Ajax.InPlaceEditor('posttitle', '$root', { okText:'Guardar',cancelText:'Cancelar', clickToEditText:'Doble-click para editar',
-		callback: function(form, value) {return 'post_id=$post_id&text=$safe_text&state=$out[state]&imp=$out[prioridad]&title=' + encodeURIComponent(value);warning_url(value)},
-		onComplete: function(value,element) {warning_url(value);new Effect.Highlight(element, {startcolor: this.options.highlightColor})}})
-
-	new Ajax.InPlaceCollectionEditor( 'prioridad', '$root', { okText:'Guardar',cancelText:'Cancelar',
-		clickToEditText:'Doble-click para editar', collection: [['1','Importante'], ['0','Normal']], callback: function(form, value) {return 'id=$out[id]&value='+value}});
-
-	new Ajax.InPlaceCollectionEditor( 'estado', '$root', { okText:'Guardar',cancelText:'Cancelar',
-		clickToEditText:'Doble-click para editar', collection: [['','-- (quitar marca)'], ['P','Planteada'], ['E', 'En curso'], ['X', 'Estancada'], ['F', 'Esperando feedback'], ['C', 'Cancelada'], ['H', 'Hibernando']], callback: function(form, value) {return 'id=$out[id]&value='+value}});
-
-	new Ajax.InPlaceEditor('text', '$root', {rows:10,cols:40,okText:'Guardar',cancelText:'Cancelar',clickToEditText:'Doble-click para editar',
-		loadTextURL:'{$root}?markdown=1&id={$out['id']}',
-		callback: function(form, value) {return 'post_id=$post_id&state=$out[state]&imp=$out[prioridad]&title=$safe_title&content='+ encodeURIComponent(value)},
-		onEnterEditMode: function(form, value) { Effect.SlideDown('markdown');},
-		onLeaveEditMode: function(form, value) { Effect.SlideUp('markdown'); }})
-/* ]]> */
+<script>
+	var pageRoot = '$root';
+	var postId   = '$post_id';
+	var safeText = '$safe_text';
+	var state    = '$out[state]';
+	var prio     = '$out[prioridad]';
+	var safeTitle= '$safe_title';
 </script>
-
+<script src="{$root}js/edit.js"></script>
 SCRIPTS;
 
 close($c);

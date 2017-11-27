@@ -14,12 +14,12 @@ $c = connect();
 $c->set_charset('utf8');
 
 
-/* 1. Called from Search XXXX  MEJORAR FLUJO DE ESTE BLOQUE*/
+/* 1. Called from Search */
 if (isset($_GET['search']) && !$_GET['search'] == ""){
 	$search = $_GET['search'];
 	echo ("<p>Resultados de búsqueda: <b>$_GET[search]</b>:</p>");
 
-	$query ="SELECT * FROM posts WHERE MATCH (title, content) AGAINST ('$search' WITH QUERY EXPANSION) ORDER BY post_id DESC";
+	$query ="SELECT * FROM posts WHERE MATCH (title, content) AGAINST ('$search' WITH QUERY EXPANSION) ORDER BY DATE DESC";
 
 	if (!$result = query($query,$c)) {
 		echo "<p class=\"error\">Se ha producido un error al hacer la búsqueda: " . mysqli_error($c);
