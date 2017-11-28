@@ -104,8 +104,8 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT .
 // Mostrar la entrada
 echo "\t<h2 id=\"posttitle\" class=\"editInPlace\" title=\"Doble-click para editar\">".$page."</h2>
 \t<p class=\"meta\">
-\t<span id=\"prioridad\" class=\"editInPlace\" title=\"Doble-click para editar\">$impor | </span>
-\t<span id=\"estado\" class=\"editInPlace\" title=\"Doble-click para editar\">$state | </span>
+\t<span id=\"prioridad\" class=\"editInPlace\" title=\"Doble-click para editar\">$impor</span> |
+\t<span id=\"estado\" class=\"editInPlace\" title=\"Doble-click para editar\">$state</span> |
 Última modificación por <b>".$out['author']."</b> el ".date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))."</p>
 \t<div id=\"text\" class=\"editInPlace\" title=\"Doble-click para editar\">".get_html($out['content'])."</div>\n";
 

@@ -77,29 +77,29 @@ h3 {color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1e
 }
 
 .editInPlace {
-  cursor:pointer;
+  cursor: pointer;
 }
 
 .error {
-	border:1px solid #c00;
+	border: 1px solid #c00;
 	background-color: #fdd;
-	padding:1em;
+	padding: 1em;
 }
 
 .warning {
-	border:1px solid #cc0;
+	border: 1px solid #cc0;
 	background-color: #ffd;
-	padding:1em;
+	padding: 1em;
 }
 
 .success {
-	border:1px solid #0c0;
+	border: 1px solid #0c0;
 	background-color: #dfd;
-	padding:1em;
+	padding: 1em;
 }
 
 #posttitle-inplaceeditor {
-	margin-top:2em;
+	margin-top: 2em;
 }
 
 .inplaceeditor-saving, .saving {
@@ -107,60 +107,60 @@ h3 {color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1e
 }
 
 .editor_cancel_link {
-	padding:1em;
-	color:#c00 !important;
+	padding: 1em;
+	color: #c00 !important;
 }
 
 .cancel_button {
-	background-color:#f66;
-	border:1px solid #f00;
-	color:#FFFFFF;
-	cursor:pointer;
-	height:1.8em;
-	margin:0em 1em;
+	background-color: #f66;
+	border: 1px solid #f00;
+	color: #FFFFFF;
+	cursor: pointer;
+	height: 1.8em;
+	margin: 0em 1em;
 }
 
 .cancel_button:hover {
-	background-color:#f33;
+	background-color: #f33;
 }
 
 .editor_ok_button {
-	background-color:#166baf;
-	border:1px solid #005D93;
-	color:#FFFFFF;
+	background-color: #166baf;
+	border: 1px solid #005D93;
+	color: #FFFFFF;
 	cursor:pointer;
-	height:1.8em;
-	margin:0em 1em;
+	height: 1.8em;
+	margin: 0em 1em;
 }
 
 .editor_ok_button:hover {
-	background-color:#6390b7;
+	background-color: #6390b7;
 }
 
 #titulo {
-	font-size:1.5em;
+	font-size: 1.5em;
 }
 
 #posttitle-inplaceeditor > input.editor_field {
-	font-size:1.3em;
-	line-height:1em;
+	font-size: 1.3em;
+	line-height: 1em;
 }
 
 textarea {
 	width: 75%;
 	font-size: 1.3em;
-	height:20em;
-	padding:0.3em;
+	height: 20em;
+	padding: 0.3em;
 	background-color: #ffffd3;
 }
 
 .markdown {
-	background-color:#fff;
+	background-color: #fff;
 	font-size: 85%;
 	color: #333;
-	position:absolute;
-	right:11em;
-	padding:0;
+	position: absolute;
+	right: 11em;
+	padding: 0;
 }
 
 #toggle_slide {
@@ -174,37 +174,37 @@ img.progress {
 }
 
 table.search {
-	margin:1em 0 !important;
+	margin: 1em 0 !important;
 }
 
 table.login {
-	margin:1em auto !important;
+	margin: 1em auto !important;
 }
 
 table.login td {
-	border-bottom:0px !important;
+	border-bottom: 0px !important;
 }
 
 th {
-border-bottom:1px solid #BBBBBB !important;
-padding:0.2em 1em !important;
+border-bottom: 1px solid #BBBBBB !important;
+padding: 0.2em 1em !important;
 }
 
 td {
-border-bottom:1px solid #DDDDDD !important;
-padding:0.2em 1em !important;
+border-bottom: 1px solid #DDDDDD !important;
+padding: 0.2em 1em !important;
 }
 
 table.help {
-	font-size:80% !important;
+	font-size: 80% !important;
 }
 
 .c {
-text-align:center;
+text-align: center;
 }
 
 .r {
-	text-align:right;
+	text-align: right;
 }
 
 .loggedin {

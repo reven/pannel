@@ -65,7 +65,7 @@ $("#posttitle").dblclick(function(){
       // on sucess haz un flash o alguna notificación y borra el formulario, remplazandolo por oldValue.
     return false;
   });
-  
+
 });
 
 // Listener and form for priority
@@ -73,9 +73,10 @@ $("#prioridad").dblclick(function(){
   var pri0, pri1;
   var $this = $( this );
   var oldValue = $this.text();
+  alert (oldValue);
   if (oldValue == 1) {var pri1 = " selected"}else{var pri0 = " selected"};
   $this.hide();
-  $this.after('<form id="prioridad-inplaceeditor" class="inplaceeditor-form"><select name="prioridad" size="2"><option value="0"' + pri0 + '>Normal</option><option value="1"' + pri1 + '>Importante</option></select><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
+  $this.after('<form id="prioridad-inplaceeditor" class="inplaceeditor-form"><select name="prioridad"><option value="0"' + pri0 + '>Normal</option><option value="1"' + pri1 + '>Importante</option></select><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
   $('#posttitle-inplaceeditor').submit(function() {
     $.ajax({
       data: "editorId=posttitle&id=" + id + "&title=" + encodeURIComponent($("#newtitle").val()),
