@@ -26,15 +26,6 @@ function warning_url(url) {
   $('#posttitle').after(thing);
 }
 
-// Hover effect
-$(".editInPlace").hover(
-  function() {
-    $( this ).css("background-color", "#FFFF00");
-  }, function() {
-    $( this ).css("background-color", "#FFFFFF");
-  }
-);
-
 // Listener and form for posttitle
 $("#posttitle").dblclick(function(){
   var $this = $( this );

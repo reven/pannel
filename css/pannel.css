@@ -78,6 +78,14 @@ h3 {color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1e
 
 .editInPlace {
   cursor: pointer;
+  transition-property: background-color;
+  transition-duration: 750ms;
+  transition-timing-function: linear;
+}
+
+.editInPlace:hover {
+	background-color: #FFFF00;
+	transition-duration: 0s;
 }
 
 .error {
