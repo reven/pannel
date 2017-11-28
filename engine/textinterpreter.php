@@ -62,9 +62,9 @@ function get_html($input){
 
 		}else{
 			$paragraph = preg_replace("/^(\t?)\*+\s?(.*)/m","$1<uli>$2</uli>",$paragraph);
-			$paragraph = preg_replace("/(\<uli\>(.+?)\<\/uli\>)$/s","<ul>\n$1\n</ul>",$paragraph);
+			$paragraph = preg_replace("#(\<uli\>(.+?)\</uli\>)$#s","<ul>\n$1\n</ul>",$paragraph);
 			$paragraph = preg_replace("/^(\t?)\d+\.+\s?(.*)/m","$1<oli>$2</oli>",$paragraph);
-			$paragraph = preg_replace("/(\<oli\>(.+?)\<\/oli\>)$/s","<ol>\n$1\n</ol>",$paragraph);
+			$paragraph = preg_replace("#(\<oli\>(.+?)\</oli\>)$#s","<ol>\n$1\n</ol>",$paragraph);
 			//Sublistas ---> Solo un nivel de recursión
 			//intentar arreglar sublistas --> ul dentro de ul
 			$paragraph = preg_replace("#(\</uli\>\n\t\<uli\>)((.+?\</uli\>)\n)(^\<uli\>)#ms","\n\t<ul><li>$3</ul></li>\n<li>",$paragraph);
@@ -85,9 +85,9 @@ function get_html($input){
 		}
     }
 	$text = preg_replace("/\<uli\>/","<li>",$text);
-	$text = preg_replace("/\<\/uli\>/","</li>",$text);
+	$text = preg_replace("#\</uli\>#","</li>",$text);
 	$text = preg_replace("/\<oli\>/","<li>",$text);
-	$text = preg_replace("/\<\/oli\>/","</li>",$text);
+	$text = preg_replace("#\</oli\>#","</li>",$text);
 	return ($text);
 }
 

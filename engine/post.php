@@ -12,11 +12,11 @@ $c = connect();
 $c->set_charset('utf8');
 
 // Escapamos las vars para uso en querys, aunque deberíamos chequear que sean seguras
-if (isset($_POST['content'])) $content = $c->real_escape_string($_POST['content']);
-if (isset($_POST['title']))   $title   = $c->real_escape_string($_POST['title']);
-if (isset($_POST['state']))   $state   = $c->real_escape_string($_POST['state']);
-if (isset($_POST['post_id'])) $post_id = $c->real_escape_string($_POST['post_id']);
-if (isset($_POST['id']))      $id      = $c->real_escape_string($_POST['id']);
+if (isset($_POST['content']))  $content  = $c->real_escape_string($_POST['content']);
+if (isset($_POST['title']))    $title    = $c->real_escape_string($_POST['title']);
+if (isset($_POST['state']))    $state    = $c->real_escape_string($_POST['state']);
+if (isset($_POST['post_id']))  $post_id  = $c->real_escape_string($_POST['post_id']);
+if (isset($_POST['id']))       $id       = $c->real_escape_string($_POST['id']);
 
 /* 1. Cambiar el *contenido* de una entrada */
 if ($_POST['editorId']=="text") {
@@ -25,7 +25,7 @@ if ($_POST['editorId']=="text") {
 	$query .= $title."', '";
 	$query .= $_SESSION['nombre']."', '";
 	$query .= $content."', NOW(), '";
-	if ($_POST['imp']==1){$query .= "1', '";}else{$query .= "0', '";}
+	if ($_POST['priority']==1){$query .= "1', '";}else{$query .= "0', '";}
 	$query .= $state."');";
 
 	$result = query($query,$c);
@@ -61,7 +61,7 @@ if ($_POST['editorId']=="text") {
 	$query .= $title."', '";
 	$query .= $_SESSION['nombre']."', '";
 	$query .= $content."', NOW(), '";
-	if ($_POST['importante']==1){$query .= "1', '";}else{$query .= "0', '";}
+	if ($_POST['priority']==1){$query .= "1', '";}else{$query .= "0', '";}
 	$query .= $state."');";
 
 	$result = query($query,$c);
@@ -86,15 +86,9 @@ if ($_POST['editorId']=="text") {
 
 /* 5. Cambio de *estado* */
 }elseif ($_POST['editorId']=="estado"){
-	$status = array ('P'=>"Planteada",
-                   'E'=>"En curso",
-                   'X'=>"Estancada",
-                   'F'=>"Esperando feedback",
-                   'C'=>"Cancelada",
-                   'H'=>"Hibernando");
-	$stat_flag = $value;
-	if ($stat_flag!=""){ $state="Marcada como <span class=\"$stat_flag\">$status[$stat_flag]</span> | ";}else{$state="Marcar estado | ";}
-	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `state` = '$value', `date`= NOW() WHERE `id` = $id";
+	$state_flag = $_POST['state'];
+
+	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `state` = '$state_flag', `date`= NOW() WHERE `id` = $id";
 
 	$result = query($query,$c);
 	if (!$result) {
@@ -105,8 +99,9 @@ if ($_POST['editorId']=="text") {
 
 /* 6. Cambio de *prioridad* */
 }elseif ($_POST['editorId']=="prioridad"){
-	if ($value==1) {$impor="<span style=\"color:#f00;\">✔</span> <b>Importante</b> | ";}elseif($value==0){$impor="Marcar prioridad | ";}
-	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `prioridad` =  '$value', `date` = NOW() WHERE `id` = $id";
+	if ($_POST['priority']==1) { $priority = 1; }else{ $priority = 0; }
+
+	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `prioridad` =  '$priority', `date` = NOW() WHERE `id` = $id";
 
 	$result = query($query,$c);
 	if (!$result) {

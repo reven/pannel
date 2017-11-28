@@ -85,6 +85,10 @@ h3 {color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1e
 	color: #f00;
 }
 
+.inplaceeditor-form {
+	display: inline-block;
+}
+
 .editInPlace {
   cursor: pointer;
   transition-property: background-color;

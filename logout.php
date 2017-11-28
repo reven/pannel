@@ -5,16 +5,16 @@ Hay que arreglarlo o incluirlo en flujo.
 
 */
 
-// check where we have to return to
+// Parse URL to get origin and root
 define ('ORIGIN', url_origin( $_SERVER ));
-define ('ROOT', preg_replace ("/(.*)\/logout\.php(.*)/i","$1", $_SERVER[REQUEST_URI] ) . "/");
+define ('ROOT', preg_replace ("#(.*)/logout\.php(.*)#i","$1", $_SERVER[REQUEST_URI] ) . "/");
 
 session_start();
 $_SESSION = array();
 session_destroy();
 header("Location: " . ORIGIN . ROOT);
 
-// obtiene origne cualificado para una redirección
+// obtiene origen cualificado para una redirección
 function url_origin($s, $use_forwarded_host=FALSE){
     $ssl      = ( ! empty( $s['HTTPS'] ) && $s['HTTPS'] == 'on' );
     $sp       = strtolower( $s['SERVER_PROTOCOL'] );

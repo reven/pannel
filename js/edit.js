@@ -56,7 +56,7 @@ $("#posttitle").dblclick(function(){
       // on sucess haz un flash o alguna notificación y borra el formulario, remplazandolo por oldValue.
     return false;
   });
-
+  // Here we capture the cancel button??
 });
 
 // Listener and form for priority
@@ -65,13 +65,13 @@ $("#prioridad").dblclick(function(){
   var $this = $( this );
   var oldValue = $this.text();
   alert (oldValue);
-  if (oldValue == 1) {var pri1 = " selected"}else{var pri0 = " selected"};
+  if (oldValue == "Importante") {var pri1 = " selected"};
   $this.hide();
-  $this.after('<form id="prioridad-inplaceeditor" class="inplaceeditor-form"><select name="prioridad"><option value="0"' + pri0 + '>Normal</option><option value="1"' + pri1 + '>Importante</option></select><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
+  $this.after('<form id="prioridad-inplaceeditor" class="inplaceeditor-form"><select name="prioridad"><option value="0">Normal</option><option value="1"' + pri1 + '>Importante</option></select><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
   $('#posttitle-inplaceeditor').submit(function() {
     $.ajax({
-      data: "editorId=posttitle&id=" + id + "&title=" + encodeURIComponent($("#newtitle").val()),
-      method: "POST",
+      data: "editorId=prioridad&id=" + id + "&title=" + encodeURIComponent($("#newtitle").val()),
+      method: "GET",  //change!!!
        success: function(data) {
          if (data != "pannel: success") {
            return handleError(data);
