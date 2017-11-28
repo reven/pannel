@@ -19,7 +19,12 @@ if (isset($_GET['search']) && !$_GET['search'] == ""){
 	$search = $_GET['search'];
 	echo ("<p>Resultados de búsqueda: <b>$_GET[search]</b>:</p>");
 
-	$query ="SELECT * FROM posts WHERE MATCH (title, content) AGAINST ('$search' WITH QUERY EXPANSION) ORDER BY DATE DESC";
+	// Modificar query segun se quieran o no todas las revisiones
+	if (isset($_GET['allrevisions'])){
+		$query = "SELECT * FROM posts WHERE MATCH (title, content) AGAINST ('$search' WITH QUERY EXPANSION)";
+	}else{
+		$query = "SELECT * FROM (SELECT * FROM posts JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) AS maxids USING (id)) AS uniqueposts WHERE MATCH (title, content) AGAINST ('$search' WITH QUERY EXPANSION);";
+	}
 
 	if (!$result = query($query,$c)) {
 		echo "<p class=\"error\">Se ha producido un error al hacer la búsqueda: " . mysqli_error($c);

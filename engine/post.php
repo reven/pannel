@@ -1,5 +1,9 @@
 <?php
-/*Este archivo recibe los cambios y se ocuparía de guardar a base de datos*/
+/* post.php
+Recibe cambios y maneja la lógica para ver qué cambios a la base de datos se requeiren.
+
+Modificar el mínimo número de campos que se requeiran!
+*/
 
 if (DEBUG_VIS == 1) {
   debug_add("***post.php está incluido\n");
@@ -7,49 +11,39 @@ if (DEBUG_VIS == 1) {
 $c = connect();
 $c->set_charset('utf8');
 
-// Checkeamos TODAS vars. Usamos las seguras para meter a BdD, pero las inseguras para pantalla, para evitar barras (\).
-if (isset($_POST['usuario'])) $usuario = $c->real_escape_string($_POST['usuario']);
-if (isset($_POST['content'])) $text    = $c->real_escape_string($_POST['content']);
+// Escapamos las vars para uso en querys, aunque deberíamos chequear que sean seguras
+if (isset($_POST['content'])) $content = $c->real_escape_string($_POST['content']);
 if (isset($_POST['title']))   $title   = $c->real_escape_string($_POST['title']);
 if (isset($_POST['state']))   $state   = $c->real_escape_string($_POST['state']);
 if (isset($_POST['post_id'])) $post_id = $c->real_escape_string($_POST['post_id']);
 if (isset($_POST['id']))      $id      = $c->real_escape_string($_POST['id']);
-if (isset($_POST['value']))   $value   = $c->real_escape_string($_POST['value']);
 
 /* 1. Cambiar el *contenido* de una entrada */
 if ($_POST['editorId']=="text") {
-	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `content`, `date`, `prioridad`, `state`) VALUES (NULL, '";
+	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `content`, `date`, `prioridad`, `state`) VALUES (NULL, '"; // No se si este null funciona???
 	$query .= $post_id."', '";
 	$query .= $title."', '";
 	$query .= $_SESSION['nombre']."', '";
-	$query .= $text."', NOW(), '";
+	$query .= $content."', NOW(), '";
 	if ($_POST['imp']==1){$query .= "1', '";}else{$query .= "0', '";}
 	$query .= $state."');";
 
 	$result = query($query,$c);
 	if (!$result) {
-	    die('<p class="error">Error al intentar guardar el texto: ' . mysqli_error($c));
+    exit('Error al intentar guardar la entrada: ' . mysqli_error($c));
 	}elseif ($result){
-		echo (get_html($_POST['content']));
-    exit;
+    exit('pannel: success');
 	}
 
 /* 2. Cambiar el *título* de una entrada */
 }elseif ($_POST['editorId']=="posttitle"){
-	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `content`, `date`, `prioridad`, `state`) VALUES (NULL, '";
-	$query .= $post_id."', '";
-	$query .= $title."', '";
-	$query .= $_SESSION['nombre']."', '";
-	$query .= $text."', NOW(), '";
-	if ($_POST['importante']==1){$query .= "1', '";}else{$query .= "0', '";}
-	$query .= $state."');";
+  $query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `title` = '$title', `date`= NOW() WHERE `id` = $id";
 
 	$result = query($query,$c);
 	if (!$result) {
-	    die('<p class="error">Error al intentar guardar el título: ' . mysqli_error($c));
+	  exit('Error al intentar guardar el título: ' . mysqli_error($c));
 	}elseif ($result){
-		echo ($_POST['title']);
-    exit;
+    exit('pannel: success');
 	}
 
 /* 3. Formulario página nueva */
@@ -66,13 +60,13 @@ if ($_POST['editorId']=="text") {
 	$query .= $post_id."', '";
 	$query .= $title."', '";
 	$query .= $_SESSION['nombre']."', '";
-	$query .= $text."', NOW(), '";
+	$query .= $content."', NOW(), '";
 	if ($_POST['importante']==1){$query .= "1', '";}else{$query .= "0', '";}
 	$query .= $state."');";
 
 	$result = query($query,$c);
 	if (!$result) {
-	    die('<p class="error">Error al intentar guardar la página: ' . mysqli_error($c));
+	  exit('Error al intentar guardar la página: ' . mysqli_error($c));
 	}elseif ($result){ //Exito
     header("Location: " . ORIGIN . ROOT . $_POST[title]);
 		exit;
@@ -83,7 +77,7 @@ if ($_POST['editorId']=="text") {
 	$query ="DELETE FROM `posts` WHERE `post_id` =  '$_POST[post_id]'";
 	$result = query($query,$c);
 	if (!$result) {
-	    die('<p class="error">Error al intentar borrar las entradas: ' . mysqli_error($c));
+	  exit('Error al intentar borrar las entradas: ' . mysqli_error($c));
 	}elseif ($result){ //Exito
 		$_SESSION['title_del']=$_POST['title'];
 		header("Location: " . ORIGIN . ROOT);
@@ -104,10 +98,9 @@ if ($_POST['editorId']=="text") {
 
 	$result = query($query,$c);
 	if (!$result) {
-	    die('<p class="error">Error al intentar cambiar el estado: ' . mysqli_error($c)."<br />Intenta volver atrás.</p>");
+	  exit('Error al intentar cambiar el estado: ' . mysqli_error($c));
 	}elseif ($result){ //Exito
-		echo $state;
-    exit;
+    exit('pannel: success');
 	}
 
 /* 6. Cambio de *prioridad* */
@@ -117,12 +110,10 @@ if ($_POST['editorId']=="text") {
 
 	$result = query($query,$c);
 	if (!$result) {
-	    /*die*/ echo('<p class="error">Could not query:' . mysql_error()."<br />Intenta volver atrás.</p>");
+	  exit('Error al intentar cambiar la prioridad: ' . mysqli_error($c));
 	}elseif ($result){ //Exito
-		echo $impor;
-    exit;
+    exit('pannel: success');
 	}
-
 }
 
 close($c);

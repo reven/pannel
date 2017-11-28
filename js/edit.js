@@ -21,16 +21,13 @@ safeTitle
 
 */
 
-// Init vars for global scope.
-var oldValue;
-
 function warning_url(url) {
-  var thing = '<p class="error">El título ha cambiado. Antes de seguir editando, vaya a la nueva url: <a href="$root'+url.responseText+'/">'+url.responseText+'</a></p>';
-  $('#posttitle').insert({ after: thing });
+  var thing = '<p class="warning">El título ha cambiado. Antes de seguir editando, vaya a la nueva url: <a href="'+ pageRoot + encodeURIComponent(url) +'/">'+ url +'</a></p>';
+  $('#posttitle').after(thing);
 }
 
 // Hover effect
-$("#posttitle").hover(
+$(".editInPlace").hover(
   function() {
     $( this ).css("background-color", "#FFFF00");
   }, function() {
@@ -41,37 +38,67 @@ $("#posttitle").hover(
 // Listener and form for posttitle
 $("#posttitle").dblclick(function(){
   var $this = $( this );
-  oldValue = $this.text(); // oldValue is global
-  $this.replaceWith('<form id="posttitle-inplaceeditor" class="inplaceeditor-form"><input id="newtitle" class="editor_field" type="text" value="' + oldValue + '"><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
-  $('#posttitle-inplaceeditor').submit(function() { // catch the form's submit event
+  var oldValue = $this.text();
+  $this.hide();
+  $ (".inplaceeditor-form").remove();
+  $this.after('<form id="posttitle-inplaceeditor" class="inplaceeditor-form"><input id="newtitle" class="editor_field" type="text" value="' + oldValue + '"><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
+  $('#posttitle-inplaceeditor').submit(function() {
     $.ajax({
       data: "editorId=posttitle&id=" + id + "&title=" + encodeURIComponent($("#newtitle").val()),
-      method: "GET" //DEBERIA SER POST; ESTO ES OLO DE PRUEBA!!!!!!
+      method: "POST",
+       success: function(data) {
+         if (data != "pannel: success") {
+           return handleError(data);
+         }
+         var newValue = $("#newtitle").val();
+         $this.html(newValue);
+         $this.show();
+         $("#posttitle-inplaceeditor").remove();
+         warning_url(newValue);
+       },
+       error: handleError = function(response){
+         $("#posttitle-inplaceeditor").remove();
+         $this.show();
+         $this.after("<p class=\"error\"> :-( Errores: " + response);
+       }
     });
       // on sucess haz un flash o alguna notificación y borra el formulario, remplazandolo por oldValue.
     return false;
   });
+  
 });
 
-  // Ahora tenemos que capturar events del formulario (neutralizar los botones) y hacer llamadas ajax.
-
-
-// Form handler. One for each or one for all??
-/* Este handler no pilla el formulario. Probablemente porque el formulario no está ahí cuando cargamos el script. La unica opción será añadirlo arriba??*/
-$('#posttitle-inplaceeditor').submit(function() { // catch the form's submit event
-  alert ("Crisis averted");
-  /*$.ajax({ // create an AJAX call...
-    data:   $( this ).serialize(), // get the form data
-    method: "PUT",                 // GET or POST
-    //url: SearchUrl,              // default is current page
-    success: function(response) {  // on success..
-      $("#resultadosactuales").html(response); // update the DIV
-    },
-    error: function(response) {    // on error...
-      $("#resultadosactuales").html("<p class=\"error\">Error: " + response);
-    }
-  });*/
-  return false; // cancel original event to prevent form submitting
+// Listener and form for priority
+$("#prioridad").dblclick(function(){
+  var pri0, pri1;
+  var $this = $( this );
+  var oldValue = $this.text();
+  if (oldValue == 1) {var pri1 = " selected"}else{var pri0 = " selected"};
+  $this.hide();
+  $this.after('<form id="prioridad-inplaceeditor" class="inplaceeditor-form"><select name="prioridad" size="2"><option value="0"' + pri0 + '>Normal</option><option value="1"' + pri1 + '>Importante</option></select><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
+  $('#posttitle-inplaceeditor').submit(function() {
+    $.ajax({
+      data: "editorId=posttitle&id=" + id + "&title=" + encodeURIComponent($("#newtitle").val()),
+      method: "POST",
+       success: function(data) {
+         if (data != "pannel: success") {
+           return handleError(data);
+         }
+         var newValue = $("#newtitle").val();
+         $this.html(newValue);
+         $this.show();
+         $("#posttitle-inplaceeditor").remove();
+         warning_url(newValue);
+       },
+       error: handleError = function(response){
+         $("#posttitle-inplaceeditor").remove();
+         $this.show();
+         $this.after("<p class=\"error\"> :-( Errores: " + response);
+       }
+    });
+      // on sucess haz un flash o alguna notificación y borra el formulario, remplazandolo por oldValue.
+    return false;
+  });
 });
 
 /*

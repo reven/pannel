@@ -4,8 +4,8 @@
 ?>
 
 <h2>Introducir nueva entrada</h2>
-
-<form id="nuevo" class="form" method="post" action="<?php echo ROOT ?>">
+                          <!-- cambiar get -->
+<form id="nuevo" class="form" method="get" action="<?php echo ROOT ?>">
 	<input type="hidden" name="check" value="newpost" />
 	<p>
 		<input type="text" id="titulo" name="title" class="editor_field" value="Título" onfocus="this.value=(this.value=='Título') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Título' : this.value;" size="20" /></p>

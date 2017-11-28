@@ -10,20 +10,20 @@ Obtener el numero de revisiones seguro que se puede hacer con querys anidadas, p
 	<div id="busca">
 		<form id="searchform" class="form" method="get" action="<?php echo ORIGIN . ROOT; ?>index/">
 			<p style="display:inline;">
-			<input type="text" name="search" id="s" class="editor_field" value="" size="20" /><input type="submit" id="btnsubmit" value="Ir" class="editor_ok_button" />
+			<input type="text" name="search" id="s" class="editor_field" value="" size="20" /><input type="submit" id="btnsubmit" value="Ir" class="editor_ok_button" /><input type="checkbox" name="allrevisions" id="wholesearch" value="1" /><span class="meta">Buscar también en las versiones anteriores de las entradas</span></p>
 		</form>
 	</div>
 	<div id="resultados">
 		<div id="resultadosactuales"> <?php // este div es solo por si hay otro div de resultados nuevos y queremos hacer una animación, pero quitar si no lo hacemos. ?>
-			<p>Estas son todas las entradas por orden alfabético</p>
+			<p>Estas son todas las entradas por orden de importancia y alfabético</p>
 			<table><tbody>
 				<tr><th>Título</th><th>último autor</th><th>última revisión</th><th>revisiones</th><th>prioridad</th></tr>
 <?php
 /* Lista de todas las entradas */
 $c = connect();
 $c->set_charset('utf8');
-// Esta query no tiene límite, pero igual se le puede añadir un límite de 50 y un enlace a buscar las siguientes 50, y que se actualice de forma dinámica
-$query ="SELECT * FROM posts INNER JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) ids ON posts.id = ids.id ORDER BY title ASC";
+// Esta query no tiene límite, pero igual se le puede añadir un límite de 50 y un enlace a buscar las siguientes 50, y que se actualice de forma dinámica. Implica contar total y generar enlaces a las subconsultas.
+$query ="SELECT * FROM posts INNER JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) ids ON posts.id = ids.id ORDER BY prioridad DESC, title";
 
 $result = query($query,$c);
 
