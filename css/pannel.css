@@ -76,6 +76,15 @@ h3 {color: #166baf;text-transform: lowercase; font-size: 1.1em; margin: 1em 0 1e
 	border: 1px solid #ddd;
 }
 
+.prio1 {
+  font-weight: bold;
+}
+
+.prio1::before {
+	content: "✔ ";
+	color: #f00;
+}
+
 .editInPlace {
   cursor: pointer;
   transition-property: background-color;

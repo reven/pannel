@@ -37,9 +37,11 @@ $post_id    = $out['post_id'];
 $safe_text  = rawurlencode($out['content']);
 $safe_title = rawurlencode($out['title']);
 if ($out['prioridad']==1) {
-	$impor="<span style=\"color:#f00;\">✔</span> <b>Importante</b>";
+	$impor = "Importante";
+	$impor_class = " prio1";
 }else{
-	$impor="Marcar prioridad";
+	$impor = "Marcar prioridad";
+	$impor_class = "";
 }
 $status = array ('P'=>"Planteada",
 								 'E'=>"En curso",
@@ -104,7 +106,7 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT .
 // Mostrar la entrada
 echo "\t<h2 id=\"posttitle\" class=\"editInPlace\" title=\"Doble-click para editar\">".$page."</h2>
 \t<p class=\"meta\">
-\t<span id=\"prioridad\" class=\"editInPlace\" title=\"Doble-click para editar\">$impor</span> |
+\t<span id=\"prioridad\" class=\"editInPlace$impor_class\" title=\"Doble-click para editar\">$impor</span> |
 \t<span id=\"estado\" class=\"editInPlace\" title=\"Doble-click para editar\">$state</span> |
 Última modificación por <b>".$out['author']."</b> el ".date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))."</p>
 \t<div id=\"text\" class=\"editInPlace\" title=\"Doble-click para editar\">".get_html($out['content'])."</div>\n";
