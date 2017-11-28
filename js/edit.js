@@ -22,17 +22,27 @@ safeTitle
 */
 
 function warning_url(url) {
-  var thing = '<p class="warning">El título ha cambiado. Antes de seguir editando, vaya a la nueva url: <a href="'+ pageRoot + encodeURIComponent(url) +'/">'+ url +'</a></p>';
+  var thing = '<p class="success">Guardado! El título ha cambiado; usa la nueva url antes de realizar más cambios:<br /><a href="'+ pageRoot + encodeURIComponent(url) +'/">'+ url +'</a></p>';
   $('#posttitle').after(thing);
 }
 
+function get_authdate() {
+  var n = new Date();
+  var meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+  var construct = "Última modificación por <b>" + author + "</b> el " + n.getDate() + " de " + meses[n.getMonth()] + " de " + n.getFullYear() + ", a las " + n.getHours() + ":" + n.getMinutes();
+  $("#auth-date").html(construct);
+}
+
 // Listener and form for posttitle
+$("#posttitle").mousedown(function(){ return false; }); // avoid selection
 $("#posttitle").dblclick(function(){
   var $this = $( this );
   var oldValue = $this.text();
+  $(".inplaceeditor-form").remove();
+  $(".editInPlace").show();
   $this.hide();
-  $ (".inplaceeditor-form").remove();
   $this.after('<form id="posttitle-inplaceeditor" class="inplaceeditor-form"><input id="newtitle" class="editor_field" type="text" value="' + oldValue + '"><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
+  // Capture the submit action
   $('#posttitle-inplaceeditor').submit(function() {
     $.ajax({
       data: "editorId=posttitle&id=" + id + "&title=" + encodeURIComponent($("#newtitle").val()),
@@ -43,8 +53,9 @@ $("#posttitle").dblclick(function(){
          }
          var newValue = $("#newtitle").val();
          $this.html(newValue);
-         $this.show();
          $("#posttitle-inplaceeditor").remove();
+         $this.show();
+         get_authdate();
          warning_url(newValue);
        },
        error: handleError = function(response){
@@ -53,49 +64,114 @@ $("#posttitle").dblclick(function(){
          $this.after("<p class=\"error\"> :-( Errores: " + response);
        }
     });
-      // on sucess haz un flash o alguna notificación y borra el formulario, remplazandolo por oldValue.
+    // Disable native submission
     return false;
   });
-  // Here we capture the cancel button??
+  // Capture the cancel on-click
+  $(".cancel_button").click(function(){
+    $("#posttitle-inplaceeditor").remove();
+    $(".editInPlace").show();
+  });
 });
 
 // Listener and form for priority
-$("#prioridad").dblclick(function(){
-  var pri0, pri1;
+$("#priority").mousedown(function(){ return false; }); // avoid selection
+$("#priority").dblclick(function(){
+  var pri1;
   var $this = $( this );
   var oldValue = $this.text();
-  alert (oldValue);
   if (oldValue == "Importante") {var pri1 = " selected"};
+  $(".inplaceeditor-form").remove();
+  $(".editInPlace").show();
   $this.hide();
-  $this.after('<form id="prioridad-inplaceeditor" class="inplaceeditor-form"><select name="prioridad"><option value="0">Normal</option><option value="1"' + pri1 + '>Importante</option></select><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
-  $('#posttitle-inplaceeditor').submit(function() {
+  $this.after('<form id="priority-inplaceeditor" class="inplaceeditor-form"><select name="priority"><option value="0">Normal</option><option value="1"' + pri1 + '>Importante</option></select><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
+
+  // Capture the submit action
+  $('#priority-inplaceeditor').submit(function() {
+    var newValue = $( "select" ).val();
     $.ajax({
-      data: "editorId=prioridad&id=" + id + "&title=" + encodeURIComponent($("#newtitle").val()),
-      method: "GET",  //change!!!
+      data: "editorId=priority&id=" + id + "&priority=" + newValue,
+      method: "POST",
        success: function(data) {
          if (data != "pannel: success") {
-           return handleError(data);
+         return handleError(data);
          }
-         var newValue = $("#newtitle").val();
-         $this.html(newValue);
+         var construct;
+         if (newValue == 1) { construct = "Importante"; $this.addClass("prio1") }
+         if (newValue == 0) { construct = "Marcar prioridad"; $this.removeClass("prio1") }
+         $this.html(construct);
+         $("#priority-inplaceeditor").remove();
          $this.show();
-         $("#posttitle-inplaceeditor").remove();
-         warning_url(newValue);
+         get_authdate();
+         $this.after('<span class="yay">✔ Guardado!</span>');
+         $(".yay").fadeOut(3000);
        },
        error: handleError = function(response){
-         $("#posttitle-inplaceeditor").remove();
+         $("#priority-inplaceeditor").remove();
          $this.show();
          $this.after("<p class=\"error\"> :-( Errores: " + response);
        }
     });
-      // on sucess haz un flash o alguna notificación y borra el formulario, remplazandolo por oldValue.
+    // Disable native submission
     return false;
+  });
+  // Capture the cancel on-click
+  $(".cancel_button").click(function(){
+    $("#priority-inplaceeditor").remove();
+    $(".editInPlace").show();
   });
 });
 
-/*
-select();
-*/
+// Listener and form for states
+$("#state").mousedown(function(){ return false; }); // avoid selection
+$("#state").dblclick(function(){
+  var $this = $( this );
+  var oldState = $this.children().attr("class");
+  var states = {'P':"Planteada",
+  								 'E':"En curso",
+  								 'X':"Estancada",
+  								 'F':"Esperando feedback",
+  								 'C':"Cancelada",
+  								 'H':"Hibernando"};
+  $(".inplaceeditor-form").remove();
+  $(".editInPlace").show();
+  $this.hide();
+  $this.after('<form id="state-inplaceeditor" class="inplaceeditor-form"><select name="state"><option value=" ">(sin marca)</option><option value="P">Planteada</option><option value="E">En curso</option><option value="X">Estancada</option><option value="F">Esperando feedback</option><option value="C">Cancelada</option><option value="H">Hibernando</option></select><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
+  $("select[name=state] option[value="+oldState+"]").attr('selected','selected');
+  // Capture the submit action
+  $('#state-inplaceeditor').submit(function() {
+    var newValue = $( "select" ).val();
+    $.ajax({
+      data: "editorId=state&id=" + id + "&state=" + newValue,
+      method: "POST",
+       success: function(data) {
+         if (data != "pannel: success") {
+         return handleError(data);
+         }
+         var construct = "Marcada como <span class=\""+ newValue + "\">" + states[newValue] + "</span>";
+         if (newValue == 0) { construct = "Marcar prioridad"; }
+         $this.html(construct);
+         $("#state-inplaceeditor").remove();
+         $this.show();
+         get_authdate();
+         $this.after('<span class="yay">✔ Guardado!</span>');
+         $(".yay").fadeOut(3000);
+       },
+       error: handleError = function(response){
+         $("#state-inplaceeditor").remove();
+         $this.show();
+         $this.after("<p class=\"error\"> :-( Errores: " + response);
+       }
+    });
+    // Disable native submission
+    return false;
+  });
+  // Capture the cancel on-click
+  $(".cancel_button").click(function(){
+    $("#state-inplaceeditor").remove();
+    $(".editInPlace").show();
+  });
+});
 
 /*
 

@@ -106,21 +106,22 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT .
 // Mostrar la entrada
 echo "\t<h2 id=\"posttitle\" class=\"editInPlace\" title=\"Doble-click para editar\">".$page."</h2>
 \t<p class=\"meta\">
-\t<span id=\"prioridad\" class=\"editInPlace$impor_class\" title=\"Doble-click para editar\">$impor</span> |
-\t<span id=\"estado\" class=\"editInPlace\" title=\"Doble-click para editar\">$state</span> |
-Última modificación por <b>".$out['author']."</b> el ".date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))."</p>
+\t<span id=\"priority\" class=\"editInPlace$impor_class\" title=\"Doble-click para editar\">$impor</span> |
+\t<span id=\"state\" class=\"editInPlace\" title=\"Doble-click para editar\">$state</span> |
+<span id=\"auth-date\">Última modificación por <b>".$out['author']."</b> el ".date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))."</span></p>
 \t<div id=\"text\" class=\"editInPlace\" title=\"Doble-click para editar\">".get_html($out['content'])."</div>\n";
 
 // Pasar variables y añadir scripts de edición a la página
 echo <<<SCRIPTS
 <script>
-	var pageRoot = '$root';
-	var id       = '$id';
-	var postId   = '$post_id';
-	var safeText = '$safe_text';
-	var state    = '$out[state]';
-	var prioridad= '$out[prioridad]';
-	var safeTitle= '$safe_title';
+	var pageRoot  = '$root';
+	var id        = '$id';
+	var postId    = '$post_id';
+	var safeText  = '$safe_text';
+	var state     = '$out[state]';
+	var prioridad = '$out[prioridad]';
+	var safeTitle = '$safe_title';
+	var author    = '$_SESSION[nombre]';
 </script>
 <script src="{$root}js/edit.js"></script>
 SCRIPTS;

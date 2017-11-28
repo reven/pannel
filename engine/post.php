@@ -20,6 +20,7 @@ if (isset($_POST['id']))       $id       = $c->real_escape_string($_POST['id']);
 
 /* 1. Cambiar el *contenido* de una entrada */
 if ($_POST['editorId']=="text") {
+  $state = check_state($state);
 	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `content`, `date`, `prioridad`, `state`) VALUES (NULL, '"; // No se si este null funciona???
 	$query .= $post_id."', '";
 	$query .= $title."', '";
@@ -56,6 +57,7 @@ if ($_POST['editorId']=="text") {
 	$post_id = current($out) + 1;
 
   /* insertar los nuevos datos */
+  $state = check_state($state);
 	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `content`, `date`, `prioridad`, `state`) VALUES (NULL, '";
 	$query .= $post_id."', '";
 	$query .= $title."', '";
@@ -85,10 +87,10 @@ if ($_POST['editorId']=="text") {
 	}
 
 /* 5. Cambio de *estado* */
-}elseif ($_POST['editorId']=="estado"){
-	$state_flag = $_POST['state'];
+}elseif ($_POST['editorId']=="state"){
+  $state = check_state($state);
 
-	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `state` = '$state_flag', `date`= NOW() WHERE `id` = $id";
+	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `state` = '$state', `date`= NOW() WHERE `id` = $id";
 
 	$result = query($query,$c);
 	if (!$result) {
@@ -98,7 +100,7 @@ if ($_POST['editorId']=="text") {
 	}
 
 /* 6. Cambio de *prioridad* */
-}elseif ($_POST['editorId']=="prioridad"){
+}elseif ($_POST['editorId']=="priority"){
 	if ($_POST['priority']==1) { $priority = 1; }else{ $priority = 0; }
 
 	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `prioridad` =  '$priority', `date` = NOW() WHERE `id` = $id";
@@ -112,6 +114,14 @@ if ($_POST['editorId']=="text") {
 }
 
 close($c);
+
+/*
+check_state (var)
+Cleans the var or anything that isn't a valid state marker
+*/
+function check_state($state) {
+  return (preg_match ("/^[P|E|X|F|C|H]{1}$/", $state) ? $state : "");
+}
 
 /* debug */
 if (DEBUG_VIS == 1 && DEBUG_LVL == 2) {
