@@ -212,14 +212,14 @@ $("#text").dblclick(function(){
           $("#markdown").hide();
           $this.show();
           get_authdate();
-          $this.after('<div class="yay">✔ Guardado!</div>');
+          $this.before('<div class="yay">✔ Guardado!</div>');
           $(".yay").fadeOut(4000);
         })
         .fail(function() {
           $this.after("<p class=\"error\"> Error al mostrar el resultado, pero los cambios pudieron salvarse!");
 
         }); // end of GET
-        
+
       },
       error: handleError = function(response){
         $("#text-inplaceeditor").remove();

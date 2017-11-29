@@ -18,7 +18,7 @@
 			<tr><td>Listas</td><td><b>*</b> Item<br /><b>*</b> Item</td><td><b>&lt;ul&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;/ul&gt;</b></td></tr>
 			<tr><td>Listas ordenadas</td><td><b>1.</b> Item<br /><b>2.</b> Item</td><td><b>&lt;ol&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;/ol&gt;</b></td></tr>
 			<tr><td>Texto indentado</td><td><b>bq.</b> texto</td><td><b>&lt;blockquote&gt;</b>texto<b>&lt;/blockquote&gt;</b></td></tr>
-			<tr><td>Cabeceras</td><td><b>h.</b> Texto</td><td><b>&lt;blockquote&gt;</b>texto<b>&lt;/blockquote&gt;</b></td></tr>
+			<tr><td>Cabeceras</td><td><b>h.</b> Texto</td><td><b>&lt;h2&gt;</b>texto<b>&lt;/h2&gt;</b></td></tr>
 			<tr><td>Enlaces</td><td><b>"</b>texto<b>":</b>http://www.nuuve.com</td><td><b>&lt;a href="</b>http://www.nuuve.com<b>"&gt;</b>texto<b>&lt;/a&gt;</b></td></tr>
 			<tr><td>Imágenes</td><td><b>!</b>http://www.nuuve.com/logo.png<b>!</b></td><td><b>&lt;img src="</b>http://www.nuuve.com/logo.png<b>" /&gt;</b></td></tr>
 			<tr><td colspan="3"></td></tr>
