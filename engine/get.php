@@ -13,13 +13,16 @@ if (DEBUG_VIS == 1) {
 $c = connect();
 $c->set_charset('utf8');
 
+/* 0. Clean up vars for queries */
+// Escapamos las vars para uso en querys, aunque deberíamos chequear que sean seguras
+if (isset($_GET['search']) && !$_GET['search'] == "") $search  = $c->real_escape_string($_GET['search']);
+if (isset($_GET['id']) && preg_match ("/^[1-9][0-9]{0,8}$/",$_GET['id'])) $id = $_GET['id'];
 
 /* 1. Called from Search */
-if (isset($_GET['search']) && !$_GET['search'] == ""){
-	$search = $_GET['search'];
+if (isset($search)){
 	echo ("<p>Resultados de búsqueda: <b>$_GET[search]</b>:</p>");
 
-	// Modificar query segun se quieran o no todas las revisiones
+	// Modificar query segun se quieran o no todas las revisiones. Igual multiquery??
 	if (isset($_GET['allrevisions'])){
 		$query = "SELECT * FROM posts WHERE MATCH (title, content) AGAINST ('$search' WITH QUERY EXPANSION)";
 	}else{
@@ -45,19 +48,24 @@ if (isset($_GET['search']) && !$_GET['search'] == ""){
 
 		echo ("<a href=\"".ROOT."$out[title]/versions/\">".$revs."</a>");
 		echo ("</td><td class=\"c\">");
-		if ($out['prioridad']==1) {echo ("<span style=\"color:#f00;\">✔</span>");}else{echo ("<span class=\"meta\">--</span>");}
+		if ($out['priority']==1) {echo ("<span style=\"color:#f00;\">✔</span>");}else{echo ("<span class=\"meta\">--</span>");}
 		echo ("</td></tr>\n");
 	}
 	echo "\t\t\t</tbody></table>\n";
 	exit;
 
-	/* 2. Called from a markdown text box */
+/* 2. Called from a markdown text box */
 }elseif (isset($_GET['markdown']) && $_GET['markdown'] == 1){
-	$query = "SELECT `content` FROM `posts` WHERE `id`=$_GET[id]";
-  $result = query($query,$c);
-	$out = fetch_array($result);
 
-	echo ($out['content']);
+	$query = "SELECT content FROM posts WHERE id=$id";
+  $result = query($query,$c);
+
+	if ($result){
+		$out = fetch_array($result);
+		echo (get_html($out['content']));
+	}else{
+		echo ("<p>kjashdkasjhdkashd</p>");
+	}
 	exit;
 }
 

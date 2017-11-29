@@ -36,7 +36,7 @@ $id  				= $out['id'];
 $post_id    = $out['post_id'];
 $safe_text  = rawurlencode($out['content']);
 $safe_title = rawurlencode($out['title']);
-if ($out['prioridad']==1) {
+if ($out['priority']==1) {
 	$impor = "Importante";
 	$impor_class = " prio1";
 }else{
@@ -81,36 +81,34 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT .
   </script>")
 <?php }
 
-// Mostrar la ayuda para edición
-?>
-<div class="edit_tools">
-	<a href="<?= $page_link ?>versions/">ver revisiones<span class="meta"> (no implementado)</span></a> · <a href="<?= $page_link ?>delete/">borrar</a>
-</div>
-<div id="markdown" class="markdown" style="display:none"><a href="#" onclick="$(this).slideDown(); return false;"><span style="color:#000;font-size: 200%;">✎</span> Acerca de formato abreviado</a>
-	<div id="toggle_slide" style="display:none;">
-		<div>Utiliza los siguientes atajos para formatear tu texto:<br />
-			*negrita* → <b>negrita</b><br />
-			_cursiva_ → <i>cursiva</i><br />
-			<b>*</b> Item → Listas<br />
-			<b>1.</b> Item → Listas ordenadas<br />
-			<b>bq.</b> Texto indentado<br />
-			<b>h.</b> Titulo<br />
-			<b>"</b>enlace<b>":</b>http://www.nuuve.com → enlace<br />
-			<b>!</b>http://www.nuuve.com/logo.gif<b>!</b> → imagen<br /><br />
-			Puedes anidar listas y bloques de texto indentado. <a href="<?= ROOT ?>help/#formato">(+ info)</a>
+// Mostrar la entrada ?>
+<h2 id="posttitle" class="editInPlace" title="Doble-click para editar"><?=$page?></h2>
+    <p class="meta">
+        <span id="priority" class="editInPlace<?=$impor_class?>" title="Doble-click para editar"><?=$impor?></span> | <span id="state" class="editInPlace" title="Doble-click para editar"><?=$state?></span> | <span id="auth-date">Última modificación por <b><?=$out['author']?></b> el <?=date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))?></span></p>
+				<div id="markdown" class="markdown" style="display:none"><a href="#" onclick="$(this).slideDown(); return false;"><span style="color:#000;font-size: 200%;">✎</span> Acerca de formato abreviado</a>
+
+					<div id="toggle_slide" style="display:none;">
+						<div>Utiliza los siguientes atajos para formatear tu texto:<br />
+							*negrita* → <b>negrita</b><br />
+							_cursiva_ → <i>cursiva</i><br />
+							<b>*</b> Item → Listas<br />
+							<b>1.</b> Item → Listas ordenadas<br />
+							<b>bq.</b> Texto indentado<br />
+							<b>h.</b> Titulo<br />
+							<b>"</b>enlace<b>":</b>http://www.nuuve.com → enlace<br />
+							<b>!</b>http://www.nuuve.com/logo.gif<b>!</b> → imagen<br /><br />
+							Puedes anidar listas y bloques de texto indentado. <a href="<?= ROOT ?>help/#formato">(+ info)</a>
+						</div>
+					</div>
+				</div>
+
+    <div id="text" class="editInPlace" title="Doble-click para editar"><?=get_html($out['content'])?></div>
+
+		<div class="edit_tools">
+			<a href="<?= $page_link ?>versions/">ver revisiones<span class="meta"> (no implementado)</span></a> · <a href="<?= $page_link ?>delete">borrar</a>
 		</div>
-	</div>
-</div>
 
 <?php
-// Mostrar la entrada
-echo "\t<h2 id=\"posttitle\" class=\"editInPlace\" title=\"Doble-click para editar\">".$page."</h2>
-\t<p class=\"meta\">
-\t<span id=\"priority\" class=\"editInPlace$impor_class\" title=\"Doble-click para editar\">$impor</span> |
-\t<span id=\"state\" class=\"editInPlace\" title=\"Doble-click para editar\">$state</span> |
-<span id=\"auth-date\">Última modificación por <b>".$out['author']."</b> el ".date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))."</span></p>
-\t<div id=\"text\" class=\"editInPlace\" title=\"Doble-click para editar\">".get_html($out['content'])."</div>\n";
-
 // Pasar variables y añadir scripts de edición a la página
 echo <<<SCRIPTS
 <script>
@@ -119,7 +117,7 @@ echo <<<SCRIPTS
 	var postId    = '$post_id';
 	var safeText  = '$safe_text';
 	var state     = '$out[state]';
-	var prioridad = '$out[prioridad]';
+	var priority  = '$out[priority]';
 	var safeTitle = '$safe_title';
 	var author    = '$_SESSION[nombre]';
 </script>

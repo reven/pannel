@@ -16,7 +16,7 @@ pageRoot
 postId
 safeText
 state
-prio
+priority
 safeTitle
 
 */
@@ -41,7 +41,7 @@ $("#posttitle").dblclick(function(){
   $(".inplaceeditor-form").remove();
   $(".editInPlace").show();
   $this.hide();
-  $this.after('<form id="posttitle-inplaceeditor" class="inplaceeditor-form"><input id="newtitle" class="editor_field" type="text" value="' + oldValue + '"><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
+  $this.after('<form id="posttitle-inplaceeditor" class="inplaceeditor-form"><input id="newtitle" class="editor_field" type="text" value="' + oldValue + '"><input value="Guardar" class="submit button_big" type="submit"><input value="Cancelar" class="cancel button_big" type="button"></form>');
   // Capture the submit action
   $('#posttitle-inplaceeditor').submit(function() {
     $.ajax({
@@ -68,7 +68,7 @@ $("#posttitle").dblclick(function(){
     return false;
   });
   // Capture the cancel on-click
-  $(".cancel_button").click(function(){
+  $(".cancel").click(function(){
     $("#posttitle-inplaceeditor").remove();
     $(".editInPlace").show();
   });
@@ -84,7 +84,7 @@ $("#priority").dblclick(function(){
   $(".inplaceeditor-form").remove();
   $(".editInPlace").show();
   $this.hide();
-  $this.after('<form id="priority-inplaceeditor" class="inplaceeditor-form"><select name="priority"><option value="0">Normal</option><option value="1"' + pri1 + '>Importante</option></select><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
+  $this.after('<form id="priority-inplaceeditor" class="inplaceeditor-form"><select name="priority"><option value="0">Normal</option><option value="1"' + pri1 + '>Importante</option></select><input value="Guardar" class="submit button" type="submit"><input value="Cancelar" class="cancel button" type="button"></form>');
 
   // Capture the submit action
   $('#priority-inplaceeditor').submit(function() {
@@ -116,7 +116,7 @@ $("#priority").dblclick(function(){
     return false;
   });
   // Capture the cancel on-click
-  $(".cancel_button").click(function(){
+  $(".cancel").click(function(){
     $("#priority-inplaceeditor").remove();
     $(".editInPlace").show();
   });
@@ -136,7 +136,7 @@ $("#state").dblclick(function(){
   $(".inplaceeditor-form").remove();
   $(".editInPlace").show();
   $this.hide();
-  $this.after('<form id="state-inplaceeditor" class="inplaceeditor-form"><select name="state"><option value=" ">(sin marca)</option><option value="P">Planteada</option><option value="E">En curso</option><option value="X">Estancada</option><option value="F">Esperando feedback</option><option value="C">Cancelada</option><option value="H">Hibernando</option></select><input value="Guardar" class="editor_ok_button" type="submit"><input value="Cancelar" class="cancel_button" type="button"></form>');
+  $this.after('<form id="state-inplaceeditor" class="inplaceeditor-form"><select name="state"><option value=" ">(sin marca)</option><option value="P">Planteada</option><option value="E">En curso</option><option value="X">Estancada</option><option value="F">Esperando feedback</option><option value="C">Cancelada</option><option value="H">Hibernando</option></select><input value="Guardar" class="submit button" type="submit"><input value="Cancelar" class="cancel button" type="button"></form>');
   $("select[name=state] option[value="+oldState+"]").attr('selected','selected');
   // Capture the submit action
   $('#state-inplaceeditor').submit(function() {
@@ -167,11 +167,70 @@ $("#state").dblclick(function(){
     return false;
   });
   // Capture the cancel on-click
-  $(".cancel_button").click(function(){
+  $(".cancel").click(function(){
     $("#state-inplaceeditor").remove();
     $(".editInPlace").show();
   });
 });
+
+// Listener and form for text. This needs all vars for new revision
+$("#text").mousedown(function(){ return false; }); // avoid selection
+$("#text").dblclick(function(){
+  var $this = $( this );
+  var oldText = $this.text();
+  $(".inplaceeditor-form").remove();
+  $(".editInPlace").show();
+  $this.hide();
+  $("#markdown").show();
+  $this.after('<form id="text-inplaceeditor" class="inplaceeditor-form" style="width:100%"><textarea rows="10" cols="40" name="content" class="editor_field">' + oldText + '</textarea><br><input value="Guardar" class="submit button_big" type="submit"><input value="Cancelar" class="cancel button_big" type="button"></form>');
+  // Capture the submit action
+  $('#text-inplaceeditor').submit(function() {
+    var newValue = $( "textarea" ).val();
+    $.ajax({
+      data: "editorId=text&id=" + id + "&state=" + newValue + "&post_id=" + postId + "&title=" + safeTitle + "&priority=" + priority + "&content=" + encodeURIComponent(newValue),
+      method: "POST",
+      success: function(data) {
+        if (data != "pannel: success") {
+        return handleError(data);
+        }
+        // Now we need to get the html for what we just put in the DB
+        newHtml = $.ajax({
+          data: "markdown=1&id=" + id,
+          method: "GET",
+          dataType: "html",
+          success: function(response){
+            return response;
+          },
+          error: handleError = function(response){
+            $("#text-inplaceeditor").remove();
+            $this.show();
+            $this.after("<p class=\"error\"> :-( Errores: " + response);
+          }
+        });
+        alert (newHtml);
+        $this.html(newHtml);
+        $("#text-inplaceeditor").remove();
+        $this.show();
+        get_authdate();
+        $this.after('<span class="yay">✔ Guardado!</span>');
+        $(".yay").fadeOut(3000);
+      },
+      error: handleError = function(response){
+        $("#text-inplaceeditor").remove();
+        $this.show();
+        $this.after("<p class=\"error\"> :-( Errores: " + response);
+      }
+    });
+    // Disable native submission
+    return false;
+  });
+  // Capture the cancel on-click
+  $(".cancel").click(function(){
+    $("#state-inplaceeditor").remove();
+    $(".editInPlace").show();
+  });
+});
+
 
 /*
 

@@ -144,7 +144,7 @@ h3 {
 }
 
 .error::after {
-    color: #0f0;
+    color: #f00;
     content: "✘";
     display: block;
     font-size: 500%;
@@ -191,48 +191,38 @@ h3 {
 	background: url(../images/loader.gif) bottom right no-repeat;
 }
 
-/* Not sure this is used any more */
-.editor_cancel_link {
-	padding: 1em;
-	color: #c00 !important;
+.button {
+	height: 1.8em;
+	margin: 0 0 0 0.5em;
+	cursor: pointer;
 }
 
-.cancel_button {
+.button_big {
+	height: 2.1em;
+	margin: 0 0 0 0.6em;
+	position: relative;
+	top: -0.3em;
+}
+
+.cancel {
 	background-color: #f66;
 	border: 1px solid #f00;
 	color: #FFFFFF;
-	cursor: pointer;
-	height: 1.8em;
-	margin: 0;
 }
 
-.cancel_button:hover {
+.cancel:hover {
 	background-color: #f33;
 }
 
-.editor_ok_button {
+.submit {
 	background-color: #166baf;
 	border: 1px solid #005D93;
 	color: #FFFFFF;
 	cursor:pointer;
-	height: 1.8em;
-	margin: 0em 0.5em;
 }
 
-.editor_ok_button:hover {
+.submit:hover {
 	background-color: #6390b7;
-}
-
-#posttitle-inplaceeditor > .editor_ok_button {
-	height: 2.1em;
-	position: relative;
-	top: -0.3em;
-}
-
-#posttitle-inplaceeditor > .cancel_button {
-	height: 2.1em;
-	position: relative;
-	top: -0.3em;
 }
 
 #titulo {

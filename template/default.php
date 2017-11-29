@@ -29,7 +29,7 @@ $query ="SELECT * FROM posts JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY po
 $result = query($query,$c);
 while ($out = fetch_array($result)){
 	echo "\t<li><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a> por ".$out['author'];
-	echo " <span class=\"meta\">".date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']));
+	echo " <span class=\"meta\">".date("j-M-Y",strtotime ($out['date']));
 	echo "</span></li>\n";
 }
 ?>
@@ -39,7 +39,7 @@ while ($out = fetch_array($result)){
 
 <?php
 // Aqui mostramos las entradas que estan marcadas como importantes
-$query ="SELECT * FROM posts JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) AS maxids USING (id) WHERE prioridad = 1 ORDER BY date DESC LIMIT 5";
+$query ="SELECT * FROM posts JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY post_id ) AS maxids USING (id) WHERE priority = 1 ORDER BY date DESC LIMIT 5";
 
 $result = query($query,$c);
 if (mysqli_num_rows($result)==0){
@@ -48,7 +48,7 @@ if (mysqli_num_rows($result)==0){
 	echo "\t<ul>\n";
 	while ($out = fetch_array($result)){
 		echo "\t<li><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a> por ".$out['author'];
-		echo " <span class=\"meta\">".date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']));
+		echo " <span class=\"meta\">".date("j-M-Y",strtotime ($out['date']));
 		echo "</span></li>\n";
 	}
 	echo "\t</ul>\n";
@@ -64,7 +64,7 @@ if (mysqli_num_rows($result)==0){
 	echo "\t<ul>\n";
 	while ($out = fetch_array($result)){
 		echo "\t<li><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a> por ".$out['author'];
-		echo " <span class=\"meta\">".date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']));
+		echo " <span class=\"meta\">".date("j-M-Y",strtotime ($out['date']));
 		echo "</span></li>\n";
 	}
 	echo "\t</ul>\n";

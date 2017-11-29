@@ -21,8 +21,8 @@ if (isset($_POST['id']))       $id       = $c->real_escape_string($_POST['id']);
 /* 1. Cambiar el *contenido* de una entrada */
 if ($_POST['editorId']=="text") {
   $state = check_state($state);
-	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `content`, `date`, `prioridad`, `state`) VALUES (NULL, '"; // No se si este null funciona???
-	$query .= $post_id."', '";
+	$query = "INSERT INTO posts (id, post_id, title, author, content, date, priority, state) VALUES (NULL, '"; // No se si este null funciona???
+	$query .= $post_id."', '"; // NO! Necesitamos nuevo
 	$query .= $title."', '";
 	$query .= $_SESSION['nombre']."', '";
 	$query .= $content."', NOW(), '";
@@ -38,7 +38,7 @@ if ($_POST['editorId']=="text") {
 
 /* 2. Cambiar el *título* de una entrada */
 }elseif ($_POST['editorId']=="posttitle"){
-  $query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `title` = '$title', `date`= NOW() WHERE `id` = $id";
+  $query="UPDATE posts SET author = '$_SESSION[nombre]', title = '$title', date= NOW() WHERE id = $id";
 
 	$result = query($query,$c);
 	if (!$result) {
@@ -51,14 +51,14 @@ if ($_POST['editorId']=="text") {
 }elseif (isset($_POST['check']) && $_POST['check']=="newpost"){
 
   /* Averiguar la post_id mas alta para usar la siguente */
-	$query ="SELECT MAX( post_id ) FROM `posts`";
+	$query ="SELECT MAX( post_id ) FROM posts";
 	$result = query($query,$c);
   $out = fetch_array($result);
 	$post_id = current($out) + 1;
 
   /* insertar los nuevos datos */
   $state = check_state($state);
-	$query = "INSERT INTO posts (`id`, `post_id`, `title`, `author`, `content`, `date`, `prioridad`, `state`) VALUES (NULL, '";
+	$query = "INSERT INTO posts (id, post_id, title, author, content, date, priority, state) VALUES (NULL, '";
 	$query .= $post_id."', '";
 	$query .= $title."', '";
 	$query .= $_SESSION['nombre']."', '";
@@ -76,7 +76,7 @@ if ($_POST['editorId']=="text") {
 
 /* 4. Borrado de una entrada. Cómo ser más seguro? */
 }elseif (isset($_POST['function']) && $_POST['function']=="borrar"){
-	$query ="DELETE FROM `posts` WHERE `post_id` =  '$_POST[post_id]'";
+	$query ="DELETE FROM posts WHERE post_id =  '$_POST[post_id]'";
 	$result = query($query,$c);
 	if (!$result) {
 	  exit('Error al intentar borrar las entradas: ' . mysqli_error($c));
@@ -90,7 +90,7 @@ if ($_POST['editorId']=="text") {
 }elseif ($_POST['editorId']=="state"){
   $state = check_state($state);
 
-	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `state` = '$state', `date`= NOW() WHERE `id` = $id";
+	$query="UPDATE posts SET author = '$_SESSION[nombre]', state = '$state', date= NOW() WHERE id = $id";
 
 	$result = query($query,$c);
 	if (!$result) {
@@ -103,7 +103,7 @@ if ($_POST['editorId']=="text") {
 }elseif ($_POST['editorId']=="priority"){
 	if ($_POST['priority']==1) { $priority = 1; }else{ $priority = 0; }
 
-	$query="UPDATE `posts` SET `author` = '$_SESSION[nombre]', `prioridad` =  '$priority', `date` = NOW() WHERE `id` = $id";
+	$query="UPDATE posts SET author = '$_SESSION[nombre]', priority =  '$priority', date = NOW() WHERE id = $id";
 
 	$result = query($query,$c);
 	if (!$result) {
