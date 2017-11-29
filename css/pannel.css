@@ -183,12 +183,9 @@ h3 {
   margin-left: -2em;
 }
 
-#posttitle-inplaceeditor {
-	margin-top: 1.5em;
-}
-
 .inplaceeditor-saving, .saving {
-	background: url(../images/loader.gif) bottom right no-repeat;
+	background: #ffffd3 url("../images/loader.gif") center 5em no-repeat;
+	/*background: lightblue url("img_tree.gif") no-repeat fixed center;*/
 }
 
 .button {
@@ -229,11 +226,11 @@ h3 {
 	font-size: 1.5em;
 }
 
-#newtitle {
+input.editor_field {
 	font-size: 1.3em;
 	line-height: 1em;
 	color: #166baf;
-	font-weight: bold;
+	margin-top: 1.22em;
 }
 
 textarea {
@@ -245,12 +242,44 @@ textarea {
 }
 
 .markdown {
-	background-color: #fff;
+	background-color: #dcf1ff;
 	font-size: 85%;
+	line-height: 1.9em;
 	color: #333;
 	position: absolute;
-	right: 11em;
-	padding: 0;
+	right: 5em;
+	border-radius: 1em;
+	padding: 1em;
+}
+
+.handle {
+	color: #166baf;
+	cursor: pointer;
+}
+
+.handle:hover {
+	text-decoration: underline;
+}
+
+.handle::before {
+	content: "✎ ";
+	color: #000;
+	font-size: 200%;
+}
+
+.closer {
+	color: #c00;
+	float: right;
+	cursor: pointer;
+}
+
+.closer:hover {
+	text-decoration: underline;
+}
+
+.closer::before {
+	content: "✘ ";
+	font-size: 130%;
 }
 
 #toggle_slide {

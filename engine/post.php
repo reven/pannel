@@ -22,7 +22,7 @@ if (isset($_POST['id']))       $id       = $c->real_escape_string($_POST['id']);
 if ($_POST['editorId']=="text") {
   $state = check_state($state);
 	$query = "INSERT INTO posts (id, post_id, title, author, content, date, priority, state) VALUES (NULL, '"; // No se si este null funciona???
-	$query .= $post_id."', '"; // NO! Necesitamos nuevo
+	$query .= $post_id."', '";
 	$query .= $title."', '";
 	$query .= $_SESSION['nombre']."', '";
 	$query .= $content."', NOW(), '";

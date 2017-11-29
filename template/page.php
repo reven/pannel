@@ -85,10 +85,8 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT .
 <h2 id="posttitle" class="editInPlace" title="Doble-click para editar"><?=$page?></h2>
     <p class="meta">
         <span id="priority" class="editInPlace<?=$impor_class?>" title="Doble-click para editar"><?=$impor?></span> | <span id="state" class="editInPlace" title="Doble-click para editar"><?=$state?></span> | <span id="auth-date">Última modificación por <b><?=$out['author']?></b> el <?=date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))?></span></p>
-				<div id="markdown" class="markdown" style="display:none"><a href="#" onclick="$(this).slideDown(); return false;"><span style="color:#000;font-size: 200%;">✎</span> Acerca de formato abreviado</a>
-
-					<div id="toggle_slide" style="display:none;">
-						<div>Utiliza los siguientes atajos para formatear tu texto:<br />
+				<div id="markdown" class="markdown" style="display:none;"><span class="handle">Acerca de formato abreviado</span>
+					<div id="toggle_slide" style="display:none;"><p>Utiliza los siguientes atajos para formatear tu texto:<br />
 							*negrita* → <b>negrita</b><br />
 							_cursiva_ → <i>cursiva</i><br />
 							<b>*</b> Item → Listas<br />
@@ -98,7 +96,7 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT .
 							<b>"</b>enlace<b>":</b>http://www.nuuve.com → enlace<br />
 							<b>!</b>http://www.nuuve.com/logo.gif<b>!</b> → imagen<br /><br />
 							Puedes anidar listas y bloques de texto indentado. <a href="<?= ROOT ?>help/#formato">(+ info)</a>
-						</div>
+						</p>
 					</div>
 				</div>
 

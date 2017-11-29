@@ -12,3 +12,8 @@
   color:#f00;
   font-size: 0.7em;
 }
+
+.debug_title::before {
+	content: "⇪ ";
+	font-size: 200%;
+}

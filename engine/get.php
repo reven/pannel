@@ -17,6 +17,7 @@ $c->set_charset('utf8');
 // Escapamos las vars para uso en querys, aunque deberíamos chequear que sean seguras
 if (isset($_GET['search']) && !$_GET['search'] == "") $search  = $c->real_escape_string($_GET['search']);
 if (isset($_GET['id']) && preg_match ("/^[1-9][0-9]{0,8}$/",$_GET['id'])) $id = $_GET['id'];
+if (isset($_GET['post_id']) && preg_match ("/^[1-9][0-9]{0,8}$/",$_GET['post_id'])) $post_id = $_GET['post_id'];
 
 /* 1. Called from Search */
 if (isset($search)){
@@ -54,7 +55,7 @@ if (isset($search)){
 	echo "\t\t\t</tbody></table>\n";
 	exit;
 
-/* 2. Called from a markdown text box */
+/* 2. Called from a markdown text box from that wants *text* */
 }elseif (isset($_GET['markdown']) && $_GET['markdown'] == 1){
 
 	$query = "SELECT content FROM posts WHERE id=$id";
@@ -62,12 +63,27 @@ if (isset($search)){
 
 	if ($result){
 		$out = fetch_array($result);
-		echo (get_html($out['content']));
+		echo $out['content'];
 	}else{
-		echo ("<p>kjashdkasjhdkashd</p>");
+		echo ("XaX"); // We have to give back something or we'll get an error!!!
+	}
+	exit;
+
+/* 3. Called from a markdown text box from that wants *html* */
+}elseif (isset($_GET['markdown']) && $_GET['markdown'] == 0){
+
+	$query = "SELECT content FROM posts WHERE id = (SELECT MAX(id) FROM posts WHERE post_id = $post_id)";
+	$result = query($query,$c);
+
+	if ($result){
+		$out = fetch_array($result);
+		echo get_html($out['content']);
+	}else{
+		echo ("<p>vacío</p>"); // We have to give back something or we'll get an error!!!
 	}
 	exit;
 }
+
 
 close($c);
 
