@@ -78,7 +78,7 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT .
 		$(document).ready(function(){
     	$("#yay").fadeOut(4000);
     });
-  </script>")
+  </script>
 <?php }
 
 // Mostrar la entrada ?>
