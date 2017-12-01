@@ -16,7 +16,7 @@ Posts can be edited in place with a subset of markdown. They can be flagged as i
   }
   ```
 
-3. Create a database for pannel to use. There is a database descriptor in SQL format in the [database.md](docs/database.md) file.
+3. Create a database for pannel to use. There is a database descriptor in SQL format in the [database.md](docs/database.md) file. Then modify your connection settings in `config.php`
 
 4. Create a user and log in.
 
