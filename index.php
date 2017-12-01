@@ -1,10 +1,17 @@
 <?php
 /*
- Nuuve
 Pannel
 
-0.6 beta
-Reven
+0.7 beta
+Copyright (C) 2017 Robert Sanchez
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+		See LICENSE.txt for the complete license
+
 25-Nov-2017
 */
 
@@ -13,7 +20,7 @@ Reven
 define ('ROOT', preg_replace ("/(.*)index.php/i","$1", $_SERVER['SCRIPT_NAME']));    // Base url relative to server root.
 define ('ORIGIN', url_origin( $_SERVER )); // Server info below the ROOT
 
-define ('DEBUG_VIS', TRUE);     // TRUE/FALSE Cambiar a TRUE para obtener debug info
+define ('DEBUG_VIS', FALSE);     // TRUE/FALSE Cambiar a TRUE para obtener debug info
 define ('DEBUG_LVL', "2");			// 1 = Normal; 2 = Mostrar variables
 if (DEBUG_VIS == 1) {
 	$debug =	debug_init();

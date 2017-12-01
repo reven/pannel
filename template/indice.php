@@ -1,5 +1,5 @@
 <?php
-//Nuuve Pannel
+// Pannel
 // Esta página es indice.php, alias "index"
 
 /*Además sería guapo poder ordenarlas por Autor, por número de revisión o por fecha.

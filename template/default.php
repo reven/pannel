@@ -1,6 +1,5 @@
 <?php
 /*
- Nuuve
 Pannel
 
 Default page template. Shows last posts.

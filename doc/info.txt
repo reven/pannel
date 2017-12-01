@@ -1,3 +1,0 @@
-pannel
-
-Pannel es un editor de notas con capacidad para revisiones...
