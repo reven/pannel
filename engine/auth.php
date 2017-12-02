@@ -3,9 +3,8 @@
 
 Inicia sesion si es nula, muestra formulario login y comprueba credenciales
 
-TO DO: - Contraseñas más seguras. SHA1??
-			 - Logout aqui? para tener session controlada en el mismo sitio?
-			 - Mejorar flujo un poco.
+TO DO: - Logout aqui? para tener session controlada en el mismo sitio?
+       - Mejorar flujo un poco.
 */
 
 session_start();
@@ -23,22 +22,22 @@ if(isset($_SESSION['nombre'])){
 	// Limpiar $usuario y $pass de formulario
 	$usuario = $c->real_escape_string($_POST['usuario']);
 	$pass = $c->real_escape_string($_POST['pass']);
-	$crypt_pass=md5($pass); // Implementar mas seguridad: cifrado + salt (bug 6)
 
-	$query="SELECT * FROM users WHERE login='$usuario' and pass='$crypt_pass'";
+	// Get the hash
+	$query="SELECT pass FROM users WHERE login='$usuario'";
 	$result = query($query,$c);
+  $out = fetch_array($result);
+	$hash = $out['pass'];
 
   //debug
 	if (DEBUG_VIS == 1) { // No se si las declaracions de abajo funcionaran.
-		debug_add ("***auth.php\nComprobando nombre en db\nUsuario: $usuario\nPass:  $pass\nMD5:  $crypt_pass\n"); // no se si esto llega a una llamada para que se vea.
+		debug_add ("***auth.php\nComprobando nombre en db\nUsuario: $usuario\nPass:  $pass\nHASH:  $hash\n"); // no se si esto llega a una llamada para que se vea.
 	}
 	//fin debug
 
-	// Contar filas
-	if (mysqli_num_rows($result)==1){
+	// Test the hash received
+	if (password_verify($pass, $hash)) {
 		// Exito. registrar nombre en variable de sesión y recargar la página principal.
-		$out = fetch_array($result);
-		print_r ($out);
 		$_SESSION['nombre']=$out['nicename'];
 		header("Location: " . ORIGIN . ROOT);
 	}else{

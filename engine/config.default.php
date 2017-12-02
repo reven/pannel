@@ -1,4 +1,10 @@
 <?php
+/* Database configuration file for pannel
+
+Introduce your values and remove ".default" from file name
+
+*/
+
 /*Configuración mysqli*/
     $db['user']        = "XXXXXXXXXXX";
     $db['password']    = 'XXXXXXXXXXX';
