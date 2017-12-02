@@ -8,11 +8,13 @@ Posts can be edited in place with a subset of markdown. They can be flagged as i
 
 ## Installing
 1. Copy the files to the folder you would like to run _pannel_ from or clone with:
-   ```git clone https://github.com/reven/pannel.git .
+   ```
+   git clone https://github.com/reven/pannel.git .
    ```
 
 2. Edit **apache**'s `.htaccess` file to suit your instalation directory and server configuration; or if you use **nginx**, you will need to edit your config to make `index.php` parse all the requests with something along the lines of:
-   ```location /pannel/ {
+   ```
+   location /pannel/ {
    try_files $uri /index.php?$args;
    }
    ```
