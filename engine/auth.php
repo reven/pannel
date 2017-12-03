@@ -24,7 +24,7 @@ if(isset($_SESSION['nombre'])){
 	$pass = $c->real_escape_string($_POST['pass']);
 
 	// Get the hash
-	$query="SELECT pass FROM users WHERE login='$usuario'";
+	$query="SELECT * FROM users WHERE login='$usuario'";
 	$result = query($query,$c);
   $out = fetch_array($result);
 	$hash = $out['pass'];
@@ -66,15 +66,15 @@ function show_form(){  // A LO MEJOR ESTA FUNCION NO DEBERIA ESTAR AQUI?? Ver bu
 
 	<div style="text-align: center;">
 		<h2>Autentificación</h2>
-		<?php echo $loginerror; ?>
+		<?= $loginerror ?>
 
 		<p>Porfavor, introduce tu nombre de usuario y tu contraseña</p>
-		<form id="login" class="form" method="post" action="<?php echo ROOT; ?>">
+		<form id="login" class="form" method="post" action="<?= ROOT ?>">
 			<table class="login">
 				<tr><td class="r"><p>Usuario:</p></td><td><input type="text" name="usuario" id="usuario" class="editor_field" value="" size="20" /></td></tr>
 				<tr><td class="r"><p>Contraseña:</p></td><td><input type="password" name="pass" id="pass" class="editor_field" value="" size="20" /></td></tr>
 			</table>
-			<p><input type="submit" id="submit" value="Entrar" class="editor_ok_button" /></p>
+			<p><input type="submit" id="submit" value="Entrar" class="submit button_big" /></p>
 		</form>
 	</div>
 <?php

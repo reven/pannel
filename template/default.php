@@ -33,7 +33,7 @@ while ($out = fetch_array($result)){
 }
 ?>
 	</ul>
-	<p class="meta">No encuentras lo que buscas? Prueba el <a href="<?php echo ROOT; ?>index/">índice</a></p>
+	<p class="meta">No encuentras lo que buscas? Prueba el <a href="<?= ROOT ?>index/">índice</a></p>
 	<h2>Importante</h2>
 
 <?php

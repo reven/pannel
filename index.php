@@ -20,8 +20,10 @@ Copyright (C) 2017 Robert Sanchez
 define ('ROOT', preg_replace ("/(.*)index.php/i","$1", $_SERVER['SCRIPT_NAME']));    // Base url relative to server root.
 define ('ORIGIN', url_origin( $_SERVER )); // Server info below the ROOT
 
-define ('DEBUG_VIS', FALSE);     // TRUE/FALSE Cambiar a TRUE para obtener debug info
-define ('DEBUG_LVL', "2");			// 1 = Normal; 2 = Mostrar variables
+
+require ("engine/config.php");   // Fetch config
+
+
 if (DEBUG_VIS == 1) {
 	$debug =	debug_init();
 }

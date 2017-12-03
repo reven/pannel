@@ -62,11 +62,11 @@ if (isset($terms[1]) && $terms[1]=="delete") {
 ?>
 <div class="error">
 	<p>Seguro que quieres borrar esta entrada? Se borrarán <strong>todas</strong> las revisiones!</p>
-	<form id="borrar" class="form" method="POST" action="<?php echo ROOT ?>">
+	<form id="borrar" class="form" method="POST" action="<?= ROOT ?>">
 		<input type="hidden" name="function" id="function" value="borrar" />
-		<input type="hidden" name="post_id" id="post_id" value="<?php echo $post_id; ?>" />
-		<input type="hidden" name="title" id="title" value="<?php echo $safe_title; ?>" />
-		<p><input type="submit" value="Borrar" class="cancel_button" /><a class="editor_cancel_link" href="<?php echo $page_link; ?>">Cancelar</a></p>
+		<input type="hidden" name="post_id" id="post_id" value="<?= $post_id ?>" />
+		<input type="hidden" name="title" id="title" value="<?= $safe_title ?>" />
+		<p><input type="submit" value="Borrar" class="cancel_button" /><a class="editor_cancel_link" href="<?= $page_link ?>">Cancelar</a></p>
 	</form>
 </div>
 <?php }

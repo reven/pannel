@@ -4,8 +4,6 @@ Database controler. Should provide a limited amount of abstraction,
 in case of database change.
 */
 
-require "config.php";   // database info is here
-
 /** Open a connection to a database server */
 function connect(){
     global $db;

@@ -4,7 +4,7 @@
 ?>
 
 <h2>Introducir nueva entrada</h2>
-<form id="nuevo" class="form" method="post" action="<?php echo ROOT ?>">
+<form id="nuevo" class="form" method="post" action="<?= ROOT ?>">
 	<input type="hidden" name="check" value="newpost" />
 	<p>
 		<input type="text" id="titulo" name="title" class="editor_field" value="Título" onfocus="this.value=(this.value=='Título') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Título' : this.value;" size="20" /></p>
@@ -19,7 +19,7 @@
 				<b>h.</b> Titulo<br />
 				<b>"</b>enlace<b>":</b>http://www.nuuve.com → enlace<br />
 				<b>!</b>http://www.nuuve.com/logo.gif<b>!</b> → imagen<br /><br />
-				Puedes anidar listas y bloques de texto indentado. <a href="<?php echo ROOT; ?>help/#formato">(+ info)</a>
+				Puedes anidar listas y bloques de texto indentado. <a href="<?= ROOT ?>help/#formato">(+ info)</a>
 
 			</p></div>
 		</div>

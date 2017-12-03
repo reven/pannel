@@ -19,12 +19,13 @@
 5. **(Closed)** MySQL. Posibilidad de utilizar controladores alternativos definidos por el usuario?
    - Cierro. `controller.php` ofrece un grado limitado de abstracción, pero hay multitude de llamadas en todo el script que requerirían un rework extenso. De momento lo dejamos con mysqli.
 
-6. SALT. Use salt on mysql passwords.
+6. **(Closed)** SALT. Use salt on mysql passwords.
+   - bcrypt implemented, that uses salt in hashes.
 
 7. **(Closed)** SERVER_NAME. Esto debería ser evaluado en el init de index.php y pasado ya para siempre como constante. Esto evitaría evaluarlo en todos los scripts y además se podría definir como configurable. Debe tener en cuenta el puerto también. Cambiar todos los scripts.
    -Arreglado en index.php pero hay que corregir todas las referencias a las variables y apuntarlas a las nuevas constantes. Arreglado.
 
-8. Pasando una variable en al url rompe el script. Por ejemplo localhost/panel/blah/?var=1
+8. **(Closed)** Pasando una variable en al url rompe el script. Por ejemplo localhost/panel/blah/?var=1
    - Cerrada. `get.php` se comporta de la forma correcta y ya no se rompe el script.
 
 9. Logout debería ser manejado por `auth.php`??

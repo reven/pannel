@@ -26,7 +26,8 @@ Posts can be edited in place with a subset of markdown. They can be flagged as i
 ## To-do
 - Add user administration capability
 - Implement revision comparison and management
-- Tighten security of password handling
+- Make markdown more standardized
+- ~~Tighten security of password handling~~
 
 ## General comments
 - This is a very good example of how messy code can get when you switch back and forth between languages. Spanish and english comments and code are thorroughly mixed. **This is a work in progress**.

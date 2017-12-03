@@ -8,7 +8,7 @@ Obtener el numero de revisiones seguro que se puede hacer con querys anidadas, p
 ?>
 	<h2>Índice</h2>
 	<div id="busca">
-		<form id="searchform" class="form" method="get" action="<?php echo ORIGIN . ROOT; ?>index/">
+		<form id="searchform" class="form" method="get" action="<?= ORIGIN . ROOT ?>index/">
 			<p style="display:inline;">
 			<input type="text" name="search" id="s" class="editor_field" value="" size="20" /><input type="submit" id="btnsubmit" value="Ir" class="submit button_big" /><input type="checkbox" name="allrevisions" id="wholesearch" value="1" /><span class="meta">Buscar también en las versiones anteriores de las entradas</span></p>
 		</form>
@@ -46,4 +46,4 @@ close($c);
 			</tbody></table>
 		</div>
 	</div>
-	<script src="<?php echo ROOT ?>js/search.js"></script>
+	<script src="<?= ROOT ?>js/search.js"></script>
