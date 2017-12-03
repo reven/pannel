@@ -16,14 +16,14 @@ safeTitle
 */
 
 function warning_url(url) {
-  var thing = '<p class="success">Guardado! El título ha cambiado; usa la nueva url antes de realizar más cambios:<br /><a href="'+ pageRoot + encodeURIComponent(url) +'/">'+ url +'</a></p>';
+  var thing = '<p class="success">Guardado! El título ha cambiado; usa la nueva url antes de realizar más cambios:<br><a href="'+ pageRoot + encodeURIComponent(url) +'/">'+ url +'</a></p>';
   $('#posttitle').after(thing);
 }
 
 function get_authdate() {
   var n = new Date();
   var meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
-  var construct = "Última modificación por <b>" + author + "</b> el " + n.getDate() + " de " + meses[n.getMonth()] + " de " + n.getFullYear() + ", a las " + n.getHours() + ":" + n.getMinutes();
+  var construct = "Última modificación por <strong>" + author + "</strong> el " + n.getDate() + " de " + meses[n.getMonth()] + " de " + n.getFullYear() + ", a las " + n.getHours() + ":" + n.getMinutes();
   $("#auth-date").html(construct);
 }
 

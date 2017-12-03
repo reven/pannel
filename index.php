@@ -104,7 +104,7 @@ debug_init()
 Inicializa la salida de debug
 */
 function debug_init(){
-	return ("<div onclick=\"\$(this).fadeOut('slow')\" id=\"debug\" class=\"debug\"><p class=\"debug_title\"><b>haz click para esconder</b></p><pre>DEBUG:\n");
+	return ("<div onclick=\"\$(this).fadeOut('slow')\" id=\"debug\" class=\"debug\"><p class=\"debug_title\"><strong>haz click para esconder</strong></p><pre>DEBUG:\n");
 }
 
 

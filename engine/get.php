@@ -21,7 +21,7 @@ if (isset($_GET['post_id']) && preg_match ("/^[1-9][0-9]{0,8}$/",$_GET['post_id'
 
 /* 1. Called from Search */
 if (isset($search)){
-	echo ("<p>Resultados de búsqueda: <b>$_GET[search]</b>:</p>");
+	echo ("<p>Resultados de búsqueda: <strong>$_GET[search]</strong>:</p>");
 
 	// Modificar query segun se quieran o no todas las revisiones. Igual multiquery??
 	if (isset($_GET['allrevisions'])){
@@ -34,7 +34,7 @@ if (isset($search)){
 		echo "<p class=\"error\">Se ha producido un error al hacer la búsqueda: " . mysqli_error($c);
 		exit;
 	}elseif (mysqli_num_rows($result)==0){
-		echo ("<p class=\"error\">Lo siento, pero no se han encontrado páginas cuyo título contenga \"<b>$_GET[search]\"</b>.</p>");
+		echo ("<p class=\"error\">Lo siento, pero no se han encontrado páginas cuyo título contenga \"<strong>$_GET[search]\"</strong>.</p>");
 		exit;
 	}
 	echo "\n\t\t\t<table><tbody>\n\t\t\t\t<tr><th>Título</th><th>último autor</th><th>última revisión</th><th>revisiones</th><th>prioridad</th></tr>\n";

@@ -63,7 +63,7 @@ h3 {
 #content{
 	text-align: justify;
 	font-size: 0.90em;
-	line-height:2.2em;
+	line-height:1.6em;
 }
 
 #text>p:first-child:empty:not(:focus):before{
@@ -132,7 +132,7 @@ h3 {
 }
 
 .editInPlace:hover {
-	background-color: #FFFF00;
+	background-color: #ffff99;
 	transition-duration: 0s;
 }
 

@@ -26,15 +26,22 @@ h. Titulo           -> Cabecera (h3, porque h1 es el logotipo y h2 es el título
 !http://37signals.com/logo.gif!   -> imagen
 
 */
-
+/*
+function get_htm (string);
+Takes a string, substitutes markdown tags and returns safe valid html
+*/
 function get_html($input){
+	# First strip tags; We don't want any tags before we start substituting
+	$input = htmlentities($input);
+
 	# Standardize line endings: DOS to Unix and Mac to Unix
 	$text = preg_replace('{\r\n?}', "\n", $input);
 
 	$regex = array(
-		'/\*(.*?)\*/',
-		'/_(.*?)_/',
-		'/^h\.\s?(.*)$/m',
+		'/\*\*(.*?)\*\*/',
+		'/__(.*?)__/',
+		'/^#{2}\s?(.*)$/m',
+		'/^#{1}\s?(.*)$/m',
 		'@"(.+)":(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)@', // Enlaces con texto: "texto":http://www.37signals.com
 		'@!(https?://([-\w\.]+)+(:\d+)?(/([\w/_\.]*(\?\S+)?)?)?)!@', //imágen
 
@@ -42,6 +49,7 @@ function get_html($input){
 	$replace = array(
 		"<strong>$1</strong>",
 		"<em>$1</em>",
+		"<h4>$1</h4>",
 		"<h3>$1</h3>",
 		"<a href=\"$2\">$1</a>",
 		"<img src=\"$1\" />",
@@ -57,7 +65,7 @@ function get_html($input){
 	$text = null;
     foreach($paragraphs as $paragraph) {
 		if (!preg_match("/^(\n?)[<|\*|\d|bq\.]/",$paragraph)){
-			$paragraph = preg_replace('/(.+)\n(.+)/',"$1<br />$2",$paragraph);
+			$paragraph = preg_replace('/(.+)\n/',"$1<br>",$paragraph);
 			$text .= "\n<p>".$paragraph."</p>\n";
 
 		}else{

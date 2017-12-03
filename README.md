@@ -26,7 +26,7 @@ Posts can be edited in place with a subset of markdown. They can be flagged as i
 ## To-do
 - Add user administration capability
 - Implement revision comparison and management
-- Make markdown more standardized
+- ~~Make markdown more standardized~~
 - ~~Tighten security of password handling~~
 
 ## General comments

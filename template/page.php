@@ -84,17 +84,18 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT .
 // Mostrar la entrada ?>
 <h2 id="posttitle" class="editInPlace" title="Doble-click para editar"><?=$page?></h2>
     <p class="meta">
-        <span id="priority" class="editInPlace<?=$impor_class?>" title="Doble-click para editar"><?=$impor?></span> | <span id="state" class="editInPlace" title="Doble-click para editar"><?=$state?></span> | <span id="auth-date">Última modificación por <b><?=$out['author']?></b> el <?=date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))?></span></p>
+        <span id="priority" class="editInPlace<?=$impor_class?>" title="Doble-click para editar"><?=$impor?></span> | <span id="state" class="editInPlace" title="Doble-click para editar"><?=$state?></span> | <span id="auth-date">Última modificación por <strong><?=$out['author']?></strong> el <?=date("j \d\\e M \d\\e Y, \a \l\a\s G:i",strtotime ($out['date']))?></span></p>
 				<div id="markdown" class="markdown" style="display:none;"><span class="handle">Acerca de formato abreviado</span>
-					<div id="toggle_slide" style="display:none;"><p>Utiliza los siguientes atajos para formatear tu texto:<br />
-							*negrita* → <b>negrita</b><br />
-							_cursiva_ → <i>cursiva</i><br />
-							<b>*</b> Item → Listas<br />
-							<b>1.</b> Item → Listas ordenadas<br />
-							<b>bq.</b> Texto indentado<br />
-							<b>h.</b> Titulo<br />
-							<b>"</b>enlace<b>":</b>http://www.nuuve.com → enlace<br />
-							<b>!</b>http://www.nuuve.com/logo.gif<b>!</b> → imagen<br /><br />
+					<div id="toggle_slide" style="display:none;"><p>Utiliza los siguientes atajos para formatear tu texto:<br>
+							**negrita** → <strong>negrita</strong><br>
+							__cursiva__ → <em>cursiva</em><br>
+							<strong>*</strong> Item → Listas<br>
+							<strong>1.</strong> Item → Listas ordenadas<br>
+							<strong>bq.</strong> Texto indentado<br>
+							<strong># Título</strong> → Título<br>
+							<strong>## subtítulo</strong> → subtítulo<br>
+							<strong>"</strong>enlace<strong>":</strong>http://www.nuuve.com → enlace<br>
+							<strong>!</strong>http://www.nuuve.com/logo.gif<strong>!</strong> → imagen<br><br>
 							Puedes anidar listas y bloques de texto indentado. <a href="<?= ROOT ?>help/#formato">(+ info)</a>
 						</p>
 					</div>

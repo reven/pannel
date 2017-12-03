@@ -8,17 +8,18 @@
 	<input type="hidden" name="check" value="newpost" />
 	<p>
 		<input type="text" id="titulo" name="title" class="editor_field" value="Título" onfocus="this.value=(this.value=='Título') ? '' : this.value;" onblur="this.value=(this.value=='') ? 'Título' : this.value;" size="20" /></p>
-	<p>Contenido<br />
+	<p>Contenido<br>
 		<div id="markdown" class="markdown"><span class="handle">Acerca de formato abreviado</span>
-			<div id="toggle_slide" style="display:none;"><p>Utiliza los siguientes atajos para formatear tu texto:<br />
-				*negrita* → <b>negrita</b><br />
-				_cursiva_ → <i>cursiva</i><br />
-				<b>*</b> Item → Listas<br />
-				<b>1.</b> Item → Listas ordenadas<br />
-				<b>bq.</b> Texto indentado<br />
-				<b>h.</b> Titulo<br />
-				<b>"</b>enlace<b>":</b>http://www.nuuve.com → enlace<br />
-				<b>!</b>http://www.nuuve.com/logo.gif<b>!</b> → imagen<br /><br />
+			<div id="toggle_slide" style="display:none;"><p>Utiliza los siguientes atajos para formatear tu texto:<br>
+				**negrita** → <strong>negrita</strong><br>
+				__cursiva__ → <em>cursiva</em><br>
+				<strong>*</strong> Item → Listas<br>
+				<strong>1.</strong> Item → Listas ordenadas<br>
+				<strong>bq.</strong> Texto indentado<br>
+				<strong># Título</strong> → Título<br>
+				<strong>## subtítulo</strong> → subtítulo<br>
+				<strong>"</strong>enlace<strong>":</strong>http://www.nuuve.com → enlace<br>
+				<strong>!</strong>http://www.nuuve.com/logo.gif<strong>!</strong> → imagen<br><br>
 				Puedes anidar listas y bloques de texto indentado. <a href="<?= ROOT ?>help/#formato">(+ info)</a>
 
 			</p></div>

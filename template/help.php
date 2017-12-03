@@ -3,7 +3,7 @@
 ?>
 
 	<h2>Ayuda</h2>
-	<p>Si necesitas ayuda con alguno de los elementos de <em><b>pannel</b></em>, este es el lugar donde obtenerla.</p>
+	<p>Si necesitas ayuda con alguno de los elementos de <em><strong>pannel</strong></em>, este es el lugar donde obtenerla.</p>
 	<?php
 	echo (isset($_SERVER['HTTP_REFERER']) ? '<p class="r"><a href="'.$_SERVER['HTTP_REFERER']."\">volver atrás</a></p>" : "" );
 	?>
@@ -13,18 +13,18 @@
 	<table class="help">
 		<tbody>
 			<tr><th>Descripción</th><th>Abreviatura</th><th>efecto</th></tr>
-			<tr><td>negrita</td><td><b>*</b>texto<b>*</b></td><td><b>&lt;strong&gt;</b>texto<b>&lt;/strong&gt;</b></td></tr>
-			<tr><td>cursiva</td><td><b>_</b>texto<b>_</b></td><td><b>&lt;em&gt;</b>texto<b>&lt;/em&gt;</b></td></tr>
-			<tr><td>Listas</td><td><b>*</b> Item<br /><b>*</b> Item</td><td><b>&lt;ul&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;/ul&gt;</b></td></tr>
-			<tr><td>Listas ordenadas</td><td><b>1.</b> Item<br /><b>2.</b> Item</td><td><b>&lt;ol&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;li&gt;</b>Item<b>&lt;/li&gt;<br />&lt;/ol&gt;</b></td></tr>
-			<tr><td>Texto indentado</td><td><b>bq.</b> texto</td><td><b>&lt;blockquote&gt;</b>texto<b>&lt;/blockquote&gt;</b></td></tr>
-			<tr><td>Cabeceras</td><td><b>h.</b> Texto</td><td><b>&lt;h2&gt;</b>texto<b>&lt;/h2&gt;</b></td></tr>
-			<tr><td>Enlaces</td><td><b>"</b>texto<b>":</b>http://www.nuuve.com</td><td><b>&lt;a href="</b>http://www.nuuve.com<b>"&gt;</b>texto<b>&lt;/a&gt;</b></td></tr>
-			<tr><td>Imágenes</td><td><b>!</b>http://www.nuuve.com/logo.png<b>!</b></td><td><b>&lt;img src="</b>http://www.nuuve.com/logo.png<b>" /&gt;</b></td></tr>
+			<tr><td>negrita</td><td><strong>**</strong>texto<strong>**</strong></td><td><strong>&lt;strong&gt;</strong>texto<strong>&lt;/strong&gt;</strong></td></tr>
+			<tr><td>cursiva</td><td><strong>__</strong>texto<strong>__</strong></td><td><strong>&lt;em&gt;</strong>texto<strong>&lt;/em&gt;</strong></td></tr>
+			<tr><td>Listas</td><td><strong>*</strong> Item<br><strong>*</strong> Item</td><td><strong>&lt;ul&gt;<br>&lt;li&gt;</strong>Item<strong>&lt;/li&gt;<br>&lt;li&gt;</strong>Item<strong>&lt;/li&gt;<br>&lt;/ul&gt;</strong></td></tr>
+			<tr><td>Listas ordenadas</td><td><strong>1.</strong> Item<br><strong>2.</strong> Item</td><td><strong>&lt;ol&gt;<br>&lt;li&gt;</strong>Item<strong>&lt;/li&gt;<br>&lt;li&gt;</strong>Item<strong>&lt;/li&gt;<br>&lt;/ol&gt;</strong></td></tr>
+			<tr><td>Texto indentado</td><td><strong>bq.</strong> texto</td><td><strong>&lt;blockquote&gt;</strong>texto<strong>&lt;/blockquote&gt;</strong></td></tr>
+			<tr><td>Cabeceras</td><td><strong>#</strong> Texto<br><strong>##</strong> Texto</td><td><strong>&lt;h3&gt;</strong>texto<strong>&lt;/h3&gt;</strong><br><strong>&lt;h4&gt;</strong>texto<strong>&lt;/h4&gt;</strong></td></tr>
+			<tr><td>Enlaces</td><td><strong>"</strong>texto<strong>":</strong>http://www.nuuve.com</td><td><strong>&lt;a href="</strong>http://www.nuuve.com<strong>"&gt;</strong>texto<strong>&lt;/a&gt;</strong></td></tr>
+			<tr><td>Imágenes</td><td><strong>!</strong>http://www.nuuve.com/logo.png<strong>!</strong></td><td><strong>&lt;img src="</strong>http://www.nuuve.com/logo.png<strong>" /&gt;</strong></td></tr>
 			<tr><td colspan="3"></td></tr>
 			<tr><td colspan="3">Adicionalmente, también se añaden etiquetas de párrafo o de <em>breaks</em>, según se deje línea en blanco entremedias o no.</td></tr>
-			<tr><td>Párrafos</td><td>texto↵<br />↵<br />texto</td><td><b>&lt;p&gt;</b>texto<b>&lt;/p&gt;</b><br /><br /><b>&lt;p&gt;</b>texto<b>&lt;/p&gt;</b></td></tr>
-			<tr><td><em>Breaks</em></td><td>texto↵<br />texto</td><td><b>&lt;p&gt;</b>texto<b>&lt;br /&gt;</b><br />texto<b>&lt;/p&gt;</b></td></tr>
+			<tr><td>Párrafos</td><td>texto↵<br>↵<br>texto</td><td><strong>&lt;p&gt;</strong>texto<strong>&lt;/p&gt;</strong><br><br><strong>&lt;p&gt;</strong>texto<strong>&lt;/p&gt;</strong></td></tr>
+			<tr><td><em>Breaks</em></td><td>texto↵<br>texto</td><td><strong>&lt;p&gt;</strong>texto<strong>&lt;br /&gt;</strong><br>texto<strong>&lt;/p&gt;</strong></td></tr>
 		</tbody>
 	</table>
 	<p>Notas:</p>
