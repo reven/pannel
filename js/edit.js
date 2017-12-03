@@ -233,7 +233,7 @@ $("#text").dblclick(function(){
   // Capture the cancel on-click
   $(".cancel").click(function(){
     $("#markdown").hide();
-    $("#state-inplaceeditor").remove();
+    $("#text-inplaceeditor").remove();
     $(".editInPlace").show();
   });
 });
