@@ -27,7 +27,7 @@ h. Titulo           -> Cabecera (h3, porque h1 es el logotipo y h2 es el título
 
 */
 /*
-function get_htm (string);
+get_html (string);
 Takes a string, substitutes markdown tags and returns safe valid html
 */
 function get_html($input){

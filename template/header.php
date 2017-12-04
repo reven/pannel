@@ -26,6 +26,6 @@ include ("menu.inc");
 ?>
 
 		</div>
-		<h1>Pannel (beta)</h1>
+		<h1 class="logo">Pannel (beta)</h1>
 	</div>
 	<div id="content">

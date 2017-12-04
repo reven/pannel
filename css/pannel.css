@@ -7,7 +7,6 @@
  */
 body {
 	font-family:"Lucida Sans Unicode","Lucida Grande",Helvetica,sans-serif;
-	font-size: 1.05em;
 	background-color: white;
 	text-align: center;
 	margin: auto 8em;
@@ -34,12 +33,19 @@ img {border: 0;}
 .iscurrent {background: #fbfbfb; cursor:default;}
 
 h1 {
-	text-indent: -9000px;
-	background: url(../images/pannel_beta.png) no-repeat center top;
-	line-height: 1.5em;
-	width: 6em;
-	margin: 0;
 	margin-bottom: -0.5em;
+	color: #166baf;
+}
+
+.logo {
+	margin: 0;
+  width: 144px;
+  height: 50px;
+  overflow: hidden;
+}
+
+.logo::before{
+  content: url("../images/pannel_beta.png");
 }
 
 h2 {
@@ -185,7 +191,6 @@ h3 {
 
 .inplaceeditor-saving, .saving {
 	background: #ffffd3 url("../images/loader.gif") center 5em no-repeat;
-	/*background: lightblue url("img_tree.gif") no-repeat fixed center;*/
 }
 
 .button {
