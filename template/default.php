@@ -27,7 +27,7 @@ $query ="SELECT * FROM posts JOIN (SELECT MAX( id ) AS id FROM posts GROUP BY po
 
 $result = query($query,$c);
 while ($out = fetch_array($result)){
-	echo "\t<li><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a> por ".$out['author'];
+	echo "\t<li><a href=\"".ROOT.rawurlencode($out['title'])."/\">".$out['title']."</a> por ".$out['author'];
 	echo " <span class=\"meta\">".date("j-M-Y",strtotime ($out['date']));
 	echo "</span></li>\n";
 }
@@ -46,7 +46,7 @@ if (mysqli_num_rows($result)==0){
 }else{
 	echo "\t<ul>\n";
 	while ($out = fetch_array($result)){
-		echo "\t<li><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a> por ".$out['author'];
+		echo "\t<li><a href=\"".ROOT.rawurlencode($out['title'])."/\">".$out['title']."</a> por ".$out['author'];
 		echo " <span class=\"meta\">".date("j-M-Y",strtotime ($out['date']));
 		echo "</span></li>\n";
 	}
@@ -62,7 +62,7 @@ if (mysqli_num_rows($result)==0){
 }else{
 	echo "\t<ul>\n";
 	while ($out = fetch_array($result)){
-		echo "\t<li><a href=\"".ROOT.$out['title']."/\">".$out['title']."</a> por ".$out['author'];
+		echo "\t<li><a href=\"".ROOT.rawurlencode($out['title'])."/\">".$out['title']."</a> por ".$out['author'];
 		echo " <span class=\"meta\">".date("j-M-Y",strtotime ($out['date']));
 		echo "</span></li>\n";
 	}
