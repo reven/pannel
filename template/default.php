@@ -10,7 +10,8 @@ if (DEBUG_VIS == 1) {
 }
 
 if (isset($_SESSION['title_del'])) {
-	echo ("<p id=\"yay\" class=\"success\">La página <strong>$_SESSION[title_del]</strong> y todas sus revisiones han sido borradas</p><script>Effect.Fade('yay', { duration: 4.0 });</script>");
+	$title = urldecode($_SESSION['title_del']);
+	echo ("<p id=\"yay\" class=\"success\">La página <strong>$title</strong><br>y todas sus revisiones han sido borradas</p><script>$('#yay').fadeOut(4000);</script>");
 	unset($_SESSION['title_del']);
 }
 ?>

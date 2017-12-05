@@ -69,7 +69,7 @@ if (isset($search)){
 	}
 	exit;
 
-/* 3. Called from a markdown text box from that wants *html* */
+/* 3. Called from a markdown text box from that wants *html* of current*/
 }elseif (isset($_GET['markdown']) && $_GET['markdown'] == 0){
 
 	$query = "SELECT content FROM posts WHERE id = (SELECT MAX(id) FROM posts WHERE post_id = $post_id)";
@@ -82,8 +82,21 @@ if (isset($search)){
 		echo ("<p>vacío</p>"); // We have to give back something or we'll get an error!!!
 	}
 	exit;
-}
 
+/* 4. Called for a specific version of id that wants *html* */
+}elseif (isset($_GET['version']) && $_GET['version'] == 1){
+
+	$query = "SELECT content FROM posts WHERE id = $id";
+	$result = query($query,$c);
+
+	if ($result){
+		$out = fetch_array($result);
+		echo get_html($out['content']);
+	}else{
+		echo ("<p>vacío</p>"); // We have to give back something or we'll get an error!!!
+	}
+	exit;
+}
 
 close($c);
 

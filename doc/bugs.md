@@ -9,7 +9,7 @@
 1. **(Closed)** Si no se usa el subdominio www, la búsqueda no funciona. Error de rutas en JS o AJAX? Formulario?
    - Ver 13, Cierro esta, ya que parece haber mas problemas con la busqueda que el dominio.
 
-2. Si se edita una flag y luego se edita el texto (o cualquiera dos cosas), el primer cambio se pierde. Eso es porque al editar texto se envían los datos de las flags de la query original. Se debería actualizar esas cosas onSuccess de los formularios.
+2. **(Closed)** Si se edita una flag y luego se edita el texto (o cualquiera dos cosas), el primer cambio se pierde. Eso es porque al editar texto se envían los datos de las flags de la query original. Se debería actualizar esas cosas onSuccess de los formularios.
 
 3. **(Closed)** Declaración de ruta debe ser relativo en `auth.php` (linea 39). Revisar.
    - Declaración arreglada y ahora toda la ruta se parsea de forma automática en `index.php`, pero aun hay miles de referencias a variables antiguas en los otros scripts.
@@ -44,5 +44,5 @@
 14. **(Closed)** Migrate to jQuery instead of scriptaculous. This last seems to no longer be updated.
     - Hecho (ver 10).
 
-15. `page.php` necesita lógica para manejar casos. Usar nueva, normal y versiones (implementar versiones).
+15. **(Closed)** `page.php` necesita lógica para manejar casos. Usar nueva, normal y versiones (implementar versiones).
     - In progress. Faltan versiones.

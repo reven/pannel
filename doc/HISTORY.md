@@ -1,5 +1,6 @@
 # HISTORY
 
+- **0.8**   05/12/17 Post revisions implemented. Cleanup of js and css, as well as decision tree in post.php and get.php. Fixed bug 2 and 15.
 - **0.7**   01/12/17 Cleanup of code and docs for upload to Github. Fix code and js of edit page. New logic for ajax calls and consistent error checking and server response. CSS improvements.
 - **0.6**   24/11/17 Rework de systema de debug (ahora activable por constante) y relativización de paths para que todo funcione en cualquier nivel de directorio del servidor. Cambio a html5. Cerrados bugs de rutas relativas, busqueda y js. Cambio a formularios de edición.
 - **0.5**   01/3/10 Debug desactivado. Xhtml válido en todas las páginas. Sistema minimarkdown implementado. Ayuda. Modificación formularios. Bug de flag "importante" corregido.

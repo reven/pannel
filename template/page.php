@@ -1,11 +1,9 @@
 <?php
 // Plantilla de entrada
+
 if (DEBUG_VIS == 1) {
 	debug_add ("\n***Plantilla llamada: page.php\n");
 }
-
-// Añadir lógica: si pagina nueva, si vacia, si normal. !!!!!!!! Ver 15.
-// Puedo usar esta página para ver revisiones? Partido en horizontal igual??
 
 // Coger variables de constantes para poder incluirlas en variables
 $root = ROOT;
@@ -57,7 +55,7 @@ if ($stat_flag!=""){
 	$state="Marcar estado";
 }
 
-// Si "delete" es el segundo $term, mostrar aviso de borrado
+// Si "delete" es el segundo $term, mostrar formulario de borrado
 if (isset($terms[1]) && $terms[1]=="delete") {
 ?>
 <div class="error">
@@ -66,14 +64,14 @@ if (isset($terms[1]) && $terms[1]=="delete") {
 		<input type="hidden" name="function" id="function" value="borrar" />
 		<input type="hidden" name="post_id" id="post_id" value="<?= $post_id ?>" />
 		<input type="hidden" name="title" id="title" value="<?= $safe_title ?>" />
-		<p><input type="submit" value="Borrar" class="cancel_button" /><a class="editor_cancel_link" href="<?= $page_link ?>">Cancelar</a></p>
+		<p><input type="submit" value="Borrar" class="cancel button_big" /> <a href="<?= $page_link ?>">Cancelar</a></p>
 	</form>
 </div>
 <?php }
 
 // Si es una página recién creada, mostrar aviso y mensaje
 if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT . "nueva/") { ?>
-	<p id="yay" class="success">Página creada</p>
+	<div id="yay" class="success"><p>Página creada.<br>&nbsp;</p></div>
 	<script>
 		$(document).ready(function(){
     	$("#yay").fadeOut(4000);
@@ -104,7 +102,7 @@ if (isset($_SERVER['HTTP_REFERER']) && $_SERVER['HTTP_REFERER']==ORIGIN . ROOT .
     <div id="text" class="editInPlace" title="Doble-click para editar"><?=get_html($out['content'])?></div>
 
 		<div class="edit_tools">
-			<a href="<?= $page_link ?>versions/">ver revisiones<span class="meta"> (no implementado)</span></a> · <a href="<?= $page_link ?>delete">borrar</a>
+			<a href="<?= $page_link ?>versions/">ver revisiones</a> · <a href="<?= $page_link ?>delete">borrar</a>
 		</div>
 
 <?php

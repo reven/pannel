@@ -189,6 +189,20 @@ h3 {
   margin-left: -2em;
 }
 
+.confirm {
+	float: left;
+  position: absolute;
+  background-color: #ffa200;
+	color: #000;
+  padding: 0.5em;
+  border-radius: 0.4em;
+  margin-top: -0.4em;
+}
+
+.confirm::before {
+	content: "❕ ";
+}
+
 .inplaceeditor-saving, .saving {
 	background: #ffffd3 url("../images/loader.gif") center 5em no-repeat;
 }
@@ -317,6 +331,31 @@ padding: 0.2em 1em !important;
 td {
 border-bottom: 1px solid #DDDDDD !important;
 padding: 0.2em 1em !important;
+}
+
+.plus, .minus, .same {
+	text-align: center;
+	font-weight: bold;
+}
+
+.plus {
+	color: #0a0;
+}
+
+.minus {
+	color: #f00;
+}
+
+.edit {
+	font-size: 140%;
+	color: #166baf;
+}
+.btnicon {
+	padding: 5px;
+	margin-left: 1em;
+	background: transparent;
+	border: 0;
+	cursor: pointer;
 }
 
 .help {

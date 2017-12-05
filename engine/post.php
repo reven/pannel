@@ -19,7 +19,7 @@ if (isset($_POST['post_id']))  $post_id  = $c->real_escape_string($_POST['post_i
 if (isset($_POST['id']))       $id       = $c->real_escape_string($_POST['id']);
 
 /* 1. Cambiar el *contenido* de una entrada */
-if ($_POST['editorId']=="text") {
+if (isset($_POST['editorId']) && $_POST['editorId'] == "text") {
   $state = check_state($state);
 	$query = "INSERT INTO posts (id, post_id, title, author, content, date, priority, state) VALUES (NULL, '"; // No se si este null funciona???
 	$query .= $post_id."', '";
@@ -33,11 +33,11 @@ if ($_POST['editorId']=="text") {
 	if (!$result) {
     exit('Error al intentar guardar la entrada: ' . mysqli_error($c));
 	}elseif ($result){
-    exit('pannel: success');
+    exit('pannel: success;newid: ' . mysqli_insert_id($c));
 	}
 
 /* 2. Cambiar el *título* de una entrada */
-}elseif ($_POST['editorId']=="posttitle"){
+}elseif (isset($_POST['editorId']) && $_POST['editorId'] == "posttitle") {
   $query="UPDATE posts SET author = '$_SESSION[nombre]', title = '$title', date= NOW() WHERE id = $id";
 
 	$result = query($query,$c);
@@ -74,20 +74,30 @@ if ($_POST['editorId']=="text") {
 		exit;
 	}
 
-/* 4. Borrado de una entrada. Cómo ser más seguro? */
-}elseif (isset($_POST['function']) && $_POST['function']=="borrar"){
-	$query ="DELETE FROM posts WHERE post_id =  '$_POST[post_id]'";
+/* 4. Borrado de una entrada. */
+}elseif (isset($_POST['function']) && $_POST['function'] == "borrar"){
+	$query ="DELETE FROM posts WHERE post_id =  '$post_id'";
 	$result = query($query,$c);
 	if (!$result) {
 	  exit('Error al intentar borrar las entradas: ' . mysqli_error($c));
 	}elseif ($result){ //Exito
-		$_SESSION['title_del']=$_POST['title'];
+		$_SESSION['title_del'] = $title;
 		header("Location: " . ORIGIN . ROOT);
 		exit;
 	}
 
-/* 5. Cambio de *estado* */
-}elseif ($_POST['editorId']=="state"){
+/* 5. Borrado de una sola revisión */
+}elseif (isset($_POST['function']) && $_POST['function'] == "del_rev"){
+	$query ="DELETE FROM posts WHERE id =  '$id'";
+	$result = query($query,$c);
+	if (!$result) {
+	  exit('Error al intentar borrar la revisión: ' . mysqli_error($c));
+	}elseif ($result){ //Exito
+		exit('pannel: success');
+	}
+
+/* 6. Cambio de *estado* */
+}elseif (isset($_POST['editorId']) && $_POST['editorId'] == "state") {
   $state = check_state($state);
 
 	$query="UPDATE posts SET author = '$_SESSION[nombre]', state = '$state', date= NOW() WHERE id = $id";
@@ -99,8 +109,8 @@ if ($_POST['editorId']=="text") {
     exit('pannel: success');
 	}
 
-/* 6. Cambio de *prioridad* */
-}elseif ($_POST['editorId']=="priority"){
+/* 7. Cambio de *prioridad* */
+}elseif (isset($_POST['editorId']) && $_POST['editorId'] == "priority") {
 	if ($_POST['priority']==1) { $priority = 1; }else{ $priority = 0; }
 
 	$query="UPDATE posts SET author = '$_SESSION[nombre]', priority =  '$priority', date = NOW() WHERE id = $id";

@@ -2,7 +2,7 @@
 /*
 Pannel
 
-0.7 beta
+0.8 beta
 Copyright (C) 2017 Robert Sanchez
 
     This program is free software: you can redistribute it and/or modify
@@ -91,8 +91,8 @@ function do_content($page){ //Esta función que elije las plantillas es mejorabl
 		include ("template/new.php");
 	}elseif ($page=="help"){
 		include ("template/help.php");
-	}elseif ($page=="debug"){
-		include ("template/debug.php"); // eliminar mas adelante
+	}elseif (isset($terms[1]) && $terms[1] == "versions"){
+		include ("template/versions.php");
 	}else{
 		include ("template/page.php");
 	}

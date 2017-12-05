@@ -197,9 +197,12 @@ $("#text").dblclick(function(){
       data: "editorId=text&id=" + id + "&state=" + state + "&post_id=" + postId + "&title=" + safeTitle + "&priority=" + priority + "&content=" + encodeURIComponent(newValue),
       method: "POST",
       success: function(data) {
-        if (data != "pannel: success") {
+        data = data.split(";");
+        if (data[0] != "pannel: success") {
         return handleError(data);
         }
+        var num = data[1].split(" ");
+        id = num[1];
         // 3. GET NEW html to re draw page
         var newHtml;
         $.get( pageRoot, { markdown: 0, post_id: postId }, function( data ) {
