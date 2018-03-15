@@ -36,7 +36,7 @@ Posts can be edited in place with a subset of markdown. They can be flagged as i
 
 ## Tip jar
 If you find this useful in any way, feel free to leave a tip in my bitcoin address:
-`1CurZru2A7bwndrwNUCGiihmSGSe1qQz4N`
+`bc1qn7zrnkk47fzwkf5uqyaqu9dzl7mtyrh5h2ef33`
 
 ## License
 This program is free software: you can redistribute it and/or modify
